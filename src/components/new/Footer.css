@@ -1,0 +1,147 @@
+.new-footer {
+  /* own stacking context, else it paints behind the fixed Hero (z-index:0) —
+     .landing-new gets the same treatment for the sections above it */
+  position: relative;
+  z-index: 1;
+  /* same ramp as the Program section, flipped — navy at the top, easing
+     into near-black at the foot of the page */
+  background: linear-gradient(180deg, var(--band-navy) 0%, #040404 100%);
+  color: rgba(245, 239, 225, 0.82);
+  padding: 5rem 0 2.5rem;
+}
+
+.new-footer__top {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--rule-light);
+}
+
+.new-footer__name {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--cream);
+}
+
+.new-footer__auspices {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: rgba(245, 239, 225, 0.7);
+}
+
+.new-footer__auspices strong {
+  color: var(--cream);
+}
+
+.new-footer__contact {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+}
+
+.new-footer__social {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.new-footer__social a {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--amber);
+}
+
+.new-footer__social a:hover {
+  text-decoration: underline;
+}
+
+.new-footer__links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.9rem 2rem;
+  align-content: start;
+}
+
+.new-footer__links a {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+}
+
+.new-footer__links a:hover {
+  color: var(--cream);
+}
+
+.new-footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding-top: 1.75rem;
+}
+
+.new-footer__copyright {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: rgba(245, 239, 225, 0.6);
+}
+
+.new-footer__legal {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.new-footer__legal a {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: rgba(245, 239, 225, 0.6);
+}
+
+.new-footer__legal a:hover {
+  color: var(--cream);
+}
+
+/* oversized closing line — decorative, sits below everything else */
+.new-footer__wordmark {
+  margin: 4rem 0 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 9vw, 7rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: rgba(245, 239, 225, 0.14);
+}
+
+.new-footer__wordmark em {
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(241, 165, 1, 0.3);
+}
+
+@media (max-width: 768px) {
+  .new-footer {
+    padding: 3.5rem 0 2rem;
+  }
+
+  .new-footer__top {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .new-footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

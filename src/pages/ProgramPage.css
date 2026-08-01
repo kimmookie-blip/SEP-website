@@ -1,0 +1,98 @@
+/* Top padding clears the permanently-solid navbar. */
+.prog {
+  padding: 12rem 0 7rem;
+  background: var(--bg-warm);
+}
+
+.prog__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+  transition: color 0.25s var(--ease);
+}
+
+.prog__back:hover {
+  color: var(--deep-blue);
+}
+
+.prog__kicker {
+  margin-bottom: 1rem;
+}
+
+.prog__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--deep-blue);
+  margin: 0 0 1rem;
+}
+
+.prog__focus {
+  margin-bottom: 2.5rem;
+}
+
+.prog__rule {
+  height: 1px;
+  background: var(--rule);
+  margin-bottom: 2.5rem;
+}
+
+.prog__blurb {
+  max-width: 720px;
+  font-size: 1.1rem;
+  margin: 0 0 4rem;
+}
+
+.prog__placeholder {
+  background: var(--bg-white);
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--amber);
+  border-radius: 4px;
+  padding: 2.75rem 2.5rem;
+  max-width: 720px;
+}
+
+.prog__placeholder-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--deep-blue);
+  margin: 0 0 1rem;
+}
+
+.prog__todo {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--muted);
+  background: var(--bg-warm);
+  border: 1px dashed var(--rule);
+  border-radius: 4px;
+  padding: 0.85rem 1rem;
+  margin: 1.5rem 0 0;
+}
+
+.prog__todo code {
+  font-size: 0.85em;
+}
+
+.prog__back-link {
+  color: var(--deep-blue);
+  border-bottom: 1px solid var(--amber);
+}
+
+@media (max-width: 768px) {
+  .prog {
+    padding: 8.5rem 0 4.5rem;
+  }
+
+  .prog__placeholder {
+    padding: 2rem 1.5rem;
+  }
+}

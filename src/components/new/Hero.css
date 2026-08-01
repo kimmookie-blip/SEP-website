@@ -1,0 +1,317 @@
+/* ============================================================
+   New Hero — laid out to match the approved hero mockup exactly:
+   full-bleed photo, content bottom-left, kicker → oversized light
+   serif headline (one italic word) → supporting copy → amber
+   square CTA → full-width rule → right-aligned trust bar.
+   Pinned behind the scrolling page, same scroll-over reveal as the
+   old design (see pages/Home.css).
+   ============================================================ */
+
+.new-hero {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  display: flex;
+  background: var(--deep-blue); /* shows briefly while the image loads */
+}
+
+.new-hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+/* oversized and top-anchored so the scroll-driven drift never exposes an
+   edge; overflow:hidden on .new-hero clips it back to the section */
+.new-hero__image {
+  position: absolute;
+  inset: -9% 0 auto 0;
+  width: 100%;
+  height: 118%;
+  object-fit: cover;
+  object-position: center;
+  will-change: transform;
+}
+
+/* the mockup's photo is much darker on the left, where the copy sits, and
+   nearly untouched on the right — a horizontal ramp, not a flat wash.
+   The third layer is a bottom scrim: the rule and trust bar sit low in the
+   frame, and the lower the viewport pushes them the brighter the paint
+   behind them gets, so without it a 1px cream rule vanishes mid-span. */
+.new-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      90deg,
+      rgba(10, 7, 4, 0.82) 0%,
+      rgba(10, 7, 4, 0.55) 38%,
+      rgba(10, 7, 4, 0.18) 70%,
+      rgba(10, 7, 4, 0.1) 100%
+    ),
+    linear-gradient(180deg, rgba(10, 7, 4, 0.45) 0%, rgba(10, 7, 4, 0.12) 40%),
+    linear-gradient(0deg, rgba(10, 7, 4, 0.85) 0%, rgba(10, 7, 4, 0.62) 16%, rgba(10, 7, 4, 0) 40%);
+}
+
+/* mockup measures the content block at ~88% of the viewport, so this is a
+   percentage inset rather than the site's usual fixed --shell max-width */
+/* Content is bottom-anchored, but via `margin-top: auto` on the first child
+   rather than `justify-content: flex-end`. That distinction matters: with
+   flex-end, content taller than the box overflows out the TOP and slides
+   under the fixed navbar, and padding-top stops acting as a floor. An auto
+   margin absorbs free space when there is some and collapses to 0 when there
+   isn't, so padding-top is always honoured.
+
+   padding-top = 76px navbar + 94px minimum clearance to the eyebrow. */
+.new-hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  /* Freeze at the 1440 reference width: past that the block stops widening
+     and centres instead, so zooming out shrinks the layout rather than
+     stretching it. Below 1440 the 6.6% padding scales as before. */
+  max-width: 1440px;
+  margin-inline: auto;
+  /* bottom padding is what lifts the whole stack (kicker → trust bar) clear
+     of the viewport edge, so the rule and figures never sit against it.
+     Side padding is min()-capped because percentage padding resolves against
+     the containing block — the full viewport — not this capped box, so a
+     bare 6.6% would keep growing past 1440 and squeeze the content narrower. */
+  padding: 170px min(6.6%, 95px) 5.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  text-align: left;
+  color: var(--cream);
+}
+
+.new-hero__kicker {
+  margin: auto 0 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1rem, 1.45vw, 1.35rem);
+  letter-spacing: 0.04em;
+  color: rgba(247, 242, 230, 0.92);
+}
+
+/* fixed-height stack so the crossfading lines never shift layout — every
+   headline is written to wrap to exactly two lines, as in the mockup */
+.new-hero__title {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 60rem;
+  min-height: calc(1.06 * 2 * clamp(2.6rem, 5.9vw, 5.2rem));
+  margin: 0;
+}
+
+/* Plain crossfade — no sliding. */
+.new-hero__headline {
+  position: absolute;
+  inset: 0;
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 5.9vw, 5.2rem);
+  line-height: 1.06;
+  letter-spacing: -0.005em;
+  color: #fdfaf4;
+  opacity: 0;
+  transition: opacity 0.7s var(--ease);
+}
+
+.new-hero__headline em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.new-hero__headline.is-active {
+  /* in flow, so it's what gives the title its height */
+  position: relative;
+  opacity: 1;
+}
+
+.new-hero__sub {
+  max-width: 41rem;
+  /* Small, because the headline's line box already leaves a band of leading
+     under its last line — the optical gap reads much larger than this value.
+     Kept in step with .new-hero__cta's margin-top: both gaps get the same
+     increment so the headline→copy→button rhythm stays even. */
+  margin: 1rem 0 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  /* 20px — under the mockup's ~23px so the block stays short enough for the
+     rule and trust bar to clear the bottom edge on shorter screens */
+  font-size: clamp(0.95rem, 1.4vw, 1.25rem);
+  line-height: 1.45;
+  color: rgba(247, 242, 230, 0.92);
+}
+
+/* square amber block, lowercase label — deliberately not the site's
+   pill-shaped .btn, which is why it doesn't reuse that class */
+.new-hero__cta {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24.5%;
+  min-height: 46px;
+  /* +0.5rem in step with .new-hero__sub, keeping both gaps evenly weighted */
+  margin-top: 3rem;
+  padding: 0 2rem;
+  background: var(--amber);
+  color: var(--deep-blue);
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  letter-spacing: 0.01em;
+  transition: background-color 0.25s var(--ease);
+}
+
+.new-hero__cta:hover {
+  background: #ffb81f;
+}
+
+/* Hairline: a true 0.5px box collapses to nothing on 1x displays, so the
+   element keeps a 1px box and the stroke is thinned optically instead —
+   a 0.5px inset border reads as a half-pixel line on retina and stays
+   crisp (not blurred away) at 1x. */
+.new-hero__rule {
+  width: 100%;
+  height: 0.5px;
+  /* top margin matches .new-hero__cta's, so the button sits an equal
+     distance from the copy above it and the rule below it */
+  margin: 3rem 0 2.25rem;
+  border: none;
+  background: rgba(255, 253, 248, 0.75);
+}
+
+/* trust bar sits at the right end of the rule in the mockup */
+.new-hero__stats {
+  display: flex;
+  justify-content: flex-end;
+  gap: clamp(1.5rem, 3.5vw, 3.5rem);
+  flex-wrap: wrap;
+}
+
+.new-hero__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+/* Balthazar — the display face reserved for figures and accents */
+.new-hero__stat-value {
+  font-family: var(--font-accent);
+  font-weight: 400;
+  font-size: clamp(2rem, 3.1vw, 2.9rem);
+  line-height: 1.1;
+  color: #fdfaf4;
+}
+
+.new-hero__stat-label {
+  font-family: var(--font-body);
+  font-size: clamp(0.78rem, 0.95vw, 0.9rem);
+  color: rgba(247, 242, 230, 0.88);
+}
+
+/* ---------- short viewports: tighten the rhythm ----------
+   The 170px top floor is non-negotiable, so on short screens the slack has
+   to come out of the vertical rhythm instead. Spacing only — no type
+   scaling — which keeps everything fitting down to roughly 750px tall. */
+
+/* ---------- short viewports: tighten the rhythm ----------
+   Type is sized off WIDTH only, so a short screen renders exactly the same
+   scale as a 1440-wide one — the headline stays at its full size here.
+   All the space needed to fit comes out of padding and gaps instead: the
+   whole stack simply rides higher up the frame. */
+
+@media (min-width: 769px) and (max-height: 840px) {
+  .new-hero__inner {
+    /* content rides higher, so the top floor gives way first */
+    padding-top: 104px;
+    padding-bottom: 2rem;
+  }
+
+  .new-hero__kicker {
+    margin-bottom: 1rem;
+  }
+
+  .new-hero__sub {
+    margin-top: 0.75rem;
+  }
+
+  .new-hero__cta {
+    margin-top: 2rem;
+  }
+
+  /* top margin matches .new-hero__cta's here too */
+  .new-hero__rule {
+    margin: 2rem 0 1.25rem;
+  }
+}
+
+/* ---------- mobile: drop the pinned treatment ----------
+   iOS Safari resizes the visual viewport when the URL bar collapses, which
+   makes a full-bleed `position: fixed` background jump. Same fallback the
+   old design uses. */
+
+@media (max-width: 768px) {
+  .new-hero {
+    position: relative;
+    min-height: 100svh;
+  }
+
+  .new-hero__inner {
+    /* the scroll-driven fade would dim a hero that no longer gets covered */
+    opacity: 1 !important;
+    /* same 76px navbar + 94px clearance floor as desktop */
+    padding: 170px 1.5rem 3rem;
+  }
+
+  /* The main figure sits in the right third of the source, so a narrow
+     viewport cropping from centre cuts his face off. Pulling the framing
+     rightwards slides the photo left and brings him back into frame. */
+  .new-hero__image {
+    object-position: 72% center;
+  }
+
+  .new-hero__title {
+    min-height: calc(1.12 * 3 * clamp(2.1rem, 8.5vw, 2.8rem));
+  }
+
+  .new-hero__headline {
+    font-size: clamp(2.1rem, 8.5vw, 2.8rem);
+    line-height: 1.12;
+  }
+
+  .new-hero__cta {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .new-hero__stats {
+    justify-content: flex-start;
+    gap: 1.5rem 2rem;
+  }
+
+  .new-hero__stat {
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .new-hero__inner {
+    opacity: 1 !important;
+  }
+
+  .new-hero__headline {
+    transition: none;
+  }
+
+  /* no scroll-driven drift on the photo either */
+  .new-hero__image {
+    transform: none !important;
+  }
+}

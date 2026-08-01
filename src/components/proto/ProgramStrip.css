@@ -1,0 +1,145 @@
+/* Comp: section 613px tall, panel row 302px tall spanning the 1200px shell,
+   four panels split by 1px rules. The active panel widens on hover/focus. */
+
+.pstrip {
+  background: var(--bg-warm);
+  padding: 4.25rem 0 4.5rem;
+}
+
+.pstrip__kicker {
+  margin: 0 0 2.5rem;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--deep-blue);
+}
+
+.pstrip__row {
+  display: flex;
+  height: 302px;
+  border: 1px solid var(--placeholder-rule);
+}
+
+.pstrip__panel {
+  flex: 1 1 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-left: 1px solid var(--placeholder-rule);
+  background: var(--placeholder);
+  overflow: hidden;
+  transition: flex-grow 0.45s var(--ease), background-color 0.35s var(--ease);
+}
+
+.pstrip__panel:first-child {
+  border-left: 0;
+}
+
+.pstrip__panel.is-active {
+  background: #f7f7f7;
+}
+
+/* The accordion move. Kept on :hover / :focus-visible rather than .is-active so
+   the resting row stays the four equal panels the comp shows. */
+.pstrip__panel:hover,
+.pstrip__panel:focus-visible {
+  flex-grow: 1.45;
+}
+
+.pstrip__art {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* labels are visually absent in the comp, but the tabs still need names */
+.pstrip__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.pstrip__caption {
+  margin-top: 2.5rem;
+}
+
+.pstrip__caption:focus-visible {
+  outline-offset: 8px;
+}
+
+.pstrip__title {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.2vw, 1.85rem);
+  line-height: 1.2;
+  color: var(--deep-blue);
+}
+
+.pstrip__blurb {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 768px) {
+  .pstrip__row {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .pstrip__panel {
+    /* flex-basis 0 on the column axis would collapse these to nothing */
+    flex: 0 0 auto;
+    height: 72px;
+    border-left: 0;
+    border-top: 1px solid var(--placeholder-rule);
+    transition: height 0.45s var(--ease), background-color 0.35s var(--ease);
+  }
+
+  .pstrip__panel:first-child {
+    border-top: 0;
+  }
+
+  /* on a stack there is no hover to drive the reveal, so selection opens it */
+  .pstrip__panel.is-active,
+  .pstrip__panel:hover,
+  .pstrip__panel:focus-visible {
+    height: 260px;
+  }
+
+  /* the tabs carry no visible label on desktop; on a stack they need one */
+  .pstrip__sr {
+    position: static;
+    width: auto;
+    height: auto;
+    clip: auto;
+    clip-path: none;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--deep-blue);
+  }
+
+  .pstrip__panel.is-active .pstrip__sr {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pstrip__panel {
+    transition: none;
+  }
+}

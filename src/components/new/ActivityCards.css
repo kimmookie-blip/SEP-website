@@ -1,0 +1,108 @@
+/* ============================================================
+   Aneka Kegiatan — photo gallery.
+   Layout mirrors demo.divi-pixel.com/church/'s gallery: three
+   equal columns, each stacking a portrait and a landscape tile,
+   middle column reversed so the rows offset. Measured from the
+   reference: 377px columns, 10px gaps, portrait 377:491,
+   landscape 16:9.
+   ============================================================ */
+
+/* Tighter than the site-wide .section rhythm (7.5rem): with no heading to
+   frame, the photography needs far less breathing room around it. */
+.new-acards {
+  padding: 3.5rem 0;
+}
+
+/* No heading, and deliberately not inside .shell — the gallery runs nearly
+   full-bleed so the photography carries the section on its own. */
+/* align-items:start so the offset middle tile doesn't stretch its siblings.
+   Capped at the same 1440 reference as the Hero: wider than the site's
+   1200px .shell, but it stops growing and centres past 1440 so zooming out
+   shrinks the gallery rather than stretching it. */
+.new-acards__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: start;
+  gap: 10px;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 0 2.5rem;
+}
+
+.new-acard {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background: var(--placeholder);
+  aspect-ratio: 4 / 3;
+}
+
+/* Middle tile is nudged down to keep the reference gallery's staggered
+   rhythm. All three share a ratio: making the middle one taller instead
+   left large voids under its neighbours. */
+.new-acard:nth-child(2) {
+  margin-top: 3rem;
+}
+
+.new-acard__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s var(--ease);
+}
+
+.new-acard:hover .new-acard__photo {
+  transform: scale(1.04);
+}
+
+/* caption sits on a scrim over the foot of the tile — the reference gallery
+   has none, but these are activities rather than decoration, so each keeps
+   its date and name */
+.new-acard__caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 2.5rem 1.1rem 1.1rem;
+  color: var(--bg-white);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.82) 55%);
+}
+
+.new-acard__date {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.new-acard__title {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ---------- responsive ---------- */
+
+/* stays three-across down to the mobile breakpoint — with only three
+   landscape tiles there's no need for an intermediate two-column step */
+
+@media (max-width: 768px) {
+  .new-acards {
+    padding: 2.5rem 0;
+  }
+
+  .new-acards__grid {
+    grid-template-columns: 1fr;
+    padding: 0 1.5rem;
+  }
+
+  /* stacked, so the stagger has nothing to offset against */
+  .new-acard:nth-child(2) {
+    margin-top: 0;
+  }
+}

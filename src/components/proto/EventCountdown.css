@@ -1,0 +1,132 @@
+/* Comp: navy bar 167px tall over an azure bar 104px tall, both full-bleed,
+   content held to the 1200px shell. Thumbnail is a 98px square. */
+
+.ecount__feature {
+  background: var(--band-navy);
+  color: var(--bg-warm);
+}
+
+.ecount__feature-inner {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  min-height: 167px;
+}
+
+.ecount__thumb {
+  flex: 0 0 98px;
+  width: 98px;
+  height: 98px;
+  background: var(--placeholder);
+}
+
+.ecount__meta {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ecount__eyebrow {
+  margin: 0 0 0.15rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--bg-warm);
+}
+
+.ecount__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  line-height: 1.15;
+  color: var(--bg-warm);
+}
+
+.ecount__clock {
+  flex: 0 0 auto;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--bg-warm);
+}
+
+.ecount__colon {
+  padding: 0 0.35rem;
+}
+
+/* ---------- the azure sub-bar ---------- */
+
+.ecount__upcoming {
+  background: var(--band-azure);
+  color: var(--bg-warm);
+}
+
+.ecount__upcoming-inner {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  min-height: 104px;
+}
+
+.ecount__next {
+  /* the comp spaces the two entries on a half-shell rhythm, not by content */
+  flex: 0 0 34%;
+}
+
+.ecount__date {
+  margin: 0 0 0.1rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+}
+
+.ecount__next-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.ecount__all {
+  margin-left: auto;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  white-space: nowrap;
+  transition: opacity 0.2s var(--ease);
+}
+
+.ecount__all:hover {
+  opacity: 0.75;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 860px) {
+  .ecount__feature-inner {
+    flex-wrap: wrap;
+    gap: 1.25rem 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .ecount__clock {
+    flex: 1 0 100%;
+  }
+
+  .ecount__upcoming-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .ecount__next {
+    flex: 1 1 auto;
+  }
+
+  .ecount__all {
+    margin-left: 0;
+  }
+}

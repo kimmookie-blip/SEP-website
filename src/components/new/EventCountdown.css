@@ -1,0 +1,136 @@
+/* ============================================================
+   Kegiatan terdekat — a short full-bleed strip: navy bar with
+   the next event and a live clock, over an azure bar of the two
+   after it. Ported from the old design's EventCountdown.
+   ============================================================ */
+
+.new-ecount__feature {
+  background: var(--band-navy);
+  color: var(--bg-warm);
+}
+
+.new-ecount__feature-inner {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  min-height: 167px;
+}
+
+.new-ecount__thumb {
+  flex: 0 0 98px;
+  width: 98px;
+  height: 98px;
+  background: var(--placeholder);
+}
+
+.new-ecount__meta {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.new-ecount__eyebrow {
+  margin: 0 0 0.15rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--bg-warm);
+}
+
+.new-ecount__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  line-height: 1.15;
+  color: var(--bg-warm);
+}
+
+.new-ecount__clock {
+  flex: 0 0 auto;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  line-height: 1;
+  /* tabular figures, so the digits don't jitter as the clock ticks */
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--bg-warm);
+}
+
+.new-ecount__colon {
+  padding: 0 0.35rem;
+}
+
+/* ---------- the azure sub-bar ---------- */
+
+.new-ecount__upcoming {
+  background: var(--band-azure);
+  color: var(--bg-warm);
+}
+
+.new-ecount__upcoming-inner {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  min-height: 104px;
+}
+
+.new-ecount__next {
+  /* spaced on a half-shell rhythm rather than by content length */
+  flex: 0 0 34%;
+}
+
+.new-ecount__date {
+  margin: 0 0 0.1rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+}
+
+.new-ecount__next-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.new-ecount__all {
+  margin-left: auto;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  white-space: nowrap;
+  transition: opacity 0.2s var(--ease);
+}
+
+.new-ecount__all:hover {
+  opacity: 0.75;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 860px) {
+  .new-ecount__feature-inner {
+    flex-wrap: wrap;
+    gap: 1.25rem 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .new-ecount__clock {
+    flex: 1 0 100%;
+  }
+
+  .new-ecount__upcoming-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .new-ecount__next {
+    flex: 1 1 auto;
+  }
+
+  .new-ecount__all {
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,238 @@
+/* ============================================================
+   Section 5 — D7: dark full-bleed staggered numbered list.
+   The centerpiece of the layout. Three growth paths read as
+   three large serif lines cascading diagonally.
+   ============================================================ */
+
+.programs {
+  position: relative;
+  overflow: hidden;
+}
+
+/* faint tone-on-tone ornament, pure CSS — no new image assets */
+.programs__bloom {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+      circle at 88% 12%,
+      rgba(241, 165, 1, 0.07) 0%,
+      transparent 45%
+    ),
+    radial-gradient(circle at 6% 92%, rgba(241, 165, 1, 0.05) 0%, transparent 50%);
+}
+
+.programs .shell {
+  position: relative;
+  z-index: 1;
+}
+
+.programs__kicker {
+  margin-bottom: 1rem;
+}
+
+/* left-weighted, not centered — D7 is an asymmetric block */
+.programs__headline {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #f7f2e6;
+  max-width: 16ch;
+  margin: 0 0 4.5rem;
+}
+
+.programs__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+/* ---------- the staggered list ---------- */
+
+.programs__tabs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.25rem;
+}
+
+.programs__tab {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  min-height: 48px;
+  padding: 0 0 0.5rem;
+  background: none;
+  border: none;
+  text-align: left;
+  color: rgba(245, 239, 225, 0.55);
+  transition: color 0.3s var(--ease);
+}
+
+/* the diagonal cascade — each line steps further in than the last */
+.programs__tab:nth-child(2) {
+  margin-left: 2.5rem;
+}
+
+.programs__tab:nth-child(3) {
+  margin-left: 5rem;
+}
+
+.programs__num {
+  font-family: var(--font-accent);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  color: var(--amber);
+  /* lift to superscript position against the large serif line */
+  align-self: flex-start;
+  padding-top: 0.35em;
+  opacity: 0.7;
+  transition: opacity 0.3s var(--ease);
+}
+
+.programs__tab-label {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  line-height: 1.25;
+}
+
+/* amber rule grows from the left on the active line */
+.programs__tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--amber);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease);
+}
+
+.programs__tab:hover {
+  color: rgba(245, 239, 225, 0.85);
+}
+
+.programs__tab.is-active {
+  color: #f7f2e6;
+}
+
+.programs__tab.is-active .programs__num {
+  opacity: 1;
+}
+
+.programs__tab.is-active::after {
+  transform: scaleX(1);
+}
+
+/* ---------- the panel ---------- */
+
+.programs__panel {
+  border-top: 1px solid var(--rule-light);
+  padding-top: 2.25rem;
+  animation: panel-in 0.35s var(--ease);
+}
+
+.programs__panel:focus-visible {
+  outline-offset: 10px;
+}
+
+.programs__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2vw, 1.85rem);
+  line-height: 1.3;
+  color: #f7f2e6;
+  margin: 0.85rem 0 1.15rem;
+}
+
+.programs__blurb {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: rgba(245, 239, 225, 0.75);
+  margin: 0 0 2.25rem;
+}
+
+/* §5 asks for #0F314E link text; on this dark band that reads as an
+   amber pill with deep-blue text, which keeps the specified text colour. */
+.programs__link {
+  min-height: 50px;
+  font-size: 0.82rem;
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .programs__grid {
+    gap: 3.5rem;
+  }
+
+  .programs__tab:nth-child(2) {
+    margin-left: 1.75rem;
+  }
+
+  .programs__tab:nth-child(3) {
+    margin-left: 3.5rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .programs__grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  /* the stagger would push the third line off a 360px screen */
+  .programs__tab:nth-child(2),
+  .programs__tab:nth-child(3) {
+    margin-left: 0;
+  }
+
+  .programs__tabs {
+    gap: 1.25rem;
+    width: 100%;
+  }
+
+  .programs__tab {
+    width: 100%;
+    min-height: 56px;
+    align-items: center;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--rule-light);
+  }
+
+  .programs__tab::after {
+    bottom: -1px;
+  }
+
+  /* the panel supplies its own top rule directly below — drop this one
+     so the two don't read as a double divider */
+  .programs__tab:last-child {
+    border-bottom: 0;
+  }
+
+  .programs__num {
+    align-self: center;
+    padding-top: 0;
+  }
+
+  .programs__headline {
+    margin-bottom: 3rem;
+    max-width: none;
+  }
+}

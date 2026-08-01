@@ -1,0 +1,120 @@
+.new-activities__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.new-activities__headline {
+  margin: 0;
+  max-width: 620px;
+}
+
+/* table (grid-based, not a real <table> — see JS for why): fixed column
+   widths so header and data rows line up. */
+.new-activities__table {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--rule);
+}
+
+.new-activities__row {
+  display: grid;
+  grid-template-columns: 8rem 1.4fr 1.1fr 1.2fr 9rem 7rem;
+  gap: 1rem;
+  align-items: center;
+  border-bottom: 1px solid var(--rule);
+}
+
+.new-activities__row--head .new-activities__cell {
+  padding: 1rem 0;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.new-activities__row:not(.new-activities__row--head) .new-activities__cell {
+  padding: 1.5rem 0;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--deep-blue);
+}
+
+.new-activities__cell--name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.new-activities__status {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  background: var(--amber);
+  color: var(--deep-blue);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.new-activities__link {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--deep-blue);
+  text-align: right;
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .new-activities__row {
+    grid-template-columns: 6.5rem 1.2fr 1fr 1fr 8rem 6rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .new-activities__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* row → stacked card: each cell becomes its own line with a label,
+     since a 6-column grid has no room to breathe on a phone screen */
+  .new-activities__row--head {
+    display: none;
+  }
+
+  .new-activities__row {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 1.5rem 0;
+  }
+
+  .new-activities__cell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.4rem 0 !important;
+  }
+
+  .new-activities__cell[data-label]::before {
+    content: attr(data-label);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .new-activities__link {
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+  }
+}

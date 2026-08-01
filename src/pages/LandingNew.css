@@ -1,0 +1,21 @@
+/* Scroll-over reveal, same technique as the old design (pages/Home.css):
+   Hero is fixed behind the page, this spacer holds the window open, and
+   .landing-new rides above on an opaque background so it progressively
+   occludes the photo as you scroll. */
+
+.new-hero-spacer {
+  height: 100vh;
+}
+
+.landing-new {
+  position: relative;
+  z-index: 1;
+  background: var(--bg-warm);
+}
+
+@media (max-width: 768px) {
+  /* Hero is in normal flow at this width, so the spacer would double it */
+  .new-hero-spacer {
+    display: none;
+  }
+}

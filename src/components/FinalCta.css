@@ -1,0 +1,107 @@
+.final {
+  position: relative;
+  background: var(--deep-blue);
+  color: var(--cream);
+  padding: 8rem 0 0;
+  /* clips the wordmark's baseline against the page edge */
+  overflow: hidden;
+}
+
+.final__headline {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+  color: #f7f2e6;
+}
+
+.final__sub {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  line-height: 1.65;
+  max-width: 580px;
+  margin: 0 auto 3rem;
+  color: rgba(245, 239, 225, 0.78);
+}
+
+.final__cta {
+  min-height: 58px;
+  padding: 0 3rem;
+}
+
+/* D9's link-columns row: brand left, naungan right */
+.final__meta {
+  margin-top: 6rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--rule-light);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  flex-wrap: wrap;
+  text-align: left;
+}
+
+.final__brand {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.final__note {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: rgba(245, 239, 225, 0.6);
+}
+
+.final__note--right {
+  margin-left: auto;
+  text-align: right;
+}
+
+/* D9 — the giant wordmark */
+.final__wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3.5rem, 15vw, 11rem);
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+  text-align: center;
+  white-space: nowrap;
+  color: rgba(241, 165, 1, 0.16);
+  user-select: none;
+  margin-top: 4rem;
+  /* cut the descender/baseline against the page edge */
+  margin-bottom: -0.16em;
+}
+
+@media (max-width: 768px) {
+  .final {
+    padding: 5rem 0 0;
+  }
+
+  .final__sub {
+    margin-bottom: 2.25rem;
+  }
+
+  .final__meta {
+    margin-top: 4rem;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .final__note--right {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .final__wordmark {
+    margin-top: 3rem;
+  }
+}

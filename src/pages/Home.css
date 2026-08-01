@@ -1,0 +1,20 @@
+/* The scroll-over reveal: content rides above the pinned hero on an opaque
+   background, so it progressively occludes the photo. */
+
+.hero-spacer {
+  height: 100vh;
+}
+
+.page-content {
+  position: relative;
+  z-index: 1;
+  background: var(--bg-warm);
+  /* no rounded top edge — the seam must occlude the hero completely */
+}
+
+@media (max-width: 768px) {
+  /* hero is in normal flow at this width, so the spacer would double it */
+  .hero-spacer {
+    display: none;
+  }
+}

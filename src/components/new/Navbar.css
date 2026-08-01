@@ -1,0 +1,284 @@
+/* ============================================================
+   New Navbar — transparent-over-hero, morphs into a floating
+   cream card on scroll. Scoped to /new (see LandingNew.jsx).
+   ============================================================ */
+
+.new-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.new-nav__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  height: var(--nav-h);
+  padding: 0 2.5rem;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: 0 0 0 rgba(15, 49, 78, 0);
+  transition: background-color 0.4s var(--ease), box-shadow 0.4s var(--ease),
+    border-radius 0.4s var(--ease), color 0.4s var(--ease), height 0.4s var(--ease);
+}
+
+.new-nav--top .new-nav__bar {
+  color: var(--cream);
+}
+
+.new-nav--top .new-nav__wordmark small {
+  color: rgba(245, 239, 225, 0.72);
+}
+
+.new-nav--top .new-nav__cta {
+  border-color: rgba(245, 239, 225, 0.55);
+  color: var(--cream);
+}
+
+.new-nav--top .new-nav__cta:hover {
+  background: rgba(245, 239, 225, 0.14);
+  border-color: var(--cream);
+}
+
+.new-nav--top .new-nav__burger,
+.new-nav--top .new-nav__burger::before,
+.new-nav--top .new-nav__burger::after {
+  background: var(--cream);
+}
+
+.new-nav--solid .new-nav__bar {
+  height: 76px;
+  background: var(--bg-white);
+  color: var(--deep-blue);
+  box-shadow: 0 4px 20px rgba(15, 49, 78, 0.08);
+}
+
+.new-nav--solid .new-nav__cta {
+  border-color: rgba(15, 49, 78, 0.55);
+  color: var(--deep-blue);
+}
+
+.new-nav--solid .new-nav__cta:hover {
+  background: var(--deep-blue);
+  color: var(--bg-white);
+  border-color: var(--deep-blue);
+}
+
+.new-nav--solid .new-nav__burger,
+.new-nav--solid .new-nav__burger::before,
+.new-nav--solid .new-nav__burger::after {
+  background: var(--deep-blue);
+}
+
+.new-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-shrink: 0;
+}
+
+.new-nav__logo {
+  position: relative;
+  display: block;
+  height: 46px;
+  width: 34px;
+  flex-shrink: 0;
+}
+
+.new-nav__logo-img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  transition: opacity 0.4s var(--ease);
+}
+
+.new-nav--top .new-nav__logo-img--negative,
+.new-nav--solid .new-nav__logo-img--neutral {
+  opacity: 1;
+}
+
+.new-nav--top .new-nav__logo-img--neutral,
+.new-nav--solid .new-nav__logo-img--negative {
+  opacity: 0;
+}
+
+.new-nav__wordmark {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.new-nav__wordmark strong {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+.new-nav__wordmark small {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--muted);
+  transition: color 0.4s var(--ease);
+}
+
+.new-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.new-nav__links a {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  position: relative;
+  padding: 0.5rem 0;
+  opacity: 0.9;
+  transition: opacity 0.2s var(--ease);
+}
+
+.new-nav__links a:not(.new-nav__cta)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0.1rem;
+  width: 0;
+  height: 1px;
+  background: var(--amber);
+  transition: width 0.25s var(--ease);
+}
+
+.new-nav__links a:not(.new-nav__cta):hover {
+  opacity: 1;
+}
+
+.new-nav__links a:not(.new-nav__cta):hover::after {
+  width: 100%;
+}
+
+.new-nav__cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 1.35rem;
+  margin-left: 0.5rem;
+  border: 1px solid;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease),
+    border-color 0.4s var(--ease);
+}
+
+.new-nav__toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.new-nav__burger,
+.new-nav__burger::before,
+.new-nav__burger::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  border-radius: 2px;
+  transition: transform 0.3s var(--ease), opacity 0.2s var(--ease),
+    background-color 0.4s var(--ease);
+}
+
+.new-nav__burger::before {
+  transform: translateY(-7px);
+}
+
+.new-nav__burger::after {
+  transform: translateY(5.5px);
+}
+
+.new-nav__burger.is-open {
+  background: transparent !important;
+}
+
+.new-nav__burger.is-open::before {
+  transform: rotate(45deg);
+}
+
+.new-nav__burger.is-open::after {
+  transform: rotate(-45deg);
+}
+
+.new-nav__panel {
+  display: none;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0.5rem 1.5rem 0;
+  padding: 1rem 1.5rem 1.5rem;
+  border-radius: 14px;
+  background: var(--bg-white);
+  color: var(--deep-blue);
+  box-shadow: 0 12px 32px rgba(15, 49, 78, 0.14);
+}
+
+.new-nav__panel a {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.new-nav__panel .new-nav__cta {
+  justify-content: center;
+  margin: 0.75rem 0 0;
+  border-color: rgba(15, 49, 78, 0.55);
+  color: var(--deep-blue);
+  border-bottom: none;
+}
+
+@media (max-width: 860px) {
+  .new-nav__links {
+    display: none;
+  }
+
+  .new-nav__toggle {
+    display: flex;
+  }
+
+  .new-nav__panel {
+    display: flex;
+  }
+
+  .new-nav--solid .new-nav__bar {
+    height: 68px;
+  }
+
+  .new-nav__bar {
+    padding: 0 1.5rem;
+  }
+
+  .new-nav__wordmark strong {
+    font-size: 1.2rem;
+  }
+
+  .new-nav__wordmark small {
+    font-size: 0.78rem;
+  }
+
+  .new-nav__logo {
+    height: 38px;
+    width: 28px;
+  }
+}

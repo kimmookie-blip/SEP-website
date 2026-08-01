@@ -1,0 +1,190 @@
+/* ============================================================
+   Pendiri dan Pembina — copy on the left, one portrait card at
+   a time on the right. A single card rather than a three-up
+   grid is what keeps this section compact.
+   ============================================================ */
+
+/* trimmed from the site-wide .section rhythm so the whole block clears a
+   short laptop screen without scrolling */
+.new-founders {
+  padding: 4.5rem 0;
+}
+
+.new-founders__inner {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.new-founders__intro {
+  max-width: 34rem;
+}
+
+.new-founders__headline {
+  margin-bottom: 1.25rem;
+}
+
+.new-founders__narrative {
+  margin: 0;
+}
+
+/* ---------- carousel controls ---------- */
+
+.new-founders__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+}
+
+.new-founders__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  color: var(--deep-blue);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+
+.new-founders__arrow:hover {
+  background: var(--deep-blue);
+  border-color: var(--deep-blue);
+  color: var(--cream);
+}
+
+.new-founders__dots {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 0.75rem;
+}
+
+.new-founders__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(15, 49, 78, 0.25);
+  transition: background-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.new-founders__dot.is-active {
+  background: var(--amber);
+  transform: scale(1.35);
+}
+
+/* ---------- card ---------- */
+
+.new-founders__card {
+  margin: 0;
+  overflow: hidden;
+  background: var(--placeholder);
+  box-shadow: 0 12px 36px rgba(15, 49, 78, 0.14);
+}
+
+/* 4:5 rather than 3:4 — a shorter crop, so the card fits a short viewport */
+.new-founders__photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+}
+
+.new-founders__photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease);
+}
+
+.new-founders__photo img.is-active {
+  opacity: 1;
+}
+
+/* Deep maroon band, as in the approved card mockup. version_beta.md bars
+   maroon from being a *dominant* colour — this is a caption strip on a
+   single card, so it stays an accent and the page still reads amber-over-cream. */
+.new-founders__caption {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3rem;
+  /* reserved height, so slides without a `years` line don't shrink the card
+     and make the layout jump as you page through — measured against the
+     tallest caption (the one that has a `years` line) */
+  min-height: 8rem;
+  padding: 1.25rem 1.5rem 1.5rem;
+  background: #4a1420;
+}
+
+.new-founders__role {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.new-founders__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  line-height: 1.15;
+  color: #fdfaf4;
+}
+
+.new-founders__years {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: rgba(241, 165, 1, 0.9);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1024px) {
+  .new-founders__inner {
+    grid-template-columns: 1fr 270px;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .new-founders {
+    padding: 3.5rem 0;
+  }
+
+  .new-founders__inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* card first, controls stay with the copy below it */
+  .new-founders__card {
+    order: -1;
+    max-width: 300px;
+  }
+
+  .new-founders__controls {
+    margin-top: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .new-founders__photo img {
+    transition: none;
+  }
+}

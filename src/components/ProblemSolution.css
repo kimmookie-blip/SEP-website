@@ -1,0 +1,75 @@
+/* ============================================================
+   Section 2 — D5 (asymmetric heading-left) + D6 (ruled columns)
+   ============================================================ */
+
+.ps__headline {
+  grid-column: 1 / span 6;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.4vw, 2.9rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--deep-blue);
+  margin: 0;
+}
+
+.ps__divide {
+  margin: 3.5rem 0 0;
+}
+
+.ps__grid {
+  padding-top: 0;
+}
+
+.ps__col {
+  padding-top: 2.5rem;
+  /* the rule across each column top is what separates them now —
+     no vertical divider, and it survives the mobile stack */
+  border-top: 1px solid var(--rule);
+}
+
+.ps__col--problem {
+  grid-column: 1 / span 5;
+}
+
+.ps__col--solution {
+  grid-column: 7 / span 6;
+}
+
+.ps__col .micro {
+  margin-bottom: 1.1rem;
+}
+
+/* contrast is carried by size and weight, now that the fills are gone */
+.ps__text {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--muted);
+  margin: 0;
+}
+
+.ps__text--solution {
+  font-size: 1.2rem;
+  color: var(--deep-blue);
+}
+
+@media (max-width: 768px) {
+  .ps__headline,
+  .ps__col--problem,
+  .ps__col--solution {
+    grid-column: 1;
+  }
+
+  .ps__divide {
+    margin-top: 2.5rem;
+  }
+
+  .ps__col {
+    padding-top: 2rem;
+  }
+
+  .ps__text--solution {
+    font-size: 1.1rem;
+  }
+}

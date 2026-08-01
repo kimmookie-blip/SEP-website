@@ -1,0 +1,106 @@
+.new-legitimacy__intro {
+  max-width: 720px;
+  margin: 0 auto 4rem;
+}
+
+.new-legitimacy__statement {
+  margin: 0 0 1rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  line-height: 1.25;
+  color: #f7f2e6;
+}
+
+.new-legitimacy__supporting {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.6;
+  color: rgba(245, 239, 225, 0.78);
+}
+
+.new-legitimacy__supporting strong {
+  color: var(--amber);
+  font-weight: 600;
+}
+
+/* horizontal trust band: plain inline columns separated by rules, no card
+   chrome — demo.divi-pixel.com/church/'s SERVANT/GUIDANCE/PRAISE... strip */
+.new-legitimacy__band {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--rule-light);
+}
+
+.new-legitimacy__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 2.25rem 1.75rem 0;
+  text-align: center;
+  border-left: 1px solid var(--rule-light);
+}
+
+.new-legitimacy__item:first-child {
+  border-left: none;
+}
+
+.new-legitimacy__value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  line-height: 1.3;
+  color: var(--amber);
+}
+
+.new-legitimacy__label {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: rgba(245, 239, 225, 0.75);
+}
+
+@media (max-width: 1024px) {
+  .new-legitimacy__band {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .new-legitimacy__item:nth-child(2) {
+    border-left: 1px solid var(--rule-light);
+  }
+
+  .new-legitimacy__item:nth-child(3) {
+    border-left: none;
+    border-top: 1px solid var(--rule-light);
+    padding-top: 2.25rem;
+    margin-top: 2.25rem;
+  }
+
+  .new-legitimacy__item:nth-child(4) {
+    border-top: 1px solid var(--rule-light);
+    padding-top: 2.25rem;
+    margin-top: 2.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .new-legitimacy__intro {
+    margin-bottom: 3rem;
+  }
+
+  .new-legitimacy__band {
+    grid-template-columns: 1fr;
+  }
+
+  .new-legitimacy__item {
+    border-left: none !important;
+    border-top: 1px solid var(--rule-light);
+    padding: 1.75rem 0 0;
+    margin-top: 0 !important;
+  }
+
+  .new-legitimacy__item:first-child {
+    border-top: none;
+  }
+}

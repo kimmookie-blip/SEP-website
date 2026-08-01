@@ -1,0 +1,80 @@
+/* ============================================================
+   Section 4 — D6 scaled up. Flat panels, no lifted objects:
+   the reference has nothing floating anywhere.
+   ============================================================ */
+
+.diff__headline {
+  margin-bottom: 4rem;
+}
+
+.diff__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* spec §4 mandates #FFFFFF cards on the warm floor — keep the fill,
+   but flatten it: no radius, no shadow, hairline border, amber top rule */
+.diff__card {
+  background: var(--bg-white);
+  border: 1px solid var(--rule);
+  border-top: 2px solid var(--amber);
+  border-radius: 2px;
+  padding: 2.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s var(--ease);
+}
+
+.diff__card:hover {
+  border-color: rgba(241, 165, 1, 0.4);
+  border-top-color: var(--amber);
+}
+
+/* numeral + short rule on the same baseline */
+.diff__num {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-accent);
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  color: var(--amber-deep);
+  margin-bottom: 1.75rem;
+}
+
+.diff__num::after {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--amber);
+}
+
+.diff__title {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--deep-blue);
+  margin: 0 0 1rem;
+}
+
+.diff__body {
+  margin: 0;
+  font-size: 1rem;
+}
+
+@media (max-width: 900px) {
+  .diff__grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .diff__card {
+    padding: 2.25rem 1.75rem;
+  }
+
+  .diff__headline {
+    margin-bottom: 2.75rem;
+  }
+}

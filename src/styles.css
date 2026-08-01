@@ -1,0 +1,323 @@
+/* ============================================================
+   SEP Shekinah — design tokens & global styles
+   Palette per version_beta.md §1. Maroon is never dominant.
+   ============================================================ */
+
+:root {
+  --amber: #f1a501;
+  --amber-deep: #d99201;
+  --deep-blue: #0f314e;
+  --bg-warm: #fefdf9;
+  --bg-white: #ffffff;
+  --cream: #f5efe1;
+  --nav-cream: #faf6ec;
+
+  /* sampled from Reference/Fixed Content Section.png — prototype bands */
+  --band-light: #f9f8f5; /* credibility strip */
+  --band-navy: #003250; /* featured-event bar */
+  --band-azure: #007eca; /* upcoming-events sub-bar */
+  --band-amber: #ffbc34; /* pre-footer strip */
+  --placeholder: #d9d9d9; /* grey boxes standing in for missing artwork */
+  --placeholder-rule: #9f9f9f;
+
+  --rule: rgba(15, 49, 78, 0.12);
+  --rule-light: rgba(245, 239, 225, 0.18); /* hairlines on deep-blue bands */
+  --muted: rgba(15, 49, 78, 0.68);
+
+  --font-display: 'Amiri', Georgia, 'Times New Roman', serif;
+  --font-accent: 'Balthazar', 'Amiri', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --shell: 1200px;
+  --nav-h: 76px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* keep anchor targets clear of the floating navbar */
+  scroll-padding-top: 120px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-warm);
+  color: var(--deep-blue);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ---------- shared layout ---------- */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+/* The prototype comp measures its content at a true 1200px (120px margins at
+   1440), where .shell's 1200px max-width is inclusive of its 2.5rem padding.
+   Same device, wider measure — used only by components/proto. */
+.proto-shell {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+.section {
+  padding: 7.5rem 0;
+}
+
+.section--white {
+  background: var(--bg-white);
+}
+
+.section--cream {
+  background: var(--cream);
+}
+
+.section--blue {
+  background: var(--deep-blue);
+  color: var(--cream);
+}
+
+/* ---------- editorial layout devices (from Layout Reference.png) ---------- */
+
+/* 12-column grid — the spine of the asymmetric sections */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2rem;
+}
+
+/* D2 — display title mixing uppercase roman with lowercase italic.
+   Used sparingly (Stats + Testimonials only); it stops reading as an
+   accent if it appears on every section. */
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 4.2vw, 3.2rem);
+  line-height: 1.18;
+  color: var(--deep-blue);
+  margin: 0 0 1.25rem;
+}
+
+.display__roman {
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.display__italic {
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* tiny letterspaced label — the reference's recurring section/column tag */
+.micro {
+  display: block;
+  font-family: var(--font-accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.micro--amber {
+  color: var(--amber-deep);
+}
+
+/* hairline rules — the reference separates with rules, not fills */
+.rule {
+  height: 1px;
+  border: 0;
+  margin: 0;
+  background: var(--rule);
+}
+
+.rule--amber {
+  background: var(--amber);
+}
+
+.rule--light {
+  background: var(--rule-light);
+}
+
+/* D11 — thin outlined pill */
+.btn--outline {
+  background: transparent;
+  color: var(--deep-blue);
+  border-color: var(--rule);
+}
+
+.btn--outline:hover {
+  background: var(--deep-blue);
+  color: var(--bg-warm);
+  border-color: var(--deep-blue);
+}
+
+/* ---------- shared type ---------- */
+
+.kicker {
+  font-family: var(--font-accent);
+  font-size: 0.95rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--amber-deep);
+  margin: 0 0 1.25rem;
+}
+
+.headline {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.25rem;
+  color: var(--deep-blue);
+}
+
+.subhead {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0;
+}
+
+.body-text {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.center {
+  text-align: center;
+}
+
+.center .subhead {
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+/* ---------- shared buttons (min 44px tap target) ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 2.25rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease),
+    border-color 0.25s var(--ease), transform 0.2s var(--ease);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn--amber {
+  background: var(--amber);
+  color: var(--deep-blue);
+  font-weight: 600;
+}
+
+.btn--amber:hover {
+  background: #ffb81f;
+}
+
+/* ghost pill over the hero photo — matches Fixed Hero Section.png */
+.btn--ghost-cream {
+  background: transparent;
+  color: var(--cream);
+  border-color: rgba(245, 239, 225, 0.55);
+}
+
+.btn--ghost-cream:hover {
+  background: rgba(245, 239, 225, 0.12);
+  border-color: var(--cream);
+}
+
+/* ---------- focus visibility ---------- */
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 5.5rem 0;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+
+  .shell {
+    padding: 0 1.5rem;
+  }
+
+  .section {
+    padding: 4.5rem 0;
+  }
+
+  /* every 12-col layout becomes a single elegant stack (version_beta.md §3 req 3) */
+  .grid-12 {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

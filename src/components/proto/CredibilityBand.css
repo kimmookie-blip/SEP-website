@@ -1,0 +1,123 @@
+/* Comp: 216px tall at 1440 wide, content on the 1200px shell.
+   The claim occupies roughly the left 42%; figures sit right of centre. */
+
+/* comp: 216px tall — three lines of claim on 48px of padding either side */
+.cred {
+  padding: 3rem 0;
+}
+
+.cred--light {
+  background: var(--band-light);
+}
+
+/* the amber band sits on a deeper 76px inset in the comp */
+.cred--amber {
+  padding: 4.75rem 0;
+  background: var(--band-amber);
+}
+
+/* shorter opening word, so it needs a tighter measure to break where the
+   comp breaks it: "Komunitas Resmi di Bawah / Naungan BPK PKK Keuskupan / …" */
+.cred--amber .cred__claim {
+  flex-basis: 24rem;
+}
+
+.cred__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+/* comp: ~28px on a ~490px measure, so the claim breaks over three lines */
+.cred__claim {
+  flex: 0 1 27rem;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.42;
+  color: var(--deep-blue);
+}
+
+.cred__claim strong {
+  font-weight: 700;
+}
+
+.cred__claim em {
+  font-style: italic;
+}
+
+.cred__figures {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.cred__mark {
+  width: 62px;
+  height: auto;
+  align-self: center;
+  margin-right: 0.5rem;
+}
+
+.cred__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cred__value {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 3.4vw, 3.1rem);
+  font-weight: 400;
+  line-height: 1;
+  /* the comp's lowered 1990 — oldstyle figures, not lining */
+  font-variant-numeric: oldstyle-nums;
+  font-feature-settings: 'onum' 1;
+  color: var(--deep-blue);
+}
+
+.cred__label {
+  margin-top: 0.35rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--deep-blue);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1024px) {
+  .cred__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2.5rem;
+  }
+
+  .cred__claim {
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 520px) {
+  /* grid rather than wrap, so the mark can take its own row at its own size
+     instead of being stretched by a flex basis */
+  .cred__figures {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 2rem;
+  }
+
+  .cred__mark {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-right: 0;
+  }
+
+  .cred__stat {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
