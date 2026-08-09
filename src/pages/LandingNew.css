@@ -13,6 +13,19 @@
   background: var(--bg-warm);
 }
 
+/* ---------- type experiment: hero language in the body ----------
+   The hero sets the page's voice — Amiri at its natural weight, one italic
+   word, warm ink — but every section below it shouted in bold deep-blue.
+   Scoped to .landing-new because .headline is shared with /legacy, which
+   must not change. Per-section headline clones (SocialProof, ProgramStats,
+   FinalCta, ProgramOverview) carry the same change in their own files. */
+
+.landing-new .headline {
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  color: var(--gold-ink);
+}
+
 @media (max-width: 768px) {
   /* Hero is in normal flow at this width, so the spacer would double it */
   .new-hero-spacer {

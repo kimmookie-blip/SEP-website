@@ -2,7 +2,7 @@
    content held to the 1200px shell. Thumbnail is a 98px square. */
 
 .ecount__feature {
-  background: var(--band-navy);
+  background: var(--deep-blue);
   color: var(--bg-warm);
 }
 

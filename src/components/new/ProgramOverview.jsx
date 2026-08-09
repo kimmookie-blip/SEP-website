@@ -1,49 +1,14 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { programs } from '../../data/programs'
 import './ProgramOverview.css'
 
 // SEP-Shekinah-Homepage-Structure.md §05 — edit copy here.
-// `slug` maps to /program/:slug (src/pages/ProgramPage.jsx via src/data/programs.js).
-// Only 'blpi' and 'blks' resolve today; the rest render the page's built-in
-// "Program tidak ditemukan" stub until data/programs.js grows matching entries.
-const PROGRAMS = [
-  {
-    slug: 'kep',
-    stageBefore: 'Pembinaan',
-    stageEmphasis: 'Dasar',
-    name: 'KEP',
-    blurb:
-      'Pembinaan dasar yang diselenggarakan bersama paroki untuk membantu umat mengenal panggilannya sebagai murid Kristus.',
-  },
-  {
-    slug: 'sep',
-    stageBefore: 'Pembinaan',
-    stageEmphasis: 'Intensif',
-    name: 'SEP',
-    blurb: 'Program pembinaan yang lebih lengkap dan mendalam di pusat Shekinah.',
-  },
-  {
-    slug: 'blpi',
-    stageBefore: 'Pendalaman',
-    stageEmphasis: 'Iman',
-    name: 'BLPI',
-    blurb: 'Program lanjutan bagi alumni yang ingin terus bertumbuh.',
-  },
-  {
-    slug: 'blks',
-    stageBefore: 'Pendalaman',
-    stageEmphasis: 'Kitab Suci',
-    name: 'BLKS',
-    blurb: 'Pembelajaran Kitab Suci yang dibawakan oleh pengajar dari Shekinah.',
-  },
-  {
-    slug: 'retret',
-    stageBefore: 'Retret dan',
-    stageEmphasis: 'Kegiatan',
-    name: null,
-    blurb: 'Retret keluarga, retret penyembuhan, seminar, dan kegiatan terbuka lainnya.',
-  },
-]
+// The programmes come from data/programs.js, shared with /program and
+// /program/:slug, so every `slug` the quiz can land on resolves to a real page.
+// Per version_beta.md §3 requirement 1 this section shows only the short blurb;
+// durations, session outlines, and parish lists stay on the detail page.
+const PROGRAMS = programs
 
 const HEADLINE = 'Temukan program sesuai tahap perjalanan imanmu.'
 const CTA_LABEL = 'Lihat Semua Program'
@@ -186,10 +151,9 @@ export default function ProgramOverview({ id }) {
         {/* escape hatch for anyone who'd rather not take the quiz */}
         {question && (
           <div className="new-programs__cta-wrap center">
-            {/* placeholder — no program index route exists yet, only /program/:slug */}
-            <a href="#semua-program" className="btn btn--ghost-cream">
+            <Link to="/program" className="btn btn--ghost-cream">
               {CTA_LABEL}
-            </a>
+            </Link>
           </div>
         )}
       </div>

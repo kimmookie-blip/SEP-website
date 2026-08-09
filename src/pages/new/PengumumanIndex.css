@@ -1,0 +1,193 @@
+/* ============================================================
+   /pengumuman — one announcement at a time.
+   Two columns: copy at 1fr on the left, brochure at 2fr on the
+   right. The whole page is this carousel plus its pagination —
+   no masthead, no closing CTA, so nothing competes with the
+   brochure the staff designed.
+   ============================================================ */
+
+/* There's no PageHeader here to clear the fixed navbar, so this section
+   carries that clearance itself — 11rem matches .new-page-head's own
+   padding-top, keeping the top of the page consistent with the others. */
+.new-pengumuman {
+  padding: 11rem 0 6rem;
+  background: var(--bg-warm);
+}
+
+/* ---------- carousel ---------- */
+
+.new-pengumuman__viewport {
+  overflow: hidden;
+}
+
+/* Width is driven by the slide count rather than a hardcoded percentage, so
+   adding an announcement to data/pengumuman.js needs no change here. Each
+   slide is then 100/count% of the track, i.e. exactly one viewport wide. */
+.new-pengumuman__track {
+  display: flex;
+  align-items: center;
+  width: calc(var(--slide-count) * 100%);
+  transform: translateX(calc(var(--slide-index) * (-100% / var(--slide-count))));
+  transition: transform 0.45s var(--ease);
+}
+
+.new-pengumuman__slide {
+  flex: 0 0 calc(100% / var(--slide-count));
+  display: grid;
+  /* the brief's split: copy 1, brochure 2 */
+  grid-template-columns: 1fr 2fr;
+  /* start, not center — the copy pins to the top-left corner of the row
+     instead of floating at the vertical middle of whatever height the
+     (often taller) brochure sets */
+  align-items: start;
+  gap: 3.5rem;
+}
+
+/* ---------- copy ---------- */
+
+.new-pengumuman__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* min-width:0 so a long unbroken word can't push the 1fr column wider than
+     its share and squeeze the brochure */
+  min-width: 0;
+}
+
+.new-pengumuman__date {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+}
+
+.new-pengumuman__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-2xl);
+  line-height: 1.18;
+  letter-spacing: -0.005em;
+  color: var(--deep-blue);
+}
+
+.new-pengumuman__summary {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+/* ---------- brochure ---------- */
+
+.new-pengumuman__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--placeholder);
+}
+
+.new-pengumuman__media img {
+  width: 100%;
+  height: 100%;
+  /* contain, not cover: cropping a brochure cuts off the very information it
+     was made to carry */
+  object-fit: contain;
+}
+
+.new-pengumuman__placeholder {
+  font-family: var(--font-accent);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--placeholder-rule);
+}
+
+/* ---------- pagination ---------- */
+
+.new-pengumuman__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 3rem;
+}
+
+.new-pengumuman__page,
+.new-pengumuman__step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 44px, the minimum comfortable tap target */
+  min-width: 44px;
+  height: 44px;
+  padding: 0 0.5rem;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--muted);
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+
+.new-pengumuman__page:hover:not(.is-active),
+.new-pengumuman__step:hover:not(:disabled) {
+  border-color: var(--deep-blue);
+  color: var(--deep-blue);
+}
+
+.new-pengumuman__page.is-active {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: var(--deep-blue);
+  font-weight: 600;
+}
+
+/* Kept visible rather than hidden at the ends — a disappearing control
+   shifts the row and makes the remaining arrow ambiguous. */
+.new-pengumuman__step:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1024px) {
+  .new-pengumuman {
+    padding-top: 9.5rem;
+  }
+
+  .new-pengumuman__slide {
+    gap: 2.5rem;
+  }
+}
+
+/* Stacks well above the usual 768px mobile line: at 1fr/2fr of a shrinking
+   shell the copy column hits a genuinely unreadable measure long before the
+   viewport gets to phone width. Text leads once stacked — the DOM's own
+   order (copy, then media) already puts it first, so no `order` override
+   is needed here. */
+@media (max-width: 900px) {
+  .new-pengumuman__slide {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .new-pengumuman {
+    padding: 8rem 0 4rem;
+  }
+
+  .new-pengumuman__pagination {
+    margin-top: 2.25rem;
+    /* wraps rather than overflowing once there are enough announcements */
+    flex-wrap: wrap;
+  }
+}

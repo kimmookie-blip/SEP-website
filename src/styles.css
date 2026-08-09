@@ -5,20 +5,48 @@
 
 :root {
   --amber: #f1a501;
+  /* ISIAN SAJA — tidak pernah dipakai sebagai warna teks. Sebagai teks di
+     atas krem ia hanya 2,4:1 (gagal WCAG); sebagai latar dengan tulisan
+     --deep-blue di atasnya ia 5,14:1 (lulus AA). Untuk teks beraksen emas,
+     pakai --gold-ink. */
   --amber-deep: #d99201;
   --deep-blue: #0f314e;
-  --bg-warm: #fefdf9;
+
+  /* Permukaan. Dasar halaman kini krem parchment, bukan putih kekuningan —
+     arah dari wordonfire.org (#f9f4e7), digeser sedikit lebih hangat.
+     Urutannya: --bg-warm (dasar) → --bg-white (band terang) →
+     --band-cream (band gelap). Tiga langkah, jadi ritme section tetap
+     terbaca meski dasarnya sudah berwarna. */
+  --bg-warm: #f7f2e7;
   --bg-white: #ffffff;
-  --cream: #f5efe1;
+  --band-cream: #ece4d1;
+
+  /* Krem paling terang dari tangga permukaan — bukan khusus navbar meski
+     namanya begitu. Dipakai juga sebagai latar section yang perlu naik
+     sedikit dari dasar tanpa melompat ke putih penuh. */
   --nav-cream: #faf6ec;
+
+  /* --cream TIDAK ikut berubah: ia dipakai sebagai TINTA di atas band
+     navy dan foto hero, bukan sebagai latar. Menggelapkannya akan
+     menggelapkan teks di seluruh section gelap. */
+  --cream: #f5efe1;
 
   /* sampled from Reference/Fixed Content Section.png — prototype bands */
   --band-light: #f9f8f5; /* credibility strip */
-  --band-navy: #003250; /* featured-event bar */
+  /* --band-navy (#003250) dilebur ke --deep-blue: dua nilai itu hanya
+     terpaut tipis dan tidak pernah terbaca sebagai dua warna berbeda.
+     Sekarang seluruh band gelap memakai satu biru yang sama. */
   --band-azure: #007eca; /* upcoming-events sub-bar */
   --band-amber: #ffbc34; /* pre-footer strip */
   --placeholder: #d9d9d9; /* grey boxes standing in for missing artwork */
   --placeholder-rule: #9f9f9f;
+
+  /* Tinta emas — pengganti --amber-deep untuk semua TEKS beraksen.
+     Dipilih agar lulus AA di SEMUA permukaan terang, termasuk yang paling
+     gelap (--band-cream, 4,86:1) — bukan hanya di dasar halaman.
+     --gold-soft adalah pasangannya untuk band navy dan foto hero. */
+  --gold-ink: #845900;
+  --gold-soft: #f1ddab;
 
   --rule: rgba(15, 49, 78, 0.12);
   --rule-light: rgba(245, 239, 225, 0.18); /* hairlines on deep-blue bands */
@@ -27,6 +55,20 @@
   --font-display: 'Amiri', Georgia, 'Times New Roman', serif;
   --font-accent: 'Balthazar', 'Amiri', Georgia, serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Skala tipografi. ATURAN: Amiri tidak pernah bold — hierarki dibangun
+     dari UKURAN, bukan berat. Karena itu jaraknya sengaja lebar (rasio
+     ~1,35 di ujung atas); tanpa bantuan berat huruf, dua judul yang hanya
+     beda 2px akan terbaca sama derajatnya.
+     Balthazar (--font-accent) masih boleh bold untuk angka dan aksen hero. */
+  --text-xs: 0.78rem;
+  --text-sm: 0.9rem;
+  --text-base: 1.0625rem;
+  --text-lg: clamp(1.15rem, 1.6vw, 1.4rem);
+  --text-xl: clamp(1.45rem, 2.3vw, 1.85rem);
+  --text-2xl: clamp(1.85rem, 3.1vw, 2.5rem);
+  --text-3xl: clamp(2.4rem, 4.4vw, 3.6rem);
+  --text-4xl: clamp(2.6rem, 5.9vw, 5.2rem);
 
   --shell: 1200px;
   --nav-h: 76px;
@@ -99,7 +141,7 @@ button {
 }
 
 .section--cream {
-  background: var(--cream);
+  background: var(--band-cream);
 }
 
 .section--blue {
@@ -121,8 +163,8 @@ button {
    accent if it appears on every section. */
 .display {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(2.1rem, 4.2vw, 3.2rem);
+  font-weight: 400;
+  font-size: var(--text-2xl);
   line-height: 1.18;
   color: var(--deep-blue);
   margin: 0 0 1.25rem;
@@ -151,7 +193,7 @@ button {
 }
 
 .micro--amber {
-  color: var(--amber-deep);
+  color: var(--gold-ink);
 }
 
 /* hairline rules — the reference separates with rules, not fills */
@@ -170,11 +212,13 @@ button {
   background: var(--rule-light);
 }
 
-/* D11 — thin outlined pill */
+/* D11 — bingkai tipis, sudut tajam (lihat .btn).
+   border-color dulu var(--rule) — biru 12% opacity, nyaris tak terlihat,
+   jadi tombolnya terbaca sebagai tautan teks biasa, bukan tombol berbingkai. */
 .btn--outline {
   background: transparent;
   color: var(--deep-blue);
-  border-color: var(--rule);
+  border-color: var(--deep-blue);
 }
 
 .btn--outline:hover {
@@ -190,23 +234,33 @@ button {
   font-size: 0.95rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--amber-deep);
+  color: var(--gold-ink);
   margin: 0 0 1.25rem;
 }
 
+/* Naik satu langkah skala dibanding sebelumnya: pada berat 400, Amiri
+   kehilangan bobot optik, jadi ukuran yang menggantikannya. */
 .headline {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(2rem, 3.6vw, 3rem);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  font-weight: 400;
+  font-size: var(--text-3xl);
+  line-height: 1.12;
+  letter-spacing: -0.005em;
   margin: 0 0 1.25rem;
   color: var(--deep-blue);
 }
 
+/* Judul section yang lebih rendah derajatnya — dipakai untuk kepala kolom
+   dan kartu, supaya tidak bersaing dengan .headline di halaman yang sama. */
+.headline--sm {
+  font-size: var(--text-xl);
+  line-height: 1.2;
+}
+
 .subhead {
   font-family: var(--font-display);
-  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  font-weight: 400;
+  font-size: var(--text-lg);
   line-height: 1.65;
   color: var(--muted);
   margin: 0;
@@ -230,38 +284,43 @@ button {
 
 /* ---------- shared buttons (min 44px tap target) ---------- */
 
+/* Bentuk tombol mengikuti wordonfire.org: sudut tajam, huruf kecil
+   berspasi lebar, bingkai 1px, dan hover yang MEMBALIK isi/garis alih-alih
+   mengangkat. Spesifikasi angka diambil dari .wp-block-button__link mereka
+   (padding 1rem 1.5rem, font-size .75rem).
+   min-height 46px dipertahankan supaya target sentuh tetap ≥44px. */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 52px;
-  padding: 0 2.25rem;
-  border-radius: 999px;
+  min-height: 46px;
+  padding: 1rem 1.5rem;
+  border-radius: 0;
   font-family: var(--font-body);
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   border: 1px solid transparent;
-  transition: background-color 0.25s var(--ease), color 0.25s var(--ease),
-    border-color 0.25s var(--ease), transform 0.2s var(--ease);
-}
-
-.btn:hover {
-  transform: translateY(-2px);
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease),
+    border-color 0.2s var(--ease);
 }
 
 .btn--amber {
   background: var(--amber);
+  border-color: var(--amber);
   color: var(--deep-blue);
-  font-weight: 600;
 }
 
+/* membalik, bukan menggelap — pola hover Word on Fire */
 .btn--amber:hover {
-  background: #ffb81f;
+  background: transparent;
+  color: var(--gold-ink);
+  border-color: var(--gold-ink);
 }
 
-/* ghost pill over the hero photo — matches Fixed Hero Section.png */
+/* di atas foto hero — matches Fixed Hero Section.png */
 .btn--ghost-cream {
   background: transparent;
   color: var(--cream);

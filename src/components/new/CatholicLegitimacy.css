@@ -1,3 +1,11 @@
+/* Black rather than the shared section--blue token — this is /tentang-kami's
+   opening section, so it's the one place on the site currently asking for
+   pure black rather than the palette's deep-blue. Scoped to this component's
+   own file since it's only used here. */
+.new-legitimacy {
+  background: #000;
+}
+
 .new-legitimacy__intro {
   max-width: 720px;
   margin: 0 auto 4rem;
@@ -6,7 +14,7 @@
 .new-legitimacy__statement {
   margin: 0 0 1rem;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(1.7rem, 3vw, 2.3rem);
   line-height: 1.25;
   color: #f7f2e6;
@@ -48,7 +56,7 @@
 
 .new-legitimacy__value {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(1.15rem, 1.6vw, 1.4rem);
   line-height: 1.3;
   color: var(--amber);

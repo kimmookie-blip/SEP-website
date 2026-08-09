@@ -61,7 +61,7 @@ export default function Faq({ id }) {
   const [openIndex, setOpenIndex] = useState(-1)
 
   return (
-    <section className="new-faq section section--cream" id={id}>
+    <section className="new-faq section section--white" id={id}>
       <div className="shell">
         <p className="headline center new-faq__headline">{HEADLINE}</p>
 

@@ -1,0 +1,254 @@
+/* ============================================================
+   /pengumuman/:slug — brochure-first detail page.
+
+   The requirement this file exists to satisfy: most of the
+   brochure must be readable without scrolling. So the first
+   block is sized against the viewport rather than the document,
+   the poster keeps its own ratio, and the written explanation
+   starts below the fold instead of sharing it.
+   ============================================================ */
+
+/* the space the brochure has to fit inside: viewport, minus the fixed navbar,
+   minus the page's own top and bottom breathing room */
+.new-brosur {
+  --brosur-max-h: calc(100vh - var(--nav-h) - 6rem);
+
+  padding: calc(var(--nav-h) + 2.5rem) 0 3.5rem;
+  background: var(--bg-warm);
+}
+
+/* brochure gets the larger share; the aside only carries a summary and one
+   button, so it doesn't need half the page */
+.new-brosur__inner {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  align-items: start;
+  gap: 3.5rem;
+}
+
+/* aspect-ratio arrives inline from data/pengumuman.js, which reserves the
+   right box before the image loads; max-height then caps a tall poster so it
+   still ends above the fold on a short laptop screen */
+.new-brosur__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  max-height: var(--brosur-max-h);
+  margin: 0;
+  background: var(--placeholder);
+}
+
+.new-brosur__media img {
+  width: 100%;
+  height: 100%;
+  max-height: var(--brosur-max-h);
+  /* contain: a brochure that's been cropped has lost the point */
+  object-fit: contain;
+}
+
+.new-brosur__placeholder {
+  font-family: var(--font-accent);
+  font-size: 0.85rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--placeholder-rule);
+}
+
+/* ---------- aside ---------- */
+
+/* deliberately not sticky: version_beta.md §1 rules out a CTA that follows the
+   scroll, and the brochure beside it is capped to the viewport anyway, so the
+   button is on screen for as long as the poster is */
+.new-brosur__aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.new-brosur__back {
+  margin-bottom: 2rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--muted);
+  transition: color 0.2s var(--ease);
+}
+
+.new-brosur__back:hover {
+  color: var(--gold-ink);
+}
+
+.new-brosur__meta {
+  margin: 0 0 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+}
+
+.new-brosur__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--deep-blue);
+}
+
+.new-brosur__summary {
+  margin: 1.25rem 0 0;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.new-brosur__cta {
+  margin-top: 2rem;
+}
+
+/* not a scroll indicator that follows the page — just a static hint, since
+   §1 of version_beta.md rules out anything sticky that behaves like a CTA */
+.new-brosur__scroll {
+  margin: 2rem 0 0;
+  font-family: var(--font-accent);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- penjelasan (below the fold) ---------- */
+
+.new-brosur-detail__inner {
+  display: grid;
+  grid-template-columns: 7fr 4fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.new-brosur-detail__heading {
+  margin: 0 0 1.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  font-weight: 400;
+  color: var(--deep-blue);
+}
+
+.new-brosur-detail__facts {
+  margin: 0;
+  padding: 2rem 1.75rem;
+  background: var(--cream);
+  /* amber edge, the same marker the old ProgramPage placeholder card used */
+  border-left: 2px solid var(--amber);
+}
+
+.new-brosur-detail__fact + .new-brosur-detail__fact {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+}
+
+.new-brosur-detail__fact dt {
+  font-family: var(--font-accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.new-brosur-detail__fact dd {
+  margin: 0.3rem 0 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--deep-blue);
+}
+
+/* ---------- pengumuman lainnya ---------- */
+
+.new-brosur-others__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.new-brosur-others__item {
+  display: grid;
+  grid-template-columns: 12rem 1fr auto;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--rule);
+  transition: color 0.2s var(--ease);
+}
+
+.new-brosur-others__item:hover {
+  color: var(--gold-ink);
+}
+
+.new-brosur-others__date {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.new-brosur-others__title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: inherit;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1024px) {
+  .new-brosur__inner {
+    gap: 2.5rem;
+  }
+
+  .new-brosur-detail__inner {
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* single column, brochure first — still the first thing under the navbar,
+     so it keeps the fold to itself on a phone too */
+  .new-brosur {
+    --brosur-max-h: calc(100vh - 68px - 4rem);
+
+    padding: calc(68px + 1.5rem) 0 2.5rem;
+  }
+
+  .new-brosur__inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* the aside now sits under the brochure, so the back link no longer opens
+     the page and doesn't need the same headroom */
+  .new-brosur__back {
+    margin-bottom: 1.25rem;
+  }
+
+  .new-brosur__scroll {
+    display: none;
+  }
+
+  .new-brosur-detail__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .new-brosur-others__item {
+    grid-template-columns: 1fr auto;
+    gap: 0.35rem 1rem;
+  }
+
+  .new-brosur-others__date {
+    grid-column: 1 / -1;
+  }
+}

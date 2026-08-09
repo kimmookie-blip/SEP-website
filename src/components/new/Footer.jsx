@@ -1,22 +1,21 @@
+import { Link } from 'react-router-dom'
 import './Footer.css'
 
-// struktur-homepage-sep-shekinah.md §14 — edit copy here.
-// Closing wordmark borrows from demo.divi-pixel.com/church/'s giant
-// "FAITH & LOVE" line at the very bottom of the footer.
-const CLOSING_WORDMARK = (
-  <>
-    Kristus <em>&amp;</em> Komunitas
-  </>
-)
+// Edit copy here.
 
+// Every entry is a route now — the footer is rendered on the inner pages too,
+// so in-page anchors would have pointed at sections that aren't there.
+// #kontak is the exception and works everywhere: it's this footer's own id.
 const MAIN_LINKS = [
-  { label: 'Tentang Shekinah', href: '#legitimasi' },
-  { label: 'Program Pembinaan', href: '#program' },
-  { label: 'Kegiatan', href: '#kegiatan' },
-  { label: 'Pengajar', href: '#pengajar' },
-  { label: 'Paroki Mitra', href: '#legitimasi' },
-  { label: 'Artikel dan Materi', href: '#artikel' },
-  { label: 'Pengumuman', href: '#pengumuman' },
+  { label: 'Tentang Shekinah', to: '/tentang-kami' },
+  { label: 'Program Pembinaan', to: '/program' },
+  // both halves of the kegiatan section — the navbar reaches these through a
+  // dropdown, but a footer list has room to name them outright
+  { label: 'Kegiatan Mendatang', to: '/kegiatan/mendatang' },
+  { label: 'Arsip Kegiatan', to: '/kegiatan' },
+  { label: 'Pengajar', to: '/pengajar' },
+  { label: 'Pengumuman', to: '/pengumuman' },
+  { label: 'Beranda', to: '/new' },
   { label: 'Hubungi Kami', href: '#kontak' },
 ]
 
@@ -70,11 +69,17 @@ export default function Footer() {
           </div>
 
           <nav className="new-footer__links" aria-label="Tautan footer">
-            {MAIN_LINKS.map((link) => (
-              <a href={link.href} key={link.label}>
-                {link.label}
-              </a>
-            ))}
+            {MAIN_LINKS.map((link) =>
+              link.to ? (
+                <Link to={link.to} key={link.label}>
+                  {link.label}
+                </Link>
+              ) : (
+                <a href={link.href} key={link.label}>
+                  {link.label}
+                </a>
+              )
+            )}
           </nav>
         </div>
 
@@ -92,8 +97,6 @@ export default function Footer() {
             <a href="#masuk">Login Anggota</a>
           </div>
         </div>
-
-        <p className="new-footer__wordmark">{CLOSING_WORDMARK}</p>
       </div>
     </footer>
   )

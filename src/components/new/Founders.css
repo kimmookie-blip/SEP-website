@@ -1,7 +1,9 @@
 /* ============================================================
-   Pendiri dan Pembina — copy on the left, one portrait card at
-   a time on the right. A single card rather than a three-up
-   grid is what keeps this section compact.
+   Warisan yang Menjadi Fondasi — trust & credibility, not a
+   teacher directory. Copy on the left, one static founder
+   portrait on the right. Reworked from a multi-person carousel
+   (arrows/dots/crossfade) into a single fixed card — the
+   institution's heritage doesn't need to be paged through.
    ============================================================ */
 
 /* trimmed from the site-wide .section rhythm so the whole block clears a
@@ -29,59 +31,8 @@
   margin: 0;
 }
 
-/* ---------- carousel controls ---------- */
-
-.new-founders__controls {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.new-founders__cta {
   margin-top: 2.5rem;
-}
-
-.new-founders__arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  background: transparent;
-  border: 1px solid var(--rule);
-  border-radius: 50%;
-  color: var(--deep-blue);
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  line-height: 1;
-  transition: background-color 0.2s var(--ease), color 0.2s var(--ease),
-    border-color 0.2s var(--ease);
-}
-
-.new-founders__arrow:hover {
-  background: var(--deep-blue);
-  border-color: var(--deep-blue);
-  color: var(--cream);
-}
-
-.new-founders__dots {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-left: 0.75rem;
-}
-
-.new-founders__dot {
-  width: 8px;
-  height: 8px;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: rgba(15, 49, 78, 0.25);
-  transition: background-color 0.2s var(--ease), transform 0.2s var(--ease);
-}
-
-.new-founders__dot.is-active {
-  background: var(--amber);
-  transform: scale(1.35);
 }
 
 /* ---------- card ---------- */
@@ -106,12 +57,6 @@
   height: 100%;
   object-fit: cover;
   object-position: center top;
-  opacity: 0;
-  transition: opacity 0.45s var(--ease);
-}
-
-.new-founders__photo img.is-active {
-  opacity: 1;
 }
 
 /* Deep maroon band, as in the approved card mockup. version_beta.md bars
@@ -122,10 +67,6 @@
   flex-direction: column;
   justify-content: center;
   gap: 0.3rem;
-  /* reserved height, so slides without a `years` line don't shrink the card
-     and make the layout jump as you page through — measured against the
-     tallest caption (the one that has a `years` line) */
-  min-height: 8rem;
   padding: 1.25rem 1.5rem 1.5rem;
   background: #4a1420;
 }
@@ -141,16 +82,10 @@
 
 .new-founders__name {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(1.25rem, 1.8vw, 1.5rem);
   line-height: 1.15;
   color: #fdfaf4;
-}
-
-.new-founders__years {
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  color: rgba(241, 165, 1, 0.9);
 }
 
 /* ---------- responsive ---------- */
@@ -172,19 +107,9 @@
     gap: 2rem;
   }
 
-  /* card first, controls stay with the copy below it */
+  /* card first, copy and CTA follow below it */
   .new-founders__card {
     order: -1;
     max-width: 300px;
-  }
-
-  .new-founders__controls {
-    margin-top: 2rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .new-founders__photo img {
-    transition: none;
   }
 }

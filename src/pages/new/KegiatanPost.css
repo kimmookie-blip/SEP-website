@@ -1,0 +1,259 @@
+/* ============================================================
+   /kegiatan/:slug — one story. Cover, ringkasan, prose, learn
+   points, facts and the CTA box all share one ~680px column now
+   (Medium-style single-column reading area) — previously the
+   cover ran the full shell width while everything below it
+   capped itself narrower on its own.
+   ============================================================ */
+
+/* White rather than .page's inherited --bg-warm krem — just the reading
+   area itself; the masthead above (.new-page-head) and the "kegiatan
+   lainnya" strip below (explicitly section--cream) are untouched. */
+.new-post {
+  background: var(--bg-white);
+  /* .section's own 7.5rem top padding, on top of the masthead's rule
+     already below it, left too much air before the cover photo — tightened
+     here rather than in styles.css since that padding is shared sitewide.
+     Bottom padding (into "kegiatan lainnya") is untouched. */
+  padding-top: 2.5rem;
+}
+
+/* Overrides .shell's own 1200px cap for this one instance; centred (the
+   class's usual `0 auto`, kept explicit here since it's the whole point of
+   the override) so the narrower column reads as deliberately centred on
+   wide viewports, with generous even margins either side. */
+.new-post > .shell {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* PageHeader is shared across every inner page, so it can't be narrowed
+   globally in PageHeader.css without affecting all of them — this targets
+   only the instance directly above THIS page's article, via :has(), so the
+   kicker/title/subhead line up with the 680px column below instead of
+   sitting at the site's usual wider masthead width. */
+.new-page-head:has(+ .new-post) .shell {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* Prose.css's own 68ch cap (shared with pengumuman posts) is redundant
+   once its container is already the 680px column above — left in place
+   there, overridden here only, so this doesn't touch that shared file. */
+.new-post .prose {
+  max-width: none;
+}
+
+.new-post__cover {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 3.5rem;
+  background: var(--placeholder);
+}
+
+.new-post__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.new-post__cover-placeholder {
+  font-family: var(--font-accent);
+  font-size: 0.85rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--placeholder-rule);
+}
+
+.new-post__program {
+  margin: 3rem 0 0;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.new-post__program a {
+  color: var(--gold-ink);
+  border-bottom: 1px solid currentColor;
+}
+
+/* ---------- ajakan masuk anggota ----------
+   Small and quiet on purpose — an outlined strip, not a filled button —
+   so it doesn't compete with the event's own amber "Daftar Sekarang" CTA
+   above. Same #masuk placeholder anchor Navbar/Hero/Footer already use. */
+.new-post__login-nudge {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  margin: 2rem 0 0;
+  padding: 1.1rem 1.4rem;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--nav-cream);
+}
+
+.new-post__login-nudge p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.new-post__login-link {
+  flex-shrink: 0;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--gold-ink);
+  white-space: nowrap;
+  transition: opacity 0.2s var(--ease);
+}
+
+.new-post__login-link:hover {
+  opacity: 0.7;
+}
+
+/* ---------- ringkasan ---------- */
+
+/* Amiri and a touch larger than .prose p, so it reads as the article's
+   opening breath rather than just its first paragraph. */
+.new-post__summary {
+  margin: 0 0 2.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  line-height: 1.6;
+  color: var(--deep-blue);
+}
+
+/* ---------- yang akan dipelajari ---------- */
+
+.new-post__learn {
+  margin: 3rem 0 0;
+}
+
+.new-post__learn-list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.new-post__learn-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* amber tick rather than a bullet dot — matches the hairline-accent device
+   Prose's blockquote already uses instead of quotation marks */
+.new-post__learn-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--amber);
+}
+
+/* ---------- informasi acara ---------- */
+
+.new-post__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  margin: 3rem 0 0;
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--rule);
+}
+
+.new-post__fact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.new-post__fact dt {
+  font-family: var(--font-accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.new-post__fact dd {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--deep-blue);
+}
+
+/* ---------- cta daftar ---------- */
+
+/* Tinted box rather than a plain paragraph+button — this is the one moment
+   on the page asking for a decision, so it needs to interrupt the reading
+   rhythm slightly rather than blend into it. */
+.new-post__cta {
+  margin: 3rem 0 0;
+  padding: 2rem;
+  border-radius: 14px;
+  background: var(--band-cream);
+}
+
+.new-post__cta p {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--deep-blue);
+}
+
+/* ---------- kegiatan lainnya ---------- */
+
+.new-post-related__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1024px) {
+  .new-post-related__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .new-post__cover {
+    aspect-ratio: 3 / 2;
+    margin-bottom: 2.25rem;
+  }
+
+  .new-post__facts {
+    gap: 1.5rem;
+  }
+
+  .new-post__cta {
+    padding: 1.5rem;
+  }
+
+  .new-post-related__grid {
+    grid-template-columns: 1fr;
+  }
+}

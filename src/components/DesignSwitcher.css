@@ -1,10 +1,14 @@
 /* Floating design toggle. Sits above the navbar (z-index 100) and the fixed
-   hero, so it stays reachable no matter what the page underneath does. */
+   hero, so it stays reachable no matter what the page underneath does.
+
+   Docked bottom-RIGHT, not bottom-centre. Centred, it covered the middle of
+   any full-width control that happened to scroll into the last 80px of the
+   viewport and swallowed the tap — on mobile that meant the ProgramOverview
+   quiz buttons simply stopped responding. Content is centred; this isn't. */
 .switcher {
   position: fixed;
   bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 24px;
   z-index: 200;
 
   display: flex;
@@ -44,12 +48,16 @@
 }
 
 @media (max-width: 768px) {
+  /* tighter into the corner, and smaller — full-width buttons run the whole
+     screen here, so the pill's footprint is the only thing keeping it clear
+     of where a thumb actually lands */
   .switcher {
-    bottom: 16px;
+    bottom: 12px;
+    right: 12px;
   }
 
   .switcher__opt {
-    padding: 7px 16px;
-    font-size: 12px;
+    padding: 6px 13px;
+    font-size: 11px;
   }
 }

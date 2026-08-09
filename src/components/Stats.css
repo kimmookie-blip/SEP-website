@@ -38,10 +38,10 @@
    readable for the 20-60 audience. Pure --amber stays on dark bands. */
 .stats__value {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(3rem, 5.5vw, 4.5rem);
   line-height: 1;
-  color: var(--amber-deep);
+  color: var(--gold-ink);
 }
 
 .stats__label {

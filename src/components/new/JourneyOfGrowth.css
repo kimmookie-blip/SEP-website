@@ -42,7 +42,7 @@
   background: var(--amber);
   color: var(--deep-blue);
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 1.05rem;
   z-index: 1;
 }
@@ -55,7 +55,7 @@
   margin: 0 0 0.4rem;
   font-family: var(--font-display);
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--deep-blue);
 }
 

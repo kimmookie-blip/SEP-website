@@ -73,7 +73,14 @@
   background: var(--deep-blue);
 }
 
+/* z-index 3, same as the close button: the brand rides above the overlay (2)
+   rather than being redrawn inside it. Because it's literally the same element
+   in the same place, opening the menu shifts nothing — the logo and wordmark
+   stay put in the top-left while the cream veil fades up behind them. It also
+   means the menu always has a way home without a second link. */
 .new-nav__brand {
+  position: relative;
+  z-index: 3;
   display: flex;
   align-items: center;
   gap: 0.85rem;
@@ -116,7 +123,7 @@
 .new-nav__wordmark strong {
   font-family: var(--font-display);
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: -0.005em;
 }
 
@@ -134,7 +141,18 @@
   gap: 1.75rem;
 }
 
-.new-nav__links a {
+/* Each top-level item is wrapped so the one with a submenu has something to
+   position its dropdown against — and something for :hover/:focus-within to
+   hang off. The CTA stays a direct child of .new-nav__links, which is what
+   the `>` selectors below use to tell the two apart (no :not() needed). */
+.new-nav__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.new-nav__links > a,
+.new-nav__item > a {
   font-family: var(--font-body);
   font-size: 0.95rem;
   position: relative;
@@ -143,7 +161,7 @@
   transition: opacity 0.2s var(--ease);
 }
 
-.new-nav__links a:not(.new-nav__cta)::after {
+.new-nav__item > a::after {
   content: '';
   position: absolute;
   left: 0;
@@ -154,22 +172,146 @@
   transition: width 0.25s var(--ease);
 }
 
-.new-nav__links a:not(.new-nav__cta):hover {
+.new-nav__item > a:hover {
   opacity: 1;
 }
 
-.new-nav__links a:not(.new-nav__cta):hover::after {
+.new-nav__item > a:hover::after,
+.new-nav__item:focus-within > a::after {
   width: 100%;
+}
+
+/* current page keeps the hover underline permanently — the only way to tell
+   where you are now that the links lead to separate pages */
+.new-nav__item > a.is-current {
+  opacity: 1;
+}
+
+/* ---------- dropdown (kegiatan) ----------
+   Hover on pointer devices, :focus-within so tabbing through opens it too.
+   Hidden via visibility rather than display so it can cross-fade, and so its
+   links stay out of the tab order until it's actually open. */
+
+.new-nav__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 210px;
+  margin-top: 0.65rem;
+  padding: 0.4rem;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--bg-white);
+  box-shadow: 0 12px 32px rgba(15, 49, 78, 0.14);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-4px);
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease),
+    visibility 0s linear 0.2s;
+}
+
+/* invisible bridge across the gap between the bar and the panel — without it
+   the pointer leaves the item on the way down and the menu snaps shut */
+.new-nav__dropdown::before {
+  content: '';
+  position: absolute;
+  top: -0.75rem;
+  left: 0;
+  right: 0;
+  height: 0.75rem;
+}
+
+.new-nav__item:hover .new-nav__dropdown,
+.new-nav__item:focus-within .new-nav__dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease),
+    visibility 0s;
+}
+
+/* Always deep-blue on white, never the bar's cream-over-hero colour: the
+   panel has its own light background, so it doesn't follow the --top/--solid
+   swap the rest of the bar does. */
+.new-nav__dropdown-link {
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--deep-blue);
+  white-space: nowrap;
+  opacity: 1;
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.new-nav__dropdown-link:hover {
+  background: var(--nav-cream);
+}
+
+.new-nav__dropdown-link.is-current {
+  color: var(--gold-ink);
+}
+
+/* ---------- tab tersembunyi (Cmd+/) ----------
+   Ditandai berbeda dari tautan publik supaya tidak pernah tertukar saat
+   meninjau desain: monospace, huruf kecil semua, dengan titik amber di
+   depannya. Hanya muncul setelah hooks/useDesignSystemTab membukanya. */
+
+.new-nav__secret {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.01em;
+  opacity: 0.75 !important;
+  animation: new-nav-secret-in 0.28s var(--ease);
+}
+
+.new-nav__secret::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--amber);
+  flex-shrink: 0;
+}
+
+.new-nav__secret:hover {
+  opacity: 1 !important;
+}
+
+/* The underline sweep is drawn by a shared `a::after` rule; the dot above
+   is a ::before, so the two never collide. */
+@keyframes new-nav-secret-in {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 0.75;
+    transform: translateY(0);
+  }
+}
+
+.new-nav__overlay-panel .new-nav__secret {
+  font-size: 1rem !important;
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
 }
 
 .new-nav__cta {
   display: inline-flex;
   align-items: center;
   min-height: 46px;
-  padding: 0 1.35rem;
+  padding: 0 2.75rem;
   margin-left: 0.5rem;
   border: 1px solid;
-  border-radius: 8px;
+  /* sudut tajam, seragam dengan .btn — lihat styles.css */
+  border-radius: 0;
   font-size: 0.95rem;
   font-weight: 400;
   text-transform: none;
@@ -178,15 +320,47 @@
     border-color 0.4s var(--ease);
 }
 
+/* z-index 3 keeps the button above the overlay (2) — it's the only thing
+   that stays visible once the menu covers the screen, exactly as in the
+   reference. .new-nav__bar is left `position: static` on purpose so it
+   creates no stacking context and the overlay can paint over the brand. */
+/* Pill rather than the icon-only circle this used to be — wide enough now
+   to carry the "Menu" label beside the burger, so the shape follows. */
 .new-nav__toggle {
   display: none;
-  width: 46px;
+  position: relative;
+  z-index: 3;
+  gap: 0.55rem;
   height: 46px;
   align-items: center;
   justify-content: center;
+  padding: 0 1rem 0 0.85rem;
   background: none;
   border: none;
-  padding: 0;
+  border-radius: 999px;
+  /* buttons don't inherit ancestor `color` by default the way most other
+     elements do — without this the "Menu" label would render in the
+     browser's default button text colour instead of following the navbar's
+     cream/deep-blue state swap the burger's own spans already track. */
+  color: inherit;
+  transition: background-color 0.3s var(--ease);
+}
+
+.new-nav__toggle-label {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+/* Circular tint, matching the reference's hover puck. Also held while the
+   menu is open, where the backdrop is always the deep-blue overlay. */
+.new-nav--top .new-nav__toggle:hover,
+.new-nav--menu-open .new-nav__toggle {
+  background: rgba(245, 239, 225, 0.16);
+}
+
+.new-nav--solid .new-nav__toggle:hover {
+  background: rgba(15, 49, 78, 0.08);
 }
 
 .new-nav__burger,
@@ -197,7 +371,18 @@
   width: 24px;
   height: 1.5px;
   border-radius: 2px;
-  transition: transform 0.3s var(--ease), opacity 0.2s var(--ease),
+}
+
+/* The bars trail the container's spin by 120ms. That delay is what
+   reproduces the reference's mid-morph moment where all three bars are
+   briefly vertical before collapsing into the X. */
+.new-nav__burger {
+  transition: transform 0.45s var(--ease), background-color 0.4s var(--ease);
+}
+
+.new-nav__burger::before,
+.new-nav__burger::after {
+  transition: transform 0.33s var(--ease) 0.12s,
     background-color 0.4s var(--ease);
 }
 
@@ -210,6 +395,7 @@
 }
 
 .new-nav__burger.is-open {
+  transform: rotate(90deg);
   background: transparent !important;
 }
 
@@ -221,34 +407,220 @@
   transform: rotate(-45deg);
 }
 
-.new-nav__panel {
+/* Over the deep-blue overlay the bars must read light whatever state the bar
+   was in. Extra class raises specificity above .new-nav--solid's rule. */
+.new-nav.new-nav--menu-open .new-nav__burger::before,
+.new-nav.new-nav--menu-open .new-nav__burger::after {
+  background: var(--cream);
+}
+
+/* Same for the brand, which sits above the overlay: on an inner page the bar
+   is solid, so the wordmark is deep blue and the logo is the neutral one —
+   both would disappear into the navy veil. Hold them in their over-hero
+   appearance for as long as the menu is open. The colour and opacity
+   transitions already live on these elements, so this cross-fades in step
+   with the veil rather than snapping. */
+.new-nav.new-nav--menu-open .new-nav__bar {
+  color: var(--cream);
+}
+
+.new-nav.new-nav--menu-open .new-nav__wordmark small {
+  color: rgba(245, 239, 225, 0.72);
+}
+
+.new-nav.new-nav--menu-open .new-nav__logo-img--negative {
+  opacity: 1;
+}
+
+.new-nav.new-nav--menu-open .new-nav__logo-img--neutral {
+  opacity: 0;
+}
+
+/* Full-screen cross-fade overlay. The veil and the links fade up together
+   over ~0.45s with the links already sitting in their final position. Nothing
+   slides and nothing staggers — measured from the source GIF, the link
+   baselines are identical at 30% opacity and at 100%.
+
+   Dark rather than the page's warm off-white: the menu is a transient layer,
+   not page surface, so it doesn't count against version_beta.md §1's ~70%
+   #FEFDF9 rule — and the darkness makes it unmistakably an overlay rather
+   than another screen you've navigated to. The ramp is the footer's exact
+   gradient (navy easing into near-black), so the site's two full-width dark
+   surfaces are the same surface.
+
+   Always in the DOM so it can fade out as well as in; a conditional mount
+   can only ever animate the way in. `visibility` flips only after the fade
+   finishes, keeping the links out of the tab order while invisible.
+
+   prefers-reduced-motion is handled globally in styles.css (it forces
+   transition-duration to ~0), so this degrades to an instant open. */
+.new-nav__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
   display: none;
-  flex-direction: column;
-  gap: 0.25rem;
-  margin: 0.5rem 1.5rem 0;
-  padding: 1rem 1.5rem 1.5rem;
-  border-radius: 14px;
-  background: var(--bg-white);
-  color: var(--deep-blue);
-  box-shadow: 0 12px 32px rgba(15, 49, 78, 0.14);
-}
-
-.new-nav__panel a {
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  padding: 0.85rem 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-.new-nav__panel .new-nav__cta {
+  align-items: flex-start;
   justify-content: center;
-  margin: 0.75rem 0 0;
-  border-color: rgba(15, 49, 78, 0.55);
-  color: var(--deep-blue);
-  border-bottom: none;
+  /* 12vh below the bar rather than 5: the list sits nearer the middle of the
+     screen, in easy thumb reach, instead of crowding the brand. Still
+     flex-start + overflow-y:auto, so a taller menu scrolls rather than
+     centring itself off the top of a short screen. */
+  padding: calc(var(--nav-h) + 12vh) 1.5rem 5vh;
+  /* identical to .new-footer's ramp — see Footer.css */
+  background: linear-gradient(180deg, var(--deep-blue) 0%, #040404 100%);
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s var(--ease), visibility 0s linear 0.45s;
 }
 
-@media (max-width: 860px) {
+.new-nav--menu-open .new-nav__overlay {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.45s var(--ease), visibility 0s;
+}
+
+/* ---------- two-level drill-down ----------
+   The viewport clips horizontally; the track holds both panels side by side
+   and slides by exactly one panel width. Height is left to grow with the
+   taller panel, so nothing is clipped vertically and the overlay's own
+   overflow-y still handles a menu taller than the screen. */
+
+.new-nav__overlay-viewport {
+  width: 100%;
+  max-width: 420px;
+  overflow: hidden;
+}
+
+.new-nav__overlay-track {
+  display: flex;
+  align-items: flex-start;
+  width: 200%;
+  transition: transform 0.35s var(--ease);
+}
+
+.new-nav__overlay-track.is-sub {
+  transform: translateX(-50%);
+}
+
+.new-nav__overlay-panel {
+  flex: 0 0 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* opened up from 1.45rem once the type grew — at 28.8px the old spacing had
+     the words reading as one block rather than as separate destinations */
+  gap: 1.9rem;
+  /* Delayed until the slide finishes, so the outgoing panel stays visible on
+     its way out but its links leave the tab order once it's off screen —
+     same delayed-visibility trick the overlay itself uses. */
+  visibility: hidden;
+  transition: visibility 0s linear 0.35s;
+}
+
+.new-nav__overlay-panel.is-active {
+  visibility: visible;
+  transition: visibility 0s;
+}
+
+/* Amiri, uppercase and letter-spaced — our display face standing in for the
+   reference's serif, so the overlay reads as this site rather than that one. */
+.new-nav__overlay-panel a,
+.new-nav__overlay-trigger {
+  font-family: var(--font-display);
+  /* the min is what phones actually get — 6vw only overtakes it past ~480px,
+     so the clamp grows the type on tablets without shrinking it on a 320px
+     screen, where "PENGUMUMAN" still fits on one line */
+  font-size: clamp(1.8rem, 6vw, 2.1rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  transition: color 0.25s var(--ease);
+}
+
+/* full amber, not --amber-deep: the deeper tone is tuned for contrast against
+   the off-white page and goes muddy on navy */
+.new-nav__overlay-panel a:hover,
+.new-nav__overlay-panel a.is-current,
+.new-nav__overlay-trigger:hover,
+.new-nav__overlay-trigger.is-current {
+  color: var(--amber);
+}
+
+/* ---------- drill-in trigger + back ---------- */
+
+/* A button, not a link — it opens the next panel rather than navigating, so
+   the arrow reads as "there's more through here", not "go to a page". */
+.new-nav__overlay-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.new-nav__overlay-chevron {
+  font-size: 0.6em;
+  transition: transform 0.25s var(--ease);
+}
+
+.new-nav__overlay-trigger:hover .new-nav__overlay-chevron {
+  transform: translateX(3px);
+}
+
+/* Small and quiet, so the two real destinations below it stay the focus of
+   the panel — this is a way back, not a third choice. */
+/* Amiri at the panel's own scale, one step down from the destinations below
+   it — big enough to read and hit easily, still visibly subordinate to the
+   two real choices it sits above. */
+.new-nav__overlay-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  background: none;
+  border: none;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 4.4vw, 1.6rem);
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(245, 239, 225, 0.6);
+  transition: color 0.25s var(--ease);
+}
+
+.new-nav__overlay-back:hover {
+  color: var(--cream);
+}
+
+.new-nav__overlay-panel .new-nav__cta {
+  margin: 0.75rem 0 0;
+  border-color: rgba(245, 239, 225, 0.55);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.new-nav__overlay-panel .new-nav__cta:hover {
+  background: rgba(245, 239, 225, 0.12);
+  border-color: var(--cream);
+  color: var(--cream);
+}
+
+/* 1100px, not the more typical 860 — the desktop row (logo + wordmark's two
+   lines, the longer of which is "Berakar, Bertumbuh, Berbuah" + five links +
+   the CTA pill) needs roughly 980–1000px before it stops fitting on one
+   line, since neither the brand block nor the link row is allowed to shrink
+   below its own content width. Below ~1100px that row was cramming five
+   links and a CTA into space that had already run out, well above where
+   the mobile menu used to take over. Keep this in sync with Navbar.jsx's
+   matchMedia. */
+@media (max-width: 1100px) {
   .new-nav__links {
     display: none;
   }
@@ -257,7 +629,7 @@
     display: flex;
   }
 
-  .new-nav__panel {
+  .new-nav__overlay {
     display: flex;
   }
 

@@ -27,7 +27,7 @@ const TRUST_INDICATORS = [
  */
 export default function CatholicLegitimacy({ id }) {
   return (
-    <section className="new-legitimacy section section--blue" id={id}>
+    <section className="new-legitimacy section" id={id}>
       <div className="shell">
         <div className="new-legitimacy__intro center">
           <p className="new-legitimacy__statement">{MAIN_STATEMENT}</p>

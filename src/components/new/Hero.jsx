@@ -4,7 +4,7 @@ import './Hero.css'
 
 // SEP-Shekinah-Homepage-Structure.md §01, laid out to match the approved
 // hero mockup exactly — edit copy here.
-const KICKER = 'Pelayanan Katolik Shekinah'
+const KICKER = 'Apakah Anda...'
 
 // `before`/`after` render as plain text around the italic `emphasis` word.
 // `break` inserts a line break right after the emphasis word. Each headline
@@ -26,6 +26,12 @@ const SUPPORTING_COPY =
   'Mulailah perjalanan iman bersama komunitas Katolik yang mendampingi setiap langkahmu untuk mengenal, bertumbuh, dan menghidupi ajaran Kristus.'
 
 const PRIMARY_CTA = { label: 'masuk anggota', href: '#masuk' }
+
+const SCROLL_LABEL = 'Scroll ke bawah'
+// First section rendered after the Hero in LandingNew.jsx — scrolling here
+// is the natural "next" target, same idea as the old design's scroll button
+// (see components/Hero.jsx, which targets '#mengapa').
+const SCROLL_TARGET_ID = 'pengumuman'
 
 // Trust bar — the newer spec folds the old standalone "Catholic Legitimacy"
 // section up into the Hero, so these are the page's primary trust signals.
@@ -73,6 +79,10 @@ export default function Hero({ fade = 0, scrollY = 0 }) {
     ? 0
     : Math.min(scrollY * PARALLAX_FACTOR, PARALLAX_MAX_PX)
 
+  const scrollToNext = () => {
+    document.getElementById(SCROLL_TARGET_ID)?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <section className="new-hero" id="top" aria-label="Pembuka">
       <div className="new-hero__media" aria-hidden="true">
@@ -119,6 +129,23 @@ export default function Hero({ fade = 0, scrollY = 0 }) {
             </div>
           ))}
         </div>
+
+        {/* Taken out of the kicker→stats flow with `position: absolute` (see
+            Hero.css) and pinned to .new-hero__inner's own padding box, so it
+            sits at the bottom-left corner regardless of how tall that stack
+            gets — and, being nested here, it inherits the same left padding
+            and fade-with-scroll opacity as the rest of the hero for free.
+            Only reads correctly while the hero is viewport-pinned, so it's
+            hidden on mobile alongside the rest of the pinned treatment (see
+            the max-width: 768px block in Hero.css). */}
+        <button type="button" className="new-hero__scroll" onClick={scrollToNext}>
+          {/* classic mouse-scroll glyph: capsule outline, dot slides down
+              inside it and fades before looping back to the top */}
+          <span className="new-hero__scroll-icon" aria-hidden="true">
+            <span className="new-hero__scroll-dot" />
+          </span>
+          <span className="new-hero__scroll-label">{SCROLL_LABEL}</span>
+        </button>
       </div>
     </section>
   )

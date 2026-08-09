@@ -1,21 +1,19 @@
 /* ============================================================
    Aneka Kegiatan — photo gallery.
-   Layout mirrors demo.divi-pixel.com/church/'s gallery: three
-   equal columns, each stacking a portrait and a landscape tile,
-   middle column reversed so the rows offset. Measured from the
-   reference: 377px columns, 10px gaps, portrait 377:491,
-   landscape 16:9.
+   Three even columns, no stagger, landscape 4:3 tiles.
    ============================================================ */
 
 /* Tighter than the site-wide .section rhythm (7.5rem): with no heading to
-   frame, the photography needs far less breathing room around it. */
+   frame, the photography needs far less breathing room around it.
+   Bottom is tighter than top — with the CTA as the section's last element,
+   a full 3.5rem below it read as a bigger gap than the one above the
+   gallery, since the CTA's own line-height already adds some of its own. */
 .new-acards {
-  padding: 3.5rem 0;
+  padding: 3.5rem 0 1.75rem;
 }
 
 /* No heading, and deliberately not inside .shell — the gallery runs nearly
-   full-bleed so the photography carries the section on its own. */
-/* align-items:start so the offset middle tile doesn't stretch its siblings.
+   full-bleed so the photography carries the section on its own.
    Capped at the same 1440 reference as the Hero: wider than the site's
    1200px .shell, but it stops growing and centres past 1440 so zooming out
    shrinks the gallery rather than stretching it. */
@@ -37,19 +35,25 @@
   aspect-ratio: 4 / 3;
 }
 
-/* Middle tile is nudged down to keep the reference gallery's staggered
-   rhythm. All three share a ratio: making the middle one taller instead
-   left large voids under its neighbours. */
-.new-acard:nth-child(2) {
-  margin-top: 3rem;
+/* the whole tile is one link now that each photo leads to its kegiatan post */
+.new-acard__link {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
-.new-acard__photo {
+.new-acard__photo,
+.new-acard__placeholder {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   transition: transform 0.5s var(--ease);
+}
+
+.new-acard__placeholder {
+  background: var(--placeholder);
 }
 
 .new-acard:hover .new-acard__photo {
@@ -86,6 +90,12 @@
   text-transform: uppercase;
 }
 
+/* the gallery has no heading of its own, so the way through to /kegiatan sits
+   under it rather than above */
+.new-acards__cta-wrap {
+  margin-top: 1.25rem;
+}
+
 /* ---------- responsive ---------- */
 
 /* stays three-across down to the mobile breakpoint — with only three
@@ -93,16 +103,11 @@
 
 @media (max-width: 768px) {
   .new-acards {
-    padding: 2.5rem 0;
+    padding: 2.5rem 0 1.25rem;
   }
 
   .new-acards__grid {
     grid-template-columns: 1fr;
     padding: 0 1.5rem;
-  }
-
-  /* stacked, so the stagger has nothing to offset against */
-  .new-acard:nth-child(2) {
-    margin-top: 0;
   }
 }

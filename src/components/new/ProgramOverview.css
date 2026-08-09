@@ -1,7 +1,7 @@
 /* Vertical ramp from near-black into the palette's navy. Overrides
    .section--blue's flat fill but keeps its cream text colour. */
 .new-programs {
-  background: linear-gradient(180deg, #040404 0%, var(--band-navy) 100%);
+  background: linear-gradient(180deg, #040404 0%, var(--deep-blue) 100%);
 }
 
 .new-programs__headline {
@@ -9,11 +9,13 @@
   margin-inline: auto;
   margin-bottom: 3rem;
   font-family: var(--font-display);
-  font-weight: 700;
+  /* hero register: natural weight, warm ink — gold-soft is the dark-band
+     counterpart of the body sections' --gold-ink (see LandingNew.css) */
+  font-weight: 400;
   font-size: clamp(2rem, 3.6vw, 3rem);
   line-height: 1.2;
-  letter-spacing: -0.01em;
-  color: #f7f2e6;
+  letter-spacing: -0.005em;
+  color: var(--gold-soft);
 }
 
 /* One centred panel carries the whole section — the quiz gets the full
@@ -40,7 +42,7 @@
 .new-programs__quiz-question {
   margin: 0 0 2rem;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(1.5rem, 2.6vw, 2.1rem);
   line-height: 1.25;
   color: #f7f2e6;
@@ -88,7 +90,7 @@
 .new-programs__result {
   margin: 0 0 0.75rem;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(1.8rem, 3.2vw, 2.6rem);
   line-height: 1.2;
   color: #f7f2e6;
@@ -170,7 +172,7 @@
   display: block;
   margin-bottom: 0.3rem;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 1.2rem;
   color: #f7f2e6;
 }

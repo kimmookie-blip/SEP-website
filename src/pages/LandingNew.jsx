@@ -5,7 +5,6 @@ import SocialProof from '../components/new/SocialProof'
 import ProgramOverview from '../components/new/ProgramOverview'
 import Founders from '../components/new/Founders'
 import UpcomingActivities from '../components/new/UpcomingActivities'
-import EventCountdown from '../components/new/EventCountdown'
 import ActivityCards from '../components/new/ActivityCards'
 import ProgramStats from '../components/new/ProgramStats'
 import Faq from '../components/new/Faq'
@@ -15,10 +14,17 @@ import './LandingNew.css'
 
 /**
  * The new landing page. Section order follows
- * SEP-Shekinah-Homepage-Structure.md's nine-step psychological flow
- * (Hero → Testimonial → Journey → Audience → Program → Founders →
- * Upcoming Event → FAQ → Final CTA), NOT the older 14-section
- * struktur-homepage-sep-shekinah.md.
+ * SEP-Shekinah-Homepage-Structure.md's psychological flow (Hero →
+ * Testimonial → Journey → Audience → Program → Founders → FAQ → Final CTA).
+ * EventCountdown ("Upcoming Event") used to close out this flow, but a
+ * countdown to the next KEP cohort fits a program's own page better than
+ * the homepage — see ProgramIndex.jsx, same reasoning JourneyOfGrowth
+ * already moved there for.
+ *
+ * This page is a summary. Depth lives on the five pages behind the nav menu —
+ * /tentang-kami, /program, /pengajar, /kegiatan, /pengumuman — and the
+ * sections below feed from the same src/data/*.js arrays those pages read,
+ * so the two never drift apart.
  *
  * Section layouts (not colour — the palette stays version_beta.md's) take
  * inspiration from https://demo.divi-pixel.com/church/: ProgramOverview as
@@ -50,15 +56,15 @@ export default function LandingNew() {
       <div className="new-hero-spacer" aria-hidden="true" />
 
       <main className="landing-new">
-        {/* ported from the old design; also gives the navbar's "pengumuman"
-            link a real destination on this page */}
-        <ActivityCards id="pengumuman" />
+        {/* ported from the old design. The navbar no longer scrolls to these
+            ids — every menu item is a page now — so they exist only for the
+            in-page CTAs that remain, like SocialProof's "#kegiatan". */}
+        <ActivityCards id="galeri" />
         <SocialProof id="cerita" />
         <ProgramOverview id="program" />
-        <Founders id="pengajar" />
+        <Founders id="warisan" />
         <UpcomingActivities id="kegiatan" />
         <ProgramStats id="reguler" />
-        <EventCountdown id="terdekat" />
         <Faq id="faq" />
         <FinalCta id="mulai" />
       </main>

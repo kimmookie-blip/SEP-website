@@ -1,0 +1,293 @@
+/* ============================================================
+   /kegiatan — a blog index. One story runs wide at the top, the
+   rest sit in a three-up grid of PostCards below a row of
+   category filters. Filtering is local state, no backend.
+   ============================================================ */
+
+/* ---------- header ----------
+   Bespoke to this page: centred eyebrow → big serif headline → subhead.
+   No photo behind it (unlike the landing Hero), so this reads as a quiet,
+   spacious masthead rather than that section's dramatic full-bleed one —
+   composition borrowed from the given sample layout, not its colours or
+   its own site's type. */
+
+.new-kegiatan-hero {
+  padding: 12rem 0 5rem;
+  background: #000;
+}
+
+/* Wide enough that the headline gets two generous lines rather than three
+   narrow ones — the sample layout's headline ran nearly edge to edge. */
+.new-kegiatan-hero__inner {
+  max-width: 64rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* .kicker/.subhead's global colours (--gold-ink, --muted) are tuned for the
+   warm off-white background this page used to have — both go low-contrast
+   on black, so they're overridden here rather than left to the shared
+   class, same light-on-dark treatment FinalCta already uses on navy. */
+.new-kegiatan-hero__kicker {
+  margin-bottom: 1.5rem;
+  color: var(--amber);
+}
+
+.new-kegiatan-hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-3xl);
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+  color: #fdfaf4;
+}
+
+.new-kegiatan-hero__sub {
+  max-width: 58ch;
+  margin: 1.5rem auto 0;
+  color: rgba(245, 239, 225, 0.78);
+}
+
+/* ---------- unggulan ---------- */
+
+.new-kegiatan__featured {
+  margin-bottom: 4rem;
+  border: 1px solid var(--rule);
+  background: var(--bg-white);
+  transition: border-color 0.25s var(--ease);
+}
+
+.new-kegiatan__featured:hover {
+  border-color: var(--amber);
+}
+
+/* 3fr/2fr: the photograph carries the section, but the excerpt still needs a
+   readable column beside it */
+.new-kegiatan__featured-link {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  align-items: stretch;
+}
+
+/* No aspect-ratio while side by side. With one, a 16/10 box on the wide 3fr
+   column set the row height itself — roughly 445px at full shell width —
+   and the text column, which only needs ~300px, was stretched to match and
+   left with a band of dead space under it. Now the text sets the height and
+   the photo crops to fill: min-height is only a floor for a short excerpt. */
+.new-kegiatan__featured-media {
+  position: relative;
+  overflow: hidden;
+  min-height: 340px;
+  background: var(--placeholder);
+}
+
+/* Absolute so the image can never push the row taller than the text needs —
+   it fills whatever height the row settles on and crops the overflow. */
+.new-kegiatan__featured-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+
+.new-kegiatan__featured:hover .new-kegiatan__featured-media img {
+  transform: scale(1.03);
+}
+
+.new-kegiatan__placeholder {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: var(--placeholder);
+}
+
+.new-kegiatan__featured-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 3rem 2.75rem;
+}
+
+.new-kegiatan__featured-meta {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+}
+
+.new-kegiatan__featured-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1.22;
+  color: var(--deep-blue);
+}
+
+.new-kegiatan__featured-excerpt {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.new-kegiatan__featured-more {
+  margin-top: auto;
+  padding-top: 1rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--deep-blue);
+}
+
+.new-kegiatan__featured:hover .new-kegiatan__featured-more {
+  color: var(--gold-ink);
+}
+
+/* ---------- filter ----------
+   Always one row. "Semua" sits outside the scroll container so it's the one
+   chip that's never scrolled out of view; everything else rides in its own
+   horizontally-scrolling strip rather than wrapping to a second line, which
+   would otherwise push the grid below down by an unpredictable amount as
+   categories are added. */
+
+/* No gap here — spacing is handled explicitly below, since the pinned chip
+   and the scroll strip need different amounts of breathing room around them
+   (the strip's own chips are tighter together than the divider that sets
+   the pinned one apart). */
+.new-kegiatan__filters {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.new-kegiatan__filters-scroll {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  /* room for the scrollbar so it doesn't sit flush under the chips */
+  padding-bottom: 0.35rem;
+}
+
+/* pill outlines rather than filled tabs — the amber fill is reserved for the
+   one active chip, which keeps the row quiet */
+.new-kegiatan__chip {
+  flex-shrink: 0;
+  padding: 0.55rem 1.25rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+
+/* thin rule marks where "fixed" ends and "scrolls" begins — sits in the
+   extra margin after the pinned chip, not inside its own padding, so the
+   button's label stays centred like every other chip's. */
+.new-kegiatan__chip--pinned {
+  position: relative;
+  margin-right: 1.1rem;
+}
+
+.new-kegiatan__chip--pinned::after {
+  content: '';
+  position: absolute;
+  top: 15%;
+  bottom: 15%;
+  right: -0.55rem;
+  width: 1px;
+  background: var(--rule);
+}
+
+.new-kegiatan__chip:hover {
+  border-color: var(--amber);
+  color: var(--deep-blue);
+}
+
+.new-kegiatan__chip.is-active {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: var(--deep-blue);
+  font-weight: 600;
+}
+
+/* ---------- grid ---------- */
+
+.new-kegiatan__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.new-kegiatan__empty {
+  margin: 0;
+  padding: 3rem 0;
+  font-family: var(--font-body);
+  color: var(--muted);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1024px) {
+  .new-kegiatan-hero {
+    padding-top: 9.5rem;
+  }
+
+  .new-kegiatan__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Featured article stacks a full breakpoint earlier than everything else on
+   this page. At 3fr/2fr the text column only has ~40% of the shell to work
+   with — fine on desktop, but between roughly 1024px and 768px that column
+   gets narrow enough that a real title + excerpt + button starts crowding
+   itself rather than settling into a readable measure. Stacking here, where
+   the photo and text each get the full width, reads as a deliberate card
+   at every size in between instead of a squeeze. */
+@media (max-width: 1024px) {
+  .new-kegiatan__featured {
+    margin-bottom: 2.5rem;
+  }
+
+  .new-kegiatan__featured-link {
+    grid-template-columns: 1fr;
+  }
+
+  .new-kegiatan__featured-media {
+    aspect-ratio: 3 / 2;
+  }
+
+  .new-kegiatan__featured-body {
+    padding: 2rem 1.75rem 2.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .new-kegiatan-hero {
+    padding: 8rem 0 3rem;
+  }
+
+  .new-kegiatan-hero__title {
+    font-size: var(--text-2xl);
+  }
+
+  .new-kegiatan__featured-body {
+    padding: 1.75rem 1.5rem 2rem;
+  }
+
+  .new-kegiatan__grid {
+    grid-template-columns: 1fr;
+  }
+}

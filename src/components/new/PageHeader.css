@@ -1,0 +1,66 @@
+/* ============================================================
+   Inner-page masthead. Deliberately quiet: no photograph, no
+   colour band — the pages behind the nav menu are reference
+   material, so the type does all the work and the warm
+   off-white keeps its ~70% share of the surface.
+   ============================================================ */
+
+/* 11rem clears the fixed 76px navbar and still leaves the title breathing
+   room; matches the rhythm ProgramPage.css already used (12rem) but a little
+   tighter, since a kicker sits above the title here. */
+.new-page-head {
+  padding: 11rem 0 0;
+  background: var(--bg-warm);
+}
+
+.new-page-head__back {
+  display: inline-block;
+  margin-bottom: 2rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--muted);
+  transition: color 0.2s var(--ease);
+}
+
+.new-page-head__back:hover {
+  color: var(--gold-ink);
+}
+
+/* wider than the h1 default so a long Indonesian title still breaks in two
+   lines rather than three */
+.new-page-head__title {
+  max-width: 20ch;
+  margin: 0;
+}
+
+.new-page-head__sub {
+  max-width: 58ch;
+  margin: 1.25rem 0 0;
+}
+
+/* the hairline closes the masthead; sections below start their own rhythm */
+.new-page-head__rule {
+  margin: 3.5rem 0 0;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1024px) {
+  .new-page-head {
+    padding-top: 9.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .new-page-head {
+    padding-top: 8rem;
+  }
+
+  .new-page-head__title {
+    max-width: none;
+  }
+
+  .new-page-head__rule {
+    margin-top: 2.5rem;
+  }
+}

@@ -1,0 +1,443 @@
+/* ============================================================
+   Halaman internal /design-system. Sengaja lebih padat dan lebih
+   kecil tipografinya daripada halaman publik — ini alat kerja,
+   bukan halaman pemasaran. Tetap memakai token yang sama supaya
+   contoh yang ditampilkan benar-benar contoh yang hidup.
+   ============================================================ */
+
+/* ---------- pemilih sistem ---------- */
+
+.ds-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: -1.5rem;
+}
+
+.ds-tabs__tab {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: transparent;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  font-size: 0.82rem;
+  color: var(--muted);
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+
+.ds-tabs__tab:hover {
+  border-color: var(--deep-blue);
+  color: var(--deep-blue);
+}
+
+.ds-tabs__tab.is-active {
+  background: var(--deep-blue);
+  border-color: var(--deep-blue);
+  color: var(--bg-warm);
+}
+
+.ds-section {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+.ds-section__title {
+  margin-bottom: 2.5rem;
+}
+
+.ds-subhead {
+  margin: 3rem 0 1.25rem;
+  font-family: var(--font-accent);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ds-subhead:first-of-type {
+  margin-top: 0;
+}
+
+.ds-note {
+  max-width: 62ch;
+  margin: 0 0 1.75rem;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.ds-note--last {
+  margin-top: 3rem;
+  margin-bottom: 0;
+}
+
+/* ---------- petak warna ---------- */
+
+.ds-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1.5rem;
+}
+
+.ds-swatch {
+  margin: 0;
+}
+
+.ds-swatch__chip {
+  height: 88px;
+  border-radius: 10px;
+  /* garis tipis supaya petak nyaris putih tetap terlihat batasnya */
+  border: 1px solid var(--rule);
+}
+
+.ds-swatch figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-top: 0.7rem;
+}
+
+.ds-swatch__token,
+code.ds-swatch__token {
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  font-size: 0.8rem;
+  color: var(--deep-blue);
+}
+
+/* --amber-deep hanya 2,56:1 di atas --bg-warm — lihat tabel Tinta. Teks
+   sekecil ini tidak boleh memakainya, termasuk di halaman ini sendiri. */
+.ds-swatch__value {
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.ds-swatch__role {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ---------- tabel ---------- */
+
+.ds-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+}
+
+.ds-table th {
+  padding: 0 0 0.75rem;
+  text-align: left;
+  font-family: var(--font-accent);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--rule);
+}
+
+.ds-table td {
+  padding: 0.85rem 1rem 0.85rem 0;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--rule);
+  color: var(--deep-blue);
+}
+
+.ds-table__num {
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.ds-table__role {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.ds-ink-sample {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 34px;
+  border-radius: 6px;
+  border: 1px solid var(--rule);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+/* ---------- nilai kontras ---------- */
+
+.ds-grade {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Warna status sengaja TIDAK memakai palet merek — hijau/merah di sini
+   berarti lulus/gagal, bukan aksen desain, jadi tidak boleh tertukar
+   dengan amber yang punya arti lain di seluruh situs. */
+.ds-grade--aaa {
+  background: #dff3e4;
+  color: #1c5c33;
+}
+
+.ds-grade--aa {
+  background: #e6f0da;
+  color: #3d5c1c;
+}
+
+.ds-grade--large {
+  background: #fdf0d5;
+  color: #7a5205;
+}
+
+.ds-grade--fail {
+  background: #fbe0de;
+  color: #8c2019;
+}
+
+.ds-grade--na {
+  background: var(--band-light);
+  color: var(--muted);
+}
+
+/* ---------- tipografi ---------- */
+
+.ds-face {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2.5rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.ds-face:last-of-type {
+  border-bottom: 1px solid var(--rule);
+}
+
+.ds-face__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ds-face__meta strong {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--deep-blue);
+}
+
+.ds-face__role {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.ds-face__sample {
+  margin: 0;
+  color: var(--deep-blue);
+}
+
+.ds-face__sample--display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1.2;
+}
+
+.ds-face__sample--accent {
+  font-family: var(--font-accent);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+.ds-face__sample--body {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* ---------- contoh komponen ---------- */
+
+.ds-spec {
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.ds-spec__name {
+  display: block;
+  margin-bottom: 0.85rem;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  font-size: 0.78rem;
+  color: var(--deep-blue);
+}
+
+.ds-spec > .headline,
+.ds-spec > .subhead,
+.ds-spec > .body-text,
+.ds-spec > .kicker,
+.ds-spec > .display {
+  margin-bottom: 0;
+}
+
+.ds-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+
+.ds-row .ds-spec {
+  flex: 0 1 auto;
+}
+
+/* latar gelap untuk tombol yang memang hanya dipakai di atas foto */
+.ds-on-dark {
+  display: flex;
+  padding: 2rem;
+  border-radius: 10px;
+  background: var(--deep-blue);
+}
+
+.ds-spec .rule {
+  margin-bottom: 0.85rem;
+}
+
+.ds-spec .rule:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- rekonstruksi hero Word on Fire ----------
+   Warna sengaja literal, bukan token situs — ini menirukan sistem
+   MEREKA, dan memakai token Shekinah justru akan memalsukan studinya. */
+
+.ds-wof-hero {
+  padding: 4rem 3rem;
+  border-radius: 3px; /* radius khas mereka: nyaris tajam */
+  background: #000;
+}
+
+.ds-wof-hero__kicker {
+  margin: 0 0 1rem;
+  font-family: 'proxima-nova', 'Helvetica Neue', Inter, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #bc9c52;
+}
+
+.ds-wof-hero__title {
+  margin: 0 0 1.25rem;
+  max-width: 18ch;
+  font-family: 'ivypresto-display', 'Didot', 'Bodoni 72', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 400;
+  line-height: 1.08;
+  color: #fff;
+}
+
+.ds-wof-hero__copy {
+  margin: 0 0 2.25rem;
+  max-width: 44ch;
+  font-family: 'calluna', Georgia, serif;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.ds-wof-hero__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* spesifikasi persis .wp-block-button__link mereka */
+.ds-wof-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border: 1px solid #fff;
+  border-radius: 0;
+  font-family: 'proxima-nova', 'Helvetica Neue', Inter, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s linear, color 0.2s linear;
+}
+
+.ds-wof-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+.ds-wof-btn--gold {
+  border-color: #bc9c52;
+  background: #bc9c52;
+  color: #000;
+}
+
+.ds-wof-btn--gold:hover {
+  background: transparent;
+  color: #bc9c52;
+}
+
+kbd {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--rule);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: var(--bg-white);
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  font-size: 0.78rem;
+  color: var(--deep-blue);
+}
+
+/* ---------- responsif ---------- */
+
+@media (max-width: 768px) {
+  .ds-face {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .ds-row {
+    gap: 0;
+  }
+
+  /* tabel kontras punya enam kolom — biarkan menggeser sendiri
+     daripada memaksa halaman ikut melebar */
+  .ds-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .ds-table__role {
+    white-space: normal;
+    min-width: 20ch;
+  }
+
+  .ds-wof-hero {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .ds-tabs {
+    margin-top: -0.5rem;
+  }
+}

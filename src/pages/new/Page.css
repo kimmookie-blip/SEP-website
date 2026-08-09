@@ -1,0 +1,72 @@
+/* ============================================================
+   Shared skeleton for the pages behind the nav menu. Holds only
+   what every one of them needs — the page wrapper, the empty
+   state, and the small heading used above index grids. Anything
+   specific to a single page lives in its own sibling .css file;
+   article body styling lives with components/new/Prose.
+   ============================================================ */
+
+.page {
+  position: relative;
+  z-index: 1;
+  background: var(--bg-warm);
+}
+
+/* ---------- empty state / not found ---------- */
+
+.page-empty {
+  padding: 12rem 0 8rem;
+  background: var(--bg-warm);
+}
+
+.page-empty__title {
+  margin: 0 0 1rem;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  color: var(--deep-blue);
+}
+
+.page-empty__link {
+  color: var(--gold-ink);
+  border-bottom: 1px solid currentColor;
+}
+
+/* ---------- section head reused across index pages ---------- */
+
+.page-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.page-section-head__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 400;
+  color: var(--deep-blue);
+}
+
+.page-section-head__note {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 768px) {
+  .page-empty {
+    padding: 9rem 0 5rem;
+  }
+
+  .page-section-head {
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+}

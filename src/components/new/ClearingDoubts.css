@@ -34,7 +34,7 @@
   flex-shrink: 0;
   font-size: 1.1rem;
   line-height: 1;
-  color: var(--amber-deep);
+  color: var(--gold-ink);
   transition: transform 0.25s var(--ease);
 }
 

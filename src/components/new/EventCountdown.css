@@ -4,8 +4,13 @@
    after it. Ported from the old design's EventCountdown.
    ============================================================ */
 
+/* Top padding clears the fixed navbar — this component is now only used on
+   /kegiatan/mendatang, which has no PageHeader of its own, so this section
+   is the first thing on the page and has to do that job itself (same
+   11rem/9.5rem/8rem floor as PageHeader.css). */
 .new-ecount__feature {
-  background: var(--band-navy);
+  padding-top: 11rem;
+  background: var(--deep-blue);
   color: var(--bg-warm);
 }
 
@@ -16,11 +21,35 @@
   min-height: 167px;
 }
 
+/* Calendar tile — white rather than the grey --placeholder box this used to
+   be, since it now always has real content (a date) instead of standing in
+   for a photo that doesn't exist yet. */
 .new-ecount__thumb {
   flex: 0 0 98px;
   width: 98px;
   height: 98px;
-  background: var(--placeholder);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  background: var(--bg-white);
+}
+
+.new-ecount__thumb-month {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+}
+
+.new-ecount__thumb-day {
+  font-family: var(--font-accent);
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--deep-blue);
 }
 
 .new-ecount__meta {
@@ -74,9 +103,11 @@
   min-height: 104px;
 }
 
+/* Sized to its own content now — this used to be one of two 34%-wide items
+   sharing the bar; now it's the only one, sitting on the left while
+   .new-ecount__all's margin-left:auto pushes the link to the right. */
 .new-ecount__next {
-  /* spaced on a half-shell rhythm rather than by content length */
-  flex: 0 0 34%;
+  flex: 0 1 auto;
 }
 
 .new-ecount__date {
@@ -106,7 +137,17 @@
 
 /* ---------- responsive ---------- */
 
+@media (max-width: 1024px) {
+  .new-ecount__feature {
+    padding-top: 9.5rem;
+  }
+}
+
 @media (max-width: 860px) {
+  .new-ecount__feature {
+    padding-top: 8rem;
+  }
+
   .new-ecount__feature-inner {
     flex-wrap: wrap;
     gap: 1.25rem 1.5rem;

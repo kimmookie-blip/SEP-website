@@ -35,7 +35,7 @@
 .new-faq__icon {
   flex-shrink: 0;
   font-size: 1.05rem;
-  color: var(--amber-deep);
+  color: var(--gold-ink);
   transition: transform 0.25s var(--ease);
 }
 

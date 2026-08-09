@@ -1,101 +1,53 @@
-import { useState } from 'react'
-import romoSugiri from '../../assets/romo-sugiri.png'
-import romoSubroto from '../../assets/romo-subroto.png'
-import romoKoelman from '../../assets/romo-koelman.png'
+import { Link } from 'react-router-dom'
+import { romoPembina } from '../../data/pengajar'
 import './Founders.css'
 
-// SEP-Shekinah-Homepage-Structure.md §06 — edit copy here.
-const KICKER = 'Pendiri dan Pembina Rohani'
-const HEADLINE = 'Didampingi Romo dan pengajar terpilih sejak 1990.'
+// Reworked from a "meet the teachers" carousel into a trust & credibility
+// section — institutional heritage, not a staff directory. Edit copy here.
+const EYEBROW = 'Warisan yang menjadi fondasi'
+// One italic word, echoing the hero's emphasis device.
+const HEADLINE = (
+  <>
+    Berakar dari pendampingan <em>rohani</em> sejak 1990.
+  </>
+)
+const BODY =
+  'Shekinah bertumbuh dari sebuah perjalanan panjang dalam mendampingi umat mengenal Kristus secara lebih pribadi dan menghidupi iman dalam keseharian. Semangat yang dirintis para Romo pendiri terus menjadi fondasi dalam setiap program dan pendampingan Shekinah hingga hari ini.'
 
-const NARRATIVE =
-  'Sejak 1990, Shekinah mendampingi umat Katolik untuk mengenal Kristus secara pribadi dan menghidupi imannya dalam keseharian. Materi dan pengajaran dikoordinasikan langsung oleh Shekinah bersama para Romo pembina.'
+// Always data/pengajar.js's first entry — same source /pengajar reads, so
+// the two never disagree on who founded Shekinah.
+const FOUNDER = romoPembina[0]
 
-// `years` is optional — it only renders when present, so entries without a
-// confirmed tenure simply omit the line rather than showing invented dates.
-// Sugiri's dates come from the approved card mockup; the other two need
-// filling in once confirmed.
-const PEOPLE = [
-  { id: 'sugiri', role: 'Pendiri', name: 'Romo L. Sugiri SJ', years: '1988 – 1995', image: romoSugiri },
-  { id: 'subroto', role: 'Romo Pembina', name: 'Romo Subroto', years: null, image: romoSubroto },
-  { id: 'koelman', role: 'Romo Pembina', name: 'Romo Koelman', years: null, image: romoKoelman },
-]
+const CTA_LABEL = 'Lihat Semua Pengajar'
 
 /**
- * Section 06 — who stands behind the teaching. One card at a time rather
- * than a three-up grid, which keeps the section short; the copy sits left
- * and the carousel right.
+ * Trust & credibility, not a teacher directory — the institution's
+ * spiritual heritage, anchored by its founder's portrait. No carousel: this
+ * used to page through all of romoPembina, but showcasing the teaching team
+ * is /pengajar's job now, not the landing page's.
  */
 export default function Founders({ id }) {
-  const [index, setIndex] = useState(0)
-
-  const go = (next) => setIndex((next + PEOPLE.length) % PEOPLE.length)
-  const person = PEOPLE[index]
-
   return (
     <section className="new-founders section section--cream" id={id}>
       <div className="shell new-founders__inner">
         <div className="new-founders__intro">
-          <p className="kicker">{KICKER}</p>
+          <p className="kicker">{EYEBROW}</p>
           <p className="headline new-founders__headline">{HEADLINE}</p>
-          <p className="body-text new-founders__narrative">{NARRATIVE}</p>
+          <p className="body-text new-founders__narrative">{BODY}</p>
 
-          <div className="new-founders__controls">
-            <button
-              type="button"
-              className="new-founders__arrow"
-              onClick={() => go(index - 1)}
-              aria-label="Romo sebelumnya"
-            >
-              ‹
-            </button>
-            <button
-              type="button"
-              className="new-founders__arrow"
-              onClick={() => go(index + 1)}
-              aria-label="Romo berikutnya"
-            >
-              ›
-            </button>
-
-            <div className="new-founders__dots">
-              {PEOPLE.map((p, i) => (
-                <button
-                  type="button"
-                  key={p.id}
-                  className={`new-founders__dot ${i === index ? 'is-active' : ''}`}
-                  onClick={() => setIndex(i)}
-                  aria-label={p.name}
-                  aria-current={i === index}
-                />
-              ))}
-            </div>
-          </div>
+          <Link to="/pengajar" className="btn btn--outline new-founders__cta">
+            {CTA_LABEL}
+          </Link>
         </div>
 
-        <figure
-          className="new-founders__card"
-          aria-live="polite"
-          aria-roledescription="carousel"
-        >
+        <figure className="new-founders__card">
           <div className="new-founders__photo">
-            {/* every slide stays mounted and crossfades, so switching never
-                flashes a gap while the next portrait decodes */}
-            {PEOPLE.map((p, i) => (
-              <img
-                key={p.id}
-                src={p.image}
-                alt={p.name}
-                className={i === index ? 'is-active' : ''}
-                loading={i === 0 ? 'eager' : 'lazy'}
-              />
-            ))}
+            <img src={FOUNDER.image} alt={FOUNDER.name} />
           </div>
 
           <figcaption className="new-founders__caption">
-            <span className="new-founders__role">{person.role}</span>
-            <span className="new-founders__name">{person.name}</span>
-            {person.years && <span className="new-founders__years">{person.years}</span>}
+            <span className="new-founders__role">{FOUNDER.role}</span>
+            <span className="new-founders__name">{FOUNDER.name}</span>
           </figcaption>
         </figure>
       </div>

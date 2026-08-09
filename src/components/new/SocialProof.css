@@ -16,11 +16,12 @@
   margin: 0;
   max-width: 18ch;
   font-family: var(--font-display);
-  font-weight: 700;
+  /* hero register: natural weight, warm ink — see LandingNew.css */
+  font-weight: 400;
   font-size: clamp(2rem, 3.6vw, 3rem);
   line-height: 1.15;
-  letter-spacing: -0.01em;
-  color: var(--deep-blue);
+  letter-spacing: -0.005em;
+  color: var(--gold-ink);
 }
 
 .new-testimonials__intro {
@@ -31,7 +32,14 @@
   color: var(--muted);
 }
 
-/* ---------- columns ---------- */
+/* ---------- columns ----------
+   Desktop/tablet: plain 3-up (or stacked, ≤1024px) grid, no viewport
+   clipping needed — .new-testimonials__viewport is inert until the mobile
+   tier below turns it into the carousel's clipping window. */
+
+.new-testimonials__viewport {
+  overflow: visible;
+}
 
 .new-testimonials__grid {
   display: grid;
@@ -100,7 +108,7 @@
   font-family: var(--font-accent);
   font-size: 0.75rem;
   letter-spacing: 0.14em;
-  color: var(--amber-deep);
+  color: var(--gold-ink);
 }
 
 .new-testimonials__quote {
@@ -109,6 +117,44 @@
   font-size: 1.0625rem;
   line-height: 1.75;
   color: var(--muted);
+}
+
+/* ---------- dots ----------
+   Only meaningful once the mobile tier turns the grid into a one-at-a-time
+   slide; hidden by default so it never shows up alongside the desktop
+   three-column layout or the tablet stacked list. */
+.new-testimonials__dots {
+  display: none;
+}
+
+/* generous 24px tap target around a dainty 8px dot — the dots only exist on
+   touch-sized screens, so the hit area matters more than it would on a
+   mouse-driven control */
+.new-testimonials__dot {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.new-testimonials__dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--rule);
+  transform: translate(-50%, -50%);
+  transition: background-color 0.25s var(--ease), width 0.25s var(--ease);
+}
+
+.new-testimonials__dot.is-active::after {
+  width: 20px;
+  background: var(--amber);
 }
 
 /* ---------- invite ---------- */
@@ -125,7 +171,7 @@
   margin: 0 0 0.75rem;
   font-family: var(--font-display);
   font-size: clamp(1.3rem, 2vw, 1.6rem);
-  font-weight: 700;
+  font-weight: 400;
   color: var(--deep-blue);
 }
 
@@ -139,6 +185,13 @@
 
 /* ---------- responsive ---------- */
 
+/* Medium and mobile share the same one-card-at-a-time slider — anything
+   narrower than desktop's three columns turns into the carousel, not just
+   phone widths. The grid keeps its DOM order (data-driven map, unchanged);
+   only display mode and a transform turn it into a horizontal track.
+   .new-testimonials__viewport is what actually clips the other two cards
+   out of view; the grid itself just holds all three side by side at 300%
+   combined width. */
 @media (max-width: 1024px) {
   .new-testimonials__head {
     grid-template-columns: 1fr;
@@ -150,24 +203,37 @@
     max-width: none;
   }
 
-  /* one column, so the dividers turn horizontal */
+  .new-testimonials__viewport {
+    overflow: hidden;
+  }
+
   .new-testimonials__grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    /* driven by the --slide-index custom property set inline per render —
+       see SocialProof.jsx. Falls back to 0 so nothing breaks if it's ever
+       rendered without that inline style. */
+    transform: translateX(calc(var(--slide-index, 0) * -100%));
+    transition: transform 0.5s var(--ease);
   }
 
-  .new-testimonials__item {
-    padding: 2.25rem 0;
-    border-left: none;
-    border-top: 1px solid var(--rule);
-  }
-
-  .new-testimonials__item:first-child {
-    padding-top: 0;
-    border-top: none;
-  }
-
+  /* Reads as an actual card, per the brief — not the hairline-divided list
+     this used to fall back to at tablet widths. */
+  .new-testimonials__item,
+  .new-testimonials__item:first-child,
   .new-testimonials__item:last-child {
-    padding-bottom: 0;
+    flex: 0 0 100%;
+    min-width: 0;
+    padding: 2rem 1.5rem;
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    background: var(--bg-white);
+  }
+
+  .new-testimonials__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-top: 1.75rem;
   }
 }
 

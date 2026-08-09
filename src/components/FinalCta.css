@@ -9,7 +9,7 @@
 
 .final__headline {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(2rem, 4vw, 3.25rem);
   line-height: 1.22;
   letter-spacing: -0.01em;
@@ -48,7 +48,7 @@
 .final__brand {
   font-family: var(--font-display);
   font-size: 1.3rem;
-  font-weight: 700;
+  font-weight: 400;
   flex-shrink: 0;
 }
 
@@ -67,7 +67,7 @@
 /* D9 — the giant wordmark */
 .final__wordmark {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(3.5rem, 15vw, 11rem);
   line-height: 0.82;
   letter-spacing: -0.02em;

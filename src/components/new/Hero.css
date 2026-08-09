@@ -84,6 +84,78 @@
   color: var(--cream);
 }
 
+/* Bottom-left corner cue. Positioned absolute against .new-hero__inner's own
+   padding box — `left` repeats that box's left padding so the arrow's text
+   lines up with the kicker/headline's left edge instead of the padding box's
+   raw outer edge (absolute children anchor to the padding box, not the
+   content box). Taking it out of flow means it can't be pushed around by
+   the kicker→stats stack above it. */
+.new-hero__scroll {
+  position: absolute;
+  left: min(6.6%, 95px);
+  bottom: 2.5rem;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: none;
+  border: none;
+  padding: 0.5rem 0;
+  color: rgba(247, 242, 230, 0.82);
+  transition: color 0.25s var(--ease);
+}
+
+.new-hero__scroll:hover {
+  color: var(--cream);
+}
+
+/* classic mouse-scroll capsule — outline in currentColor so it tracks the
+   button's own hover/fade state without a second colour to keep in sync */
+.new-hero__scroll-icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 13px;
+  height: 22px;
+  border: 1.25px solid currentColor;
+  border-radius: 999px;
+}
+
+.new-hero__scroll-dot {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: translateX(-50%);
+  animation: new-hero-scroll-dot 1.8s ease-in-out infinite;
+}
+
+/* Sentence case now, so the wide letter-spacing tuned for ALL CAPS tracking
+   (0.22em) would read as oddly loose on lowercase — trimmed to match. */
+.new-hero__scroll-label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+/* slides down the inside of the capsule, fading out just before it would
+   cross the bottom border, then jumps back to the top while invisible */
+@keyframes new-hero-scroll-dot {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, 11px);
+    opacity: 0;
+  }
+}
+
 .new-hero__kicker {
   margin: auto 0 1.5rem;
   font-family: var(--font-display);
@@ -114,6 +186,8 @@
   font-size: clamp(2.6rem, 5.9vw, 5.2rem);
   line-height: 1.06;
   letter-spacing: -0.005em;
+  /* stays near-white per the approved mockup — the gold experiment applies
+     to the body sections only (--gold-ink / --gold-soft) */
   color: #fdfaf4;
   opacity: 0;
   transition: opacity 0.7s var(--ease);
@@ -250,6 +324,10 @@
   .new-hero__rule {
     margin: 2rem 0 1.25rem;
   }
+
+  .new-hero__scroll {
+    bottom: 1.5rem;
+  }
 }
 
 /* ---------- mobile: drop the pinned treatment ----------
@@ -299,6 +377,12 @@
   .new-hero__stat {
     align-items: flex-start;
   }
+
+  /* Reads as a viewport-corner cue only while the hero is actually pinned;
+     mobile drops that treatment above, so the cue goes with it. */
+  .new-hero__scroll {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -308,6 +392,10 @@
 
   .new-hero__headline {
     transition: none;
+  }
+
+  .new-hero__scroll-dot {
+    animation: none;
   }
 
   /* no scroll-driven drift on the photo either */

@@ -1,0 +1,205 @@
+/* ============================================================
+   /pengajar — kepala sekolah leads (current, black feature band),
+   then Tim Pengajar (current period, plain grid), then Romo
+   Pembina at the very bottom — legacy/trust now that they've all
+   passed away, not the active teaching team the page opens with.
+   ============================================================ */
+
+/* ---------- kepala sekolah (lead feature) ----------
+   Photo left, copy right — mirrored from the landing page's Founders card
+   (copy left, photo right), and black rather than deep-blue: a deliberate
+   one-off opener for this page, distinct from the palette's usual dark band. */
+
+/* Top padding clears the fixed navbar — PageHeader used to do that job on
+   this page; now this section is the first thing on it, so it inherits
+   the same 11rem/9.5rem/8rem floor (see PageHeader.css) directly. */
+.new-teacher-lead {
+  padding: 11rem 0 5rem;
+  background: #000;
+}
+
+.new-teacher-lead__inner {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.new-teacher-lead__photo {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--placeholder);
+}
+
+.new-teacher-lead__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.new-teacher-lead__copy {
+  max-width: 34rem;
+}
+
+.new-teacher-lead__role {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.new-teacher-lead__name {
+  margin: 0.75rem 0 1.25rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  line-height: 1.15;
+  color: #fdfaf4;
+}
+
+.new-teacher-lead__bio {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(245, 239, 225, 0.78);
+}
+
+.new-teachers__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+.new-teachers__grid--small {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.new-teacher {
+  margin: 0;
+}
+
+/* 4:5 portrait matches the Founders card on the landing page, so the same
+   photograph is never re-cropped between the two */
+.new-teacher__photo {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--placeholder);
+}
+
+.new-teacher__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.5s var(--ease);
+}
+
+.new-teacher:hover .new-teacher__photo img {
+  transform: scale(1.03);
+}
+
+.new-teacher__placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--placeholder);
+}
+
+.new-teacher__caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-top: 1.25rem;
+}
+
+.new-teacher__role {
+  font-family: var(--font-accent);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+}
+
+.new-teacher__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--deep-blue);
+}
+
+.new-teacher__years {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  /* tabular figures so a column of year ranges stays aligned */
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.new-teacher__bio {
+  margin-top: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.new-teacher--small .new-teacher__name {
+  font-size: 1.1rem;
+}
+
+.new-teacher--small .new-teacher__bio {
+  font-size: 0.9rem;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1024px) {
+  .new-teacher-lead {
+    padding-top: 9.5rem;
+  }
+
+  .new-teacher-lead__inner {
+    grid-template-columns: 250px 1fr;
+    gap: 2.5rem;
+  }
+
+  .new-teachers__grid,
+  .new-teachers__grid--small {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .new-teacher-lead {
+    padding: 8rem 0 3.5rem;
+  }
+
+  .new-teacher-lead__inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .new-teacher-lead__photo {
+    max-width: 260px;
+  }
+
+  .new-teachers__grid,
+  .new-teachers__grid--small {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  /* a full-width 4:5 portrait eats the whole screen on a phone */
+  .new-teacher__photo {
+    aspect-ratio: 4 / 3;
+  }
+}

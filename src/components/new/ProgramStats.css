@@ -16,11 +16,12 @@
   margin: 0 0 3rem;
   text-align: center;
   font-family: var(--font-display);
-  font-weight: 700;
+  /* hero register: natural weight, warm ink — see LandingNew.css */
+  font-weight: 400;
   font-size: clamp(1.9rem, 3.4vw, 2.8rem);
   line-height: 1.2;
-  letter-spacing: -0.01em;
-  color: var(--deep-blue);
+  letter-spacing: -0.005em;
+  color: var(--gold-ink);
 }
 
 /* four figures split by hairlines, no card chrome */
@@ -58,7 +59,7 @@
 .new-pstats__label {
   font-family: var(--font-body);
   font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-  color: var(--amber-deep);
+  color: var(--gold-ink);
 }
 
 .new-pstats__note {

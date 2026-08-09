@@ -11,8 +11,12 @@
   max-width: 620px;
 }
 
-/* table (grid-based, not a real <table> — see JS for why): fixed column
-   widths so header and data rows line up. */
+/* ---------- desktop table ----------
+   Still grid-based divs with role="table"/"row"/"cell", not a real <table>
+   — see the JSX comment for why. Generous row padding and a quiet border
+   are what the brief means by "premium rather than data-heavy": the data's
+   all there, it just isn't fighting for space. */
+
 .new-activities__table {
   display: flex;
   flex-direction: column;
@@ -21,9 +25,13 @@
 
 .new-activities__row {
   display: grid;
-  grid-template-columns: 8rem 1.4fr 1.1fr 1.2fr 9rem 7rem;
-  gap: 1rem;
+  /* Tanggal / Kegiatan / Lokasi / Status / Aksi. Status widened to 10.5rem —
+     "Pendaftaran Dibuka" at this pill's tracked uppercase runs wider than
+     the 8.5rem it used to get, so it was clipping/wrapping inside its own
+     pill. Kegiatan (the column beside Tanggal) gives up the space. */
+  grid-template-columns: 4.75rem 1.7fr 1fr 10.5rem 7rem;
   align-items: center;
+  gap: 1.25rem;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -38,21 +46,107 @@
 }
 
 .new-activities__row:not(.new-activities__row--head) .new-activities__cell {
-  padding: 1.5rem 0;
+  padding: 1.75rem 0;
   font-family: var(--font-body);
   font-size: 0.9375rem;
   color: var(--deep-blue);
 }
 
-.new-activities__cell--name {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.05rem;
+/* ---------- date badge ---------- */
+
+.new-activities__badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  width: 62px;
+  padding: 0.5rem 0 0.6rem;
+  border-radius: 10px;
+  background: var(--nav-cream);
 }
+
+.new-activities__badge-month {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+}
+
+.new-activities__badge-day {
+  font-family: var(--font-accent);
+  font-size: 1.55rem;
+  line-height: 1.15;
+  color: var(--deep-blue);
+  /* tabular figures so a "06" and a "19" occupy the same width */
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.new-activities__badge-year {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  color: var(--muted);
+}
+
+/* ---------- event: title + short description ---------- */
+
+.new-activities__cell--name {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.new-activities__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  color: var(--deep-blue);
+}
+
+.new-activities__excerpt {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+  /* two lines, then fade out rather than push the row taller — the full
+     story lives one click away at "Lihat Detail" */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---------- lokasi, icon + text ---------- */
+
+.new-activities__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.new-activities__meta svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--gold-ink);
+}
+
+/* ---------- status pill ----------
+   Two states only (see URGENT_STATUS in the JSX): amber reads as calm/open,
+   deep-blue as the more serious "closing soon" — reusing the two colours
+   already anchoring the rest of the page rather than introducing a third
+   (e.g. a warning red) just for this. */
 
 .new-activities__status {
   display: inline-block;
-  padding: 0.3rem 0.85rem;
+  padding: 0.35rem 0.9rem;
   border-radius: 999px;
   background: var(--amber);
   color: var(--deep-blue);
@@ -61,6 +155,12 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.new-activities__status.is-urgent {
+  background: var(--deep-blue);
+  color: var(--bg-warm);
 }
 
 .new-activities__link {
@@ -70,15 +170,34 @@
   color: var(--deep-blue);
   text-align: right;
   white-space: nowrap;
+  transition: color 0.2s var(--ease);
+}
+
+.new-activities__row .new-activities__link:hover {
+  color: var(--gold-ink);
+}
+
+/* ---------- mobile cards ----------
+   A separate list (see JSX), not the table reflowed — hidden here, the
+   table's own responsive rules below are gone; .new-activities__cards
+   takes over entirely at this width. */
+
+.new-activities__cards {
+  display: none;
 }
 
 @media (max-width: 1024px) {
   .new-activities__row {
-    grid-template-columns: 6.5rem 1.2fr 1fr 1fr 8rem 6rem;
+    grid-template-columns: 4.5rem 1.3fr 1fr 9rem 6rem;
+    gap: 1rem;
   }
 }
 
-@media (max-width: 768px) {
+/* Table stays legible down to a genuinely cramped width before switching to
+   cards — moved up from the usual 768px mobile line for the same reason
+   noted before: fixed-width columns don't give space back as a fluid grid
+   would, so six of them start crowding well above phone width. */
+@media (max-width: 900px) {
   .new-activities__head {
     flex-direction: column;
     align-items: flex-start;
@@ -86,35 +205,43 @@
     margin-bottom: 2.5rem;
   }
 
-  /* row → stacked card: each cell becomes its own line with a label,
-     since a 6-column grid has no room to breathe on a phone screen */
-  .new-activities__row--head {
+  .new-activities__table {
     display: none;
   }
 
-  .new-activities__row {
-    grid-template-columns: 1fr;
-    gap: 0;
-    padding: 1.5rem 0;
-  }
-
-  .new-activities__cell {
+  .new-activities__cards {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .new-activities__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1.5rem;
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    background: var(--bg-white);
+  }
+
+  .new-activities__card-top {
+    display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 0.4rem 0 !important;
+    justify-content: space-between;
   }
 
-  .new-activities__cell[data-label]::before {
-    content: attr(data-label);
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    color: var(--muted);
+  /* card's own title sits outside any flex-column wrapper (there's no
+     excerpt on mobile — see the JSX), so it just needs its own rhythm */
+  .new-activities__card .new-activities__title {
+    font-size: 1.15rem;
   }
 
-  .new-activities__link {
-    justify-content: flex-end;
-    margin-top: 0.5rem;
+  .new-activities__card .new-activities__link {
+    margin-top: 0.25rem;
+    text-align: left;
   }
 }

@@ -1,0 +1,106 @@
+/* ============================================================
+   /program — the five jalur as a numbered card grid. The landing
+   page introduces programmes through a two-step quiz; this page
+   is the opposite reading mode, showing everything at once for
+   someone who'd rather compare.
+   ============================================================ */
+
+.new-program-index__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  /* 1px gaps over a rule-coloured backdrop draw the grid lines for free, so
+     the cards share hairlines instead of each carrying its own border */
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+
+.new-program-card {
+  display: flex;
+  background: var(--bg-white);
+  transition: background-color 0.25s var(--ease);
+}
+
+.new-program-card:hover {
+  background: var(--cream);
+}
+
+.new-program-card__link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 2.5rem 2rem 2.25rem;
+}
+
+.new-program-card__number {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--amber);
+}
+
+.new-program-card__tab {
+  font-family: var(--font-accent);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.new-program-card__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.9vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--deep-blue);
+}
+
+.new-program-card__focus {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--gold-ink);
+}
+
+.new-program-card__blurb {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* pinned to the foot so the five cards' call-to-action lines up across a row
+   of uneven blurb lengths */
+.new-program-card__more {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--deep-blue);
+}
+
+.new-program-card:hover .new-program-card__more {
+  color: var(--gold-ink);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1024px) {
+  .new-program-index__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .new-program-card__link {
+    padding: 2rem 1.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .new-program-index__grid {
+    grid-template-columns: 1fr;
+  }
+}

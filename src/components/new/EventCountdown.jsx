@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import './EventCountdown.css'
 
 // Ported from the old design's EventCountdown block. Deliberately duplicated
@@ -12,14 +13,20 @@ const EVENT_STARTS_AT = null
 const PLACEHOLDER_OFFSET_MS = (19 * 3600 + 20 * 60 + 15) * 1000
 
 const FEATURED = {
-  eyebrow: 'Angkatan terdekat',
-  title: 'KEP St. Anna, Duren Sawit',
+  eyebrow: 'SEP Terdekat',
+  title: 'SEP Angkatan Berikutnya',
+  // Shown on the calendar tile — independent of EVENT_STARTS_AT above, which
+  // only drives the clock. Update both together once a real date is set.
+  date: { day: '19', month: 'Agustus' },
 }
 
-const UPCOMING = [
-  { id: 'a', date: '19 Agustus', title: 'KEP St. Anna, Duren Sawit' },
-  { id: 'b', date: '19 Agustus', title: 'KEP St. Anna, Duren Sawit' },
-]
+// Not a specific date — KEP runs on each parish's own schedule, so this
+// points people to check their own parish rather than listing dates that
+// would only be true for one of them.
+const KEP_NOTE = {
+  eyebrow: 'KEP Terdekat',
+  text: 'Lihat paroki masing-masing',
+}
 
 const ALL_EVENTS_LABEL = 'Semua kegiatan'
 
@@ -57,13 +64,19 @@ export default function EventCountdown({ id }) {
     <section className="new-ecount" id={id}>
       <div className="new-ecount__feature">
         <div className="shell new-ecount__feature-inner">
-          {/* grey placeholder block — the project's convention for artwork
-              that doesn't exist yet (--placeholder) */}
-          <div className="new-ecount__thumb" aria-hidden="true" />
+          {/* Calendar tile, not the artwork placeholder this used to be — no
+              image exists to show yet, but the date isn't a placeholder. */}
+          <div className="new-ecount__thumb">
+            <span className="new-ecount__thumb-month">{FEATURED.date.month}</span>
+            <span className="new-ecount__thumb-day">{FEATURED.date.day}</span>
+          </div>
 
           <div className="new-ecount__meta">
             <p className="new-ecount__eyebrow">{FEATURED.eyebrow}</p>
-            <h2 className="new-ecount__title">{FEATURED.title}</h2>
+            {/* h1 — this component is now only used on /kegiatan/mendatang,
+                which has no PageHeader of its own; this is the page's only
+                heading, not a mid-page h2 anymore. */}
+            <h1 className="new-ecount__title">{FEATURED.title}</h1>
           </div>
 
           <p className="new-ecount__clock" aria-label="Hitung mundur menuju kegiatan">
@@ -78,17 +91,14 @@ export default function EventCountdown({ id }) {
 
       <div className="new-ecount__upcoming">
         <div className="shell new-ecount__upcoming-inner">
-          {UPCOMING.map((event) => (
-            <div className="new-ecount__next" key={event.id}>
-              <p className="new-ecount__date">{event.date}</p>
-              <p className="new-ecount__next-title">{event.title}</p>
-            </div>
-          ))}
+          <div className="new-ecount__next">
+            <p className="new-ecount__date">{KEP_NOTE.eyebrow}</p>
+            <p className="new-ecount__next-title">{KEP_NOTE.text}</p>
+          </div>
 
-          {/* placeholder — no events index route exists yet */}
-          <a className="new-ecount__all" href="#semua-kegiatan">
+          <Link className="new-ecount__all" to="/kegiatan">
             {ALL_EVENTS_LABEL} <span aria-hidden="true">→</span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -18,8 +18,20 @@ const DESIGNS = [
   { to: '/new', label: 'Baru' },
 ]
 
-/** Routes that aren't part of the switch — /legacy and the program detail pages. */
-const HIDDEN_ON = ['/legacy', '/program']
+/**
+ * Routes that aren't part of the switch: /legacy, and the pages behind the nav
+ * menu. Those have no counterpart in the old design, so a "Lama / Baru" toggle
+ * on them would offer a choice that doesn't exist.
+ */
+const HIDDEN_ON = [
+  '/legacy',
+  '/tentang-kami',
+  '/program',
+  '/pengajar',
+  '/kegiatan',
+  '/pengumuman',
+  '/design-system',
+]
 
 export default function DesignSwitcher() {
   const { pathname } = useLocation()
