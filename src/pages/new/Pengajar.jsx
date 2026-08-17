@@ -1,7 +1,7 @@
 import Navbar from '../../components/new/Navbar'
 import FinalCta from '../../components/new/FinalCta'
 import Footer from '../../components/new/Footer'
-import { kepalaSekolah, romoPembina, timPengajar } from '../../data/pengajar'
+import { kepalaSekolah, timPengajar } from '../../data/pengajar'
 import './Page.css'
 import './Pengajar.css'
 
@@ -11,9 +11,6 @@ import './Pengajar.css'
 
 const TEAM_NOTE =
   'Setiap kelompok kecil didampingi satu pengajar tetap sepanjang rangkaian pembinaan, supaya tidak ada peserta yang tertinggal di tengah jalan.'
-
-const ROMO_NOTE =
-  'Ketiganya telah wafat. Bagian ini bukan tim pengajar aktif, melainkan warisan yang terus menjadi fondasi setiap program dan pendampingan Shekinah hingga hari ini.'
 
 /** /pengajar — the full team behind the landing page's heritage section. */
 export default function Pengajar() {
@@ -72,42 +69,6 @@ export default function Pengajar() {
                   <figcaption className="new-teacher__caption">
                     <span className="new-teacher__role">{person.role}</span>
                     <span className="new-teacher__name">{person.name}</span>
-                    <span className="new-teacher__bio">{person.bio}</span>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Moved to the bottom on purpose: the Romo pendiri have passed
-            away, so this is legacy/trust — not the active teaching team,
-            which now leads the page above. */}
-        <section className="new-teachers section" aria-labelledby="romo-pembina">
-          <div className="shell">
-            <div className="page-section-head">
-              <h2 className="page-section-head__title" id="romo-pembina">
-                Romo Pembina
-              </h2>
-              <p className="page-section-head__note">{ROMO_NOTE}</p>
-            </div>
-
-            <div className="new-teachers__grid">
-              {romoPembina.map((person) => (
-                <figure className="new-teacher" key={person.id}>
-                  <div className="new-teacher__photo">
-                    {person.image ? (
-                      <img src={person.image} alt={person.name} loading="lazy" />
-                    ) : (
-                      <span className="new-teacher__placeholder" aria-hidden="true" />
-                    )}
-                  </div>
-
-                  <figcaption className="new-teacher__caption">
-                    <span className="new-teacher__role">{person.role}</span>
-                    <span className="new-teacher__name">{person.name}</span>
-                    {/* only renders when a tenure is confirmed — see data/pengajar.js */}
-                    {person.years && <span className="new-teacher__years">{person.years}</span>}
                     <span className="new-teacher__bio">{person.bio}</span>
                   </figcaption>
                 </figure>

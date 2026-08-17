@@ -1,8 +1,8 @@
 /* ============================================================
    /pengajar — kepala sekolah leads (current, black feature band),
-   then Tim Pengajar (current period, plain grid), then Romo
-   Pembina at the very bottom — legacy/trust now that they've all
-   passed away, not the active teaching team the page opens with.
+   then Tim Pengajar (current period, plain grid). Romo Pembina
+   used to close this page but now lives on /tentang-kami instead
+   — see TentangKami.css for its (duplicated) card-grid styles.
    ============================================================ */
 
 /* ---------- kepala sekolah (lead feature) ----------

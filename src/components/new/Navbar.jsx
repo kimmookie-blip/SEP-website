@@ -26,7 +26,7 @@ const LINKS = [
       { label: 'Arsip Kegiatan', to: '/kegiatan', exact: true },
     ],
   },
-  { label: 'pengajar', to: '/pengajar' },
+  { label: 'Team Shekinah', to: '/pengajar' },
   { label: 'pengumuman', to: '/pengumuman' },
 ]
 

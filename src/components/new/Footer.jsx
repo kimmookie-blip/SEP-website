@@ -13,7 +13,7 @@ const MAIN_LINKS = [
   // dropdown, but a footer list has room to name them outright
   { label: 'Kegiatan Mendatang', to: '/kegiatan/mendatang' },
   { label: 'Arsip Kegiatan', to: '/kegiatan' },
-  { label: 'Pengajar', to: '/pengajar' },
+  { label: 'Team Shekinah', to: '/pengajar' },
   { label: 'Pengumuman', to: '/pengumuman' },
   { label: 'Beranda', to: '/new' },
   { label: 'Hubungi Kami', href: '#kontak' },

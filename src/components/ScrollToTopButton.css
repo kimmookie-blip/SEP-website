@@ -1,0 +1,68 @@
+/* Fixed above DesignSwitcher's bottom-right pill (24px + its own height),
+   not beside it — the switcher already claimed that corner, and stacking
+   here means neither element has to know about the other's width. */
+.scroll-top {
+  position: fixed;
+  bottom: 88px;
+  right: 24px;
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: var(--deep-blue);
+  box-shadow: 0 6px 20px rgba(15, 49, 78, 0.28);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease),
+    background-color 0.2s var(--ease);
+}
+
+.scroll-top.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.scroll-top:hover {
+  background: var(--amber);
+}
+
+.scroll-top:hover .scroll-top__arrow,
+.scroll-top:hover .scroll-top__arrow::before {
+  border-color: var(--deep-blue);
+}
+
+/* drawn, not an icon font/image: two rotated borders forming a chevron
+   over a vertical stem, pointing up */
+.scroll-top__arrow {
+  position: relative;
+  width: 2px;
+  height: 12px;
+  background: var(--cream);
+}
+
+.scroll-top__arrow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-top: 2px solid var(--cream);
+  border-left: 2px solid var(--cream);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+@media (max-width: 768px) {
+  .scroll-top {
+    bottom: 68px;
+    right: 12px;
+    width: 42px;
+    height: 42px;
+  }
+}

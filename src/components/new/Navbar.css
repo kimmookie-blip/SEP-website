@@ -518,7 +518,13 @@
   transition: visibility 0s linear 0.35s;
 }
 
-.new-nav__overlay-panel.is-active {
+/* Scoped to --menu-open: without it, "is-active" (true whenever the root
+   panel isn't mid-drill-down, i.e. almost always) forces this panel visible
+   even while the menu is closed — visibility:visible on a child overrides an
+   ancestor's visibility:hidden, so its links stayed genuinely clickable
+   (just invisible) anywhere below 1100px, stealing clicks from whatever
+   page content happened to sit under their fixed position. */
+.new-nav--menu-open .new-nav__overlay-panel.is-active {
   visibility: visible;
   transition: visibility 0s;
 }
@@ -652,5 +658,14 @@
   .new-nav__logo {
     height: 38px;
     width: 28px;
+  }
+}
+
+/* Very narrow phones: drop the subtitle entirely — logo image + "SEP
+   Shekinah" only. At 430px the two-line wordmark next to the burger/CTA was
+   the tightest-fitting part of the bar. */
+@media (max-width: 430px) {
+  .new-nav__wordmark small {
+    display: none;
   }
 }

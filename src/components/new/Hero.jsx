@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 import heroImage from '../../assets/hero-new.png'
+import heroImage2 from '../../assets/hero-new-2.png'
+import heroImage3 from '../../assets/hero-new-3.png'
+import heroImage4 from '../../assets/hero-new-4.png'
 import './Hero.css'
 
 // SEP-Shekinah-Homepage-Structure.md §01, laid out to match the approved
@@ -9,23 +12,47 @@ const KICKER = 'Apakah Anda...'
 // `before`/`after` render as plain text around the italic `emphasis` word.
 // `break` inserts a line break right after the emphasis word. Each headline
 // is kept short enough to wrap to exactly two lines, as in the mockup.
+// `image` crossfades with it — Asset/"Hero Section New[.png/2/3/4].png", in
+// that numeric order.
 const ROTATING_HEADLINES = [
-  { id: 'mengenal', before: 'Ingin ', emphasis: 'Mengenal', after: 'Kristus Lebih Dalam?', break: true },
-  { id: 'bertumbuh', before: 'Ingin ', emphasis: 'Bertumbuh', after: 'dalam Iman?', break: true },
+  {
+    id: 'mengenal',
+    before: 'Ingin ',
+    emphasis: 'Mengenal',
+    after: 'Kristus Lebih Dalam?',
+    break: true,
+    image: heroImage,
+  },
+  {
+    id: 'bertumbuh',
+    before: 'Ingin ',
+    emphasis: 'Bertumbuh',
+    after: 'dalam Iman?',
+    break: true,
+    image: heroImage2,
+  },
   {
     id: 'kabar-baik',
     before: 'Ingin Menjadi ',
     emphasis: 'Pembawa',
     after: 'Kabar Baik?',
     break: true,
+    image: heroImage3,
   },
-  { id: 'berdampak', before: 'Ingin ', emphasis: 'Berdampak', after: 'bagi Dunia?', break: true },
+  {
+    id: 'berdampak',
+    before: 'Ingin ',
+    emphasis: 'Berdampak',
+    after: 'bagi Dunia?',
+    break: true,
+    image: heroImage4,
+  },
 ]
 
 const SUPPORTING_COPY =
   'Mulailah perjalanan iman bersama komunitas Katolik yang mendampingi setiap langkahmu untuk mengenal, bertumbuh, dan menghidupi ajaran Kristus.'
 
-const PRIMARY_CTA = { label: 'masuk anggota', href: '#masuk' }
+const PRIMARY_CTA = { label: 'Temukan Kegiatanmu', href: '#program' }
 
 const SCROLL_LABEL = 'Scroll ke bawah'
 // First section rendered after the Hero in LandingNew.jsx — scrolling here
@@ -86,12 +113,15 @@ export default function Hero({ fade = 0, scrollY = 0 }) {
   return (
     <section className="new-hero" id="top" aria-label="Pembuka">
       <div className="new-hero__media" aria-hidden="true">
-        <img
-          src={heroImage}
-          alt=""
-          className="new-hero__image"
-          style={{ transform: `translate3d(0, ${parallaxY}px, 0)` }}
-        />
+        {ROTATING_HEADLINES.map((headline, i) => (
+          <img
+            key={headline.id}
+            src={headline.image}
+            alt=""
+            className={`new-hero__image ${i === headlineIndex ? 'is-active' : ''}`}
+            style={{ transform: `translate3d(0, ${parallaxY}px, 0)` }}
+          />
+        ))}
         <div className="new-hero__overlay" />
       </div>
 

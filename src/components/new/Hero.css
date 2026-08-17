@@ -22,7 +22,11 @@
 }
 
 /* oversized and top-anchored so the scroll-driven drift never exposes an
-   edge; overflow:hidden on .new-hero clips it back to the section */
+   edge; overflow:hidden on .new-hero clips it back to the section.
+   All four rotating images are stacked here (same plain-crossfade device as
+   .new-hero__headline below) rather than swapping one <img>'s src — that way
+   every image stays decoded and ready, so the transition never stutters
+   waiting on a fresh network fetch mid-crossfade. */
 .new-hero__image {
   position: absolute;
   inset: -9% 0 auto 0;
@@ -30,7 +34,13 @@
   height: 118%;
   object-fit: cover;
   object-position: center;
-  will-change: transform;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+  will-change: transform, opacity;
+}
+
+.new-hero__image.is-active {
+  opacity: 1;
 }
 
 /* the mockup's photo is much darker on the left, where the copy sits, and
@@ -392,6 +402,10 @@
 
   .new-hero__headline {
     transition: none;
+  }
+
+  .new-hero__image {
+    transition: opacity 0s;
   }
 
   .new-hero__scroll-dot {

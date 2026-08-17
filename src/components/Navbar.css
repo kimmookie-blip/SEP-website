@@ -306,3 +306,12 @@
     width: 28px;
   }
 }
+
+/* Very narrow phones: drop the subtitle entirely — logo image + "SEP
+   Shekinah" only. At 430px the two-line wordmark next to the burger/CTA was
+   the tightest-fitting part of the bar. */
+@media (max-width: 430px) {
+  .nav__wordmark small {
+    display: none;
+  }
+}

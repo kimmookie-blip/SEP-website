@@ -23,8 +23,8 @@ const CTA_LABEL = 'Lihat Semua Pengajar'
 /**
  * Trust & credibility, not a teacher directory — the institution's
  * spiritual heritage, anchored by its founder's portrait. No carousel: this
- * used to page through all of romoPembina, but showcasing the teaching team
- * is /pengajar's job now, not the landing page's.
+ * used to page through all of romoPembina, but the full list now lives on
+ * /tentang-kami (see TentangKami.jsx's "Romo Pembina" section), not here.
  */
 export default function Founders({ id }) {
   return (

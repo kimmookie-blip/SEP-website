@@ -14,6 +14,7 @@ import PengumumanIndex from './pages/new/PengumumanIndex'
 import PengumumanPost from './pages/new/PengumumanPost'
 import DesignSystem from './pages/new/DesignSystem'
 import DesignSwitcher from './components/DesignSwitcher'
+import ScrollToTopButton from './components/ScrollToTopButton'
 
 /** Reset scroll on navigation, and honour an in-page target passed via state. */
 function ScrollToTop() {
@@ -48,6 +49,7 @@ export default function App() {
         only; it's deliberately not part of the switch.
       */}
       <DesignSwitcher />
+      <ScrollToTopButton />
       <Routes>
         <Route path="/" element={<LandingOld />} />
         <Route path="/new" element={<LandingNew />} />
