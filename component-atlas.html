@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Peta Komponen Shekinah</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Balthazar&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --page-bg: #f7f2e7;
+    --surface: #ffffff;
+    --surface-alt: #ece4d1;
+    --surface-raised: #faf6ec;
+    --ink: #0f314e;
+    --ink-muted: rgba(15, 49, 78, 0.68);
+    --accent: #f1a501;
+    --accent-ink: #845900;
+    --accent-deep: #d99201;
+    --line: rgba(15, 49, 78, 0.14);
+    --code-bg: rgba(15, 49, 78, 0.06);
+
+    --track-new: #b4770a;
+    --track-new-bg: rgba(241, 165, 1, 0.14);
+    --track-proto: #1c5c8a;
+    --track-proto-bg: rgba(28, 92, 138, 0.1);
+    --track-legacy: #6b6558;
+    --track-legacy-bg: rgba(107, 101, 88, 0.12);
+    --track-internal: #7a3b9c;
+    --track-internal-bg: rgba(122, 59, 156, 0.1);
+
+    --font-display: 'Amiri', Georgia, 'Times New Roman', serif;
+    --font-accent: 'Balthazar', 'Amiri', Georgia, serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+
+    --shadow: 0 10px 30px rgba(15, 49, 78, 0.08);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--page-bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  code, .mono {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+  }
+
+  .shell {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+  }
+
+  .prose {
+    max-width: 760px;
+  }
+
+  /* ---------- top nav ---------- */
+
+  .toc {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(247, 242, 231, 0.88);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .toc__row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.85rem 1.75rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .toc__row::-webkit-scrollbar { display: none; }
+
+  .toc__brand {
+    font-family: var(--font-accent);
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    color: var(--accent-ink);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .toc__links {
+    display: flex;
+    gap: 1.25rem;
+    white-space: nowrap;
+  }
+
+  .toc__links a {
+    text-decoration: none;
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    letter-spacing: 0.01em;
+  }
+  .toc__links a:hover { color: var(--ink); }
+
+  /* ---------- header ---------- */
+
+  header.hero {
+    padding: 4.5rem 0 3rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .kicker {
+    font-family: var(--font-accent);
+    font-size: 0.95rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    margin: 0 0 1.1rem;
+  }
+
+  h1.title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.1rem, 4.4vw, 3.1rem);
+    line-height: 1.12;
+    margin: 0 0 1.1rem;
+  }
+
+  h1.title em { font-style: italic; color: var(--accent-ink); }
+
+  .lede {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+    line-height: 1.6;
+    color: var(--ink-muted);
+    margin: 0 0 2rem;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .tag__dot { width: 0.5rem; height: 0.5rem; border-radius: 999px; flex-shrink: 0; }
+
+  .tag--new { background: var(--track-new-bg); color: var(--track-new); }
+  .tag--new .tag__dot { background: var(--track-new); }
+  .tag--proto { background: var(--track-proto-bg); color: var(--track-proto); }
+  .tag--proto .tag__dot { background: var(--track-proto); }
+  .tag--legacy { background: var(--track-legacy-bg); color: var(--track-legacy); }
+  .tag--legacy .tag__dot { background: var(--track-legacy); }
+  .tag--internal { background: var(--track-internal-bg); color: var(--track-internal); }
+  .tag--internal .tag__dot { background: var(--track-internal); }
+
+  /* ---------- sections ---------- */
+
+  section {
+    padding: 3.5rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  section:last-of-type { border-bottom: none; }
+
+  .section__eyebrow {
+    font-family: var(--font-accent);
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 0 0 0.6rem;
+  }
+
+  h2.section__title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 2.6vw, 2.05rem);
+    margin: 0 0 0.85rem;
+  }
+
+  .section__note {
+    color: var(--ink-muted);
+    max-width: 720px;
+    margin: 0 0 2rem;
+    font-size: 0.98rem;
+  }
+  .section__note code { background: var(--code-bg); padding: 0.1em 0.4em; border-radius: 4px; }
+
+  h3.subhead {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 2rem 0 1rem;
+  }
+  h3.subhead:first-of-type { margin-top: 0; }
+
+  /* ---------- swatches ---------- */
+
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 1rem;
+  }
+
+  .swatch {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  .swatch__chip { height: 64px; }
+
+  .swatch__body { padding: 0.75rem 0.9rem 0.9rem; }
+  .swatch__token { display: block; font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; }
+  .swatch__value { display: block; font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink-muted); margin: 0.15rem 0 0.4rem; }
+  .swatch__role { display: block; font-size: 0.8rem; color: var(--ink-muted); line-height: 1.4; }
+
+  /* ---------- type specimens ---------- */
+
+  .type-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .type-row:first-of-type { border-top: none; }
+
+  .type-row__meta strong { display: block; font-size: 0.95rem; }
+  .type-row__meta span { display: block; font-size: 0.78rem; color: var(--ink-muted); margin-top: 0.2rem; }
+
+  .type-scale-row {
+    display: grid;
+    grid-template-columns: 110px 90px 1fr;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 0.6rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .type-scale-row:first-of-type { border-top: none; }
+  .type-scale-row .mono { color: var(--accent-ink); font-weight: 600; }
+  .type-scale-row .val { color: var(--ink-muted); font-size: 0.82rem; }
+
+  /* ---------- button preview (fixed to real site palette) ---------- */
+
+  .btn-stage {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 2rem;
+    border-radius: 12px;
+    background: #f7f2e7;
+    border: 1px solid rgba(15, 49, 78, 0.12);
+  }
+  .btn-stage--dark { background: #0f314e; }
+
+  .rbtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 1rem 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    border-radius: 0;
+    cursor: default;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .rbtn--amber { background: #f1a501; border-color: #f1a501; color: #0f314e; }
+  .rbtn--amber:hover { background: transparent; color: #845900; border-color: #845900; }
+  .rbtn--outline { background: transparent; color: #0f314e; border-color: #0f314e; }
+  .rbtn--outline:hover { background: #0f314e; color: #f7f2e7; border-color: #0f314e; }
+  .rbtn--ghost { background: transparent; color: #f5efe1; border-color: rgba(245, 239, 225, 0.55); }
+  .rbtn--ghost:hover { background: rgba(245, 239, 225, 0.12); border-color: #f5efe1; }
+
+  .btn-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .btn-caption code {
+    font-size: 0.78rem;
+    background: var(--code-bg);
+    padding: 0.15em 0.5em;
+    border-radius: 4px;
+    align-self: flex-start;
+  }
+  .btn-note { font-size: 0.8rem; color: var(--ink-muted); max-width: 30ch; }
+
+  .fix-callout {
+    margin-top: 1.5rem;
+    padding: 0.9rem 1.1rem;
+    border: 1px dashed var(--track-new);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    background: var(--track-new-bg);
+  }
+  .fix-callout strong { color: var(--ink); }
+
+  /* ---------- route map ---------- */
+
+  .track-table {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .track-row {
+    display: grid;
+    grid-template-columns: 120px 150px 1fr 1.4fr;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.9rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 0.88rem;
+  }
+  .track-row--head {
+    background: transparent;
+    border: none;
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-muted);
+    padding: 0 1rem;
+  }
+  .track-row .route { font-family: var(--font-mono); font-weight: 600; }
+  .track-row .note { color: var(--ink-muted); font-size: 0.83rem; }
+
+  /* ---------- page cards ---------- */
+
+  .page-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .page-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.1rem 1.2rem 1.25rem;
+    box-shadow: var(--shadow);
+  }
+
+  .page-card__route {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.92rem;
+    margin: 0 0 0.15rem;
+  }
+
+  .page-card__file {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-muted);
+    margin: 0 0 0.85rem;
+    display: block;
+  }
+
+  .page-card ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .page-card li {
+    font-size: 0.85rem;
+    padding-left: 0.9rem;
+    position: relative;
+  }
+  .page-card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 4px;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+
+  .page-card__empty { font-size: 0.82rem; color: var(--ink-muted); font-style: italic; }
+
+  /* ---------- directory columns ---------- */
+
+  .dir-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .dir-col {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.25rem 1.3rem 1.4rem;
+  }
+
+  .dir-col__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+  }
+
+  .dir-col__title {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  .dir-col__used {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    margin: 0 0 1rem;
+  }
+
+  .dir-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dir-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.55rem 0;
+    border-top: 1px solid var(--line);
+    font-size: 0.83rem;
+  }
+  .dir-list li:first-child { border-top: none; }
+
+  .dir-list .fname { font-family: var(--font-mono); }
+  .dir-list .fused { color: var(--ink-muted); font-size: 0.76rem; text-align: right; flex-shrink: 0; }
+
+  .dir-list li.is-orphan .fname {
+    color: var(--ink-muted);
+    text-decoration: line-through;
+    text-decoration-color: var(--line);
+  }
+  .dir-list li.is-orphan .fused { color: var(--track-legacy); font-style: italic; }
+
+  /* ---------- infra table ---------- */
+
+  .infra-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  .infra-table th {
+    text-align: left;
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+    padding: 0 0.75rem 0.6rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .infra-table td {
+    padding: 0.8rem 0.75rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .infra-table tr:last-child td { border-bottom: none; }
+  .infra-table .fname { font-family: var(--font-mono); font-weight: 600; }
+
+  kbd {
+    display: inline-block;
+    padding: 0.1rem 0.4rem;
+    border: 1px solid var(--line);
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    background: var(--surface);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink);
+  }
+
+  footer.colophon {
+    padding: 2.5rem 0 4rem;
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 860px) {
+    .dir-grid { grid-template-columns: 1fr; }
+    .type-row { grid-template-columns: 1fr; }
+    .track-row { grid-template-columns: 1fr; gap: 0.3rem; }
+    .track-row--head { display: none; }
+    .track-row .route::before { content: 'Route  '; color: var(--ink-muted); font-family: var(--font-body); font-weight: 400; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="toc">
+  <div class="toc__row">
+    <span class="toc__brand">Peta Komponen · SEP Shekinah</span>
+    <div class="toc__links">
+      <a href="#warna">Warna</a>
+      <a href="#tipografi">Tipografi</a>
+      <a href="#tombol">Tombol</a>
+      <a href="#tiga-jalur">Tiga Jalur</a>
+      <a href="#peta-halaman">Peta Halaman</a>
+      <a href="#direktori">Direktori</a>
+      <a href="#infrastruktur">Infrastruktur</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="shell">
+    <p class="kicker">Dokumentasi Internal</p>
+    <h1 class="title">Sistem desain, dan setiap komponen yang <em>menghidupkannya</em>.</h1>
+    <p class="lede prose">
+      Situs ini sedang menjalani dua desain sekaligus: halaman lama yang masih tayang,
+      dan halaman baru yang sedang dibangun. Halaman ini memetakan token desain yang
+      dipakai keduanya, lalu setiap komponen React di baliknya — dikelompokkan menurut
+      direktori dan rute yang benar-benar memakainya.
+    </p>
+    <div class="legend">
+      <span class="tag tag--new"><span class="tag__dot"></span>components/new — desain aktif</span>
+      <span class="tag tag--proto"><span class="tag__dot"></span>components/proto — halaman lama, masih tayang</span>
+      <span class="tag tag--legacy"><span class="tag__dot"></span>components/ (atas) — legacy, arsip</span>
+      <span class="tag tag--internal"><span class="tag__dot"></span>Internal — tidak ditautkan</span>
+    </div>
+  </div>
+</header>
+
+<section id="warna">
+  <div class="shell">
+    <p class="section__eyebrow">01 — Token</p>
+    <h2 class="section__title">Warna</h2>
+    <p class="section__note">
+      Dibaca langsung dari <code>:root</code> di <code>src/styles.css</code>. Amber
+      (<code>--amber</code>) hanya untuk isian, tidak pernah untuk teks — kontrasnya
+      terhadap krem gagal WCAG. Untuk teks beraksen emas, sistem memakai
+      <code>--gold-ink</code>.
+    </p>
+
+    <h3 class="subhead">Permukaan</h3>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch__chip" style="background:#f7f2e7"></div>
+        <div class="swatch__body"><span class="swatch__token">--bg-warm</span><span class="swatch__value">#f7f2e7</span><span class="swatch__role">Dasar halaman — krem parchment, ~70% permukaan situs</span></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:#ffffff;border-bottom:1px solid var(--line)"></div>
+        <div class="swatch__body"><span class="swatch__token">--bg-white</span><span class="swatch__value">#ffffff</span><span class="swatch__role">Band terang, .section--white</span></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:#faf6ec"></div>
+        <div class="swatch__body"><span class="swatch__token">--nav-cream</span><span class="swatch__value">#faf6ec</span><span class="swatch__role">Krem paling terang; navbar & section yang naik sedikit</span></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:#ece4d1"></div>
+        <div class="swatch__body"><span class="swatch__token">--band-cream</span><span class="swatch__value">#ece4d1</span><span class="swatch__role">Band krem dalam, .section--cream</span></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:#0f314e"></div>
+        <div class="swatch__body"><span class="swatch__token">--deep-blue</span><span class="swatch__value">#0f314e</span><span class="swatch__role">Satu-satunya biru gelap — section, band acara, footer</span></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:#007eca"></div>
+        <div class="swatch__body"><span class="swatch__token">--band-azure</span><span class="swatch__value">#007eca</span><span class="swatch__role">Sub-bar UpcomingActivities</span></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:#ffbc34"></div>
+        <div class="swatch__body"><span class="swatch__token">--band-amber</span><span class="swatch__value">#ffbc34</span><span class="swatch__role">Strip pra-footer</span></div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Tinta &amp; aksen</h3>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch__chip" style="background:#f1a501"></div>
+        <div class="swatch__body"><span class="swatch__token">--amber</span><span class="swatch__value">#f1a501</span><span class="swatch__role">ISIAN saja — tombol/aksen, tidak pernah teks</span></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:#845900"></div>
+        <div class="swatch__body"><span class="swatch__token">--gold-ink</span><span class="swatch__value">#845900</span><span class="swatch__role">Semua teks beraksen emas: .kicker, .micro--amber, tautan</span></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:#f1ddab"></div>
+        <div class="swatch__body"><span class="swatch__token">--gold-soft</span><span class="swatch__value">#f1ddab</span><span class="swatch__role">Padanan gold-ink untuk judul di band navy</span></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:#f5efe1"></div>
+        <div class="swatch__body"><span class="swatch__token">--cream</span><span class="swatch__value">#f5efe1</span><span class="swatch__role">Tinta di atas band navy &amp; foto hero</span></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background:#0f314e"></div>
+        <div class="swatch__body"><span class="swatch__token">--deep-blue</span><span class="swatch__value">rgba(…, .68) → --muted</span><span class="swatch__role">Teks sekunder, .body-text (68% opacity)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tipografi">
+  <div class="shell">
+    <p class="section__eyebrow">02 — Token</p>
+    <h2 class="section__title">Tipografi</h2>
+    <p class="section__note">
+      Tiga keluarga font, satu aturan tegas: <strong>Amiri tidak pernah bold.</strong>
+      Hierarki dibangun dari ukuran, bukan berat huruf.
+    </p>
+
+    <div class="type-row">
+      <div class="type-row__meta"><strong>Amiri</strong><span>--font-display · judul &amp; headline, bobot 400</span></div>
+      <p style="font-family:'Amiri',Georgia,serif; font-size:1.7rem; margin:0;">Perjalanan iman yang mengubah kehidupan nyata.</p>
+    </div>
+    <div class="type-row">
+      <div class="type-row__meta"><strong>Balthazar</strong><span>--font-accent · kicker &amp; label berspasi lebar</span></div>
+      <p style="font-family:'Balthazar','Amiri',serif; font-size:1.15rem; letter-spacing:0.08em; margin:0; text-transform:uppercase; color:var(--accent-ink);">1990 · 59 Paroki · 100%</p>
+    </div>
+    <div class="type-row">
+      <div class="type-row__meta"><strong>Inter</strong><span>--font-body · isi, tombol, navigasi</span></div>
+      <p style="font-family:'Inter',sans-serif; font-size:1.05rem; margin:0; color:var(--ink-muted);">Shekinah mendampingi umat Katolik mengenal Kristus secara pribadi dan menghidupi imannya dalam keseharian.</p>
+    </div>
+
+    <h3 class="subhead">Skala</h3>
+    <div class="type-scale-row"><span class="mono">--text-4xl</span><span class="val">clamp(2.6–5.2rem)</span><span>Headline hero</span></div>
+    <div class="type-scale-row"><span class="mono">--text-3xl</span><span class="val">clamp(2.4–3.6rem)</span><span>.headline — judul section</span></div>
+    <div class="type-scale-row"><span class="mono">--text-2xl</span><span class="val">clamp(1.85–2.5rem)</span><span>.display, judul halaman kosong</span></div>
+    <div class="type-scale-row"><span class="mono">--text-xl</span><span class="val">clamp(1.45–1.85rem)</span><span>.headline--sm, kepala kolom</span></div>
+    <div class="type-scale-row"><span class="mono">--text-lg</span><span class="val">clamp(1.15–1.4rem)</span><span>.subhead</span></div>
+    <div class="type-scale-row"><span class="mono">--text-base</span><span class="val">1.0625rem</span><span>.body-text</span></div>
+    <div class="type-scale-row"><span class="mono">--text-sm</span><span class="val">0.9rem</span><span>Catatan, meta</span></div>
+    <div class="type-scale-row"><span class="mono">--text-xs</span><span class="val">0.78rem</span><span>Label terkecil</span></div>
+  </div>
+</section>
+
+<section id="tombol">
+  <div class="shell">
+    <p class="section__eyebrow">03 — Token</p>
+    <h2 class="section__title">Tombol</h2>
+    <p class="section__note">
+      Pola Word on Fire: sudut tajam, huruf kecil berspasi lebar, bingkai 1px, hover yang
+      <em>membalik</em> isi dan garis — bukan mengangkat. Warna di bawah literal (bukan
+      token dokumen ini) supaya tampilannya identik dengan situs asli, apa pun tema
+      peramban Anda.
+    </p>
+
+    <div class="btn-stage">
+      <div class="btn-caption">
+        <span class="rbtn rbtn--amber">Gabung Sekarang</span>
+        <code>.btn .btn--amber</code>
+        <span class="btn-note">Isi amber, teks navy. Hover membalik: transparan, teks &amp; garis emas.</span>
+      </div>
+      <div class="btn-caption">
+        <span class="rbtn rbtn--outline">Lihat Semua Pengajar</span>
+        <code>.btn .btn--outline</code>
+        <span class="btn-note">Bingkai &amp; teks navy, isi transparan. Hover membalik jadi blok navy penuh — pola yang sama dengan tombol "masuk anggota" di navbar.</span>
+      </div>
+    </div>
+
+    <div class="btn-stage btn-stage--dark" style="margin-top:1rem;">
+      <div class="btn-caption">
+        <span class="rbtn rbtn--ghost">Di Atas Foto Hero</span>
+        <code style="background:rgba(245,239,225,.12); color:#f5efe1;">.btn .btn--ghost-cream</code>
+        <span class="btn-note" style="color:rgba(245,239,225,.75);">Untuk konten di atas foto/band gelap — bingkai krem 55% opacity.</span>
+      </div>
+    </div>
+
+    <div class="fix-callout">
+      <strong>Sudah diperbaiki:</strong> <code>.btn--outline</code> sempat didefinisikan
+      sebelum <code>.btn</code> di <code>styles.css</code>, jadi shorthand
+      <code>border: 1px solid transparent</code> milik <code>.btn</code> menimpa
+      border-color-nya — bingkainya hilang di keadaan diam, baru muncul saat hover.
+      Urutan sudah dipindah supaya perilakunya konsisten dengan navbar.
+    </div>
+  </div>
+</section>
+
+<section id="tiga-jalur">
+  <div class="shell">
+    <p class="section__eyebrow">04 — Arsitektur</p>
+    <h2 class="section__title">Tiga jalur berdampingan</h2>
+    <p class="section__note">
+      Redesain berjalan sambil situs lama tetap tayang, jadi ada tiga pohon komponen yang
+      sengaja terpisah — <code>components/new/</code> tidak mengimpor apa pun dari dua
+      lainnya, bahkan Navbar dan Hero digandakan, bukan dibagi.
+    </p>
+
+    <div class="track-table">
+      <div class="track-row track-row--head">
+        <span>Direktori</span><span>Dipakai di</span><span>Peran</span><span>Catatan</span>
+      </div>
+      <div class="track-row" style="border-left:3px solid var(--track-new)">
+        <span class="route">new/</span>
+        <span><span class="tag tag--new"><span class="tag__dot"></span>Aktif</span></span>
+        <span>14 komponen redesain + Navbar &amp; Hero sendiri</span>
+        <span class="note">Dipakai <code>/new</code> dan sepuluh halaman di belakang menu nav / menu Shift+S</span>
+      </div>
+      <div class="track-row" style="border-left:3px solid var(--track-proto)">
+        <span class="route">proto/</span>
+        <span><span class="tag tag--proto"><span class="tag__dot"></span>Lama, tayang</span></span>
+        <span>4 komponen tambahan untuk halaman lama</span>
+        <span class="note">Dipakai <code>/</code> bersama Navbar &amp; Hero dari direktori atas</span>
+      </div>
+      <div class="track-row" style="border-left:3px solid var(--track-legacy)">
+        <span class="route">(atas)</span>
+        <span><span class="tag tag--legacy"><span class="tag__dot"></span>Legacy</span></span>
+        <span>7 komponen desain lama + Navbar/Hero bersama</span>
+        <span class="note">Navbar/Hero dipakai <code>/</code> &amp; <code>/legacy</code>; sisanya hanya <code>/legacy</code></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="peta-halaman">
+  <div class="shell">
+    <p class="section__eyebrow">05 — Rute</p>
+    <h2 class="section__title">Tiga desain landing</h2>
+    <p class="section__note">
+      <code>DesignSwitcher</code>, <code>ScrollToTopButton</code>, dan <code>DevMenu</code>
+      dipasang di luar <code>&lt;Routes&gt;</code> di <code>App.jsx</code>, jadi ketiganya
+      tampil di semua rute kecuali yang sengaja disembunyikan.
+    </p>
+
+    <table class="infra-table" style="margin-bottom:2rem;">
+      <thead><tr><th>Rute</th><th>Berkas halaman</th><th>Sumber</th><th>Isi</th></tr></thead>
+      <tbody>
+        <tr><td class="fname">/</td><td>LandingOld.jsx</td><td>components/ + proto/</td><td>Navbar, Hero, CredibilityBand, ProgramStrip, EventCountdown, ActivityCards</td></tr>
+        <tr><td class="fname">/new</td><td>LandingNew.jsx</td><td>components/new/</td><td>11 section — lihat kolom components/new/ di bawah</td></tr>
+        <tr><td class="fname">/prototype</td><td>→ LandingOld.jsx</td><td>alias</td><td>Dipertahankan untuk tautan lama yang sudah dibagikan</td></tr>
+        <tr><td class="fname">/legacy</td><td>Home.jsx</td><td>components/ (atas)</td><td>Navbar, Hero, ProblemSolution, Stats, Differentiators, Programs, Testimonials, FinalCta — referensi saja</td></tr>
+        <tr><td class="fname">*</td><td>→ LandingOld.jsx</td><td>fallback</td><td>Tidak ada halaman 404 khusus</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subhead">Sepuluh halaman di belakang menu nav / menu Shift+S</h3>
+    <p class="section__note" style="margin-bottom:1.25rem;">
+      Semuanya memakai <code>components/new/</code>. Navbar tampil di semuanya dan Footer
+      di semuanya kecuali dua halaman internal — tidak diulang di setiap kartu.
+    </p>
+
+    <div class="page-grid">
+      <div class="page-card">
+        <p class="page-card__route">/tentang-kami</p>
+        <span class="page-card__file">pages/new/TentangKami.jsx</span>
+        <ul>
+          <li>PageHeader</li>
+          <li>CatholicLegitimacy</li>
+          <li>HowShekinahHelps</li>
+          <li>FinalCta</li>
+        </ul>
+      </div>
+      <div class="page-card">
+        <p class="page-card__route">/program</p>
+        <span class="page-card__file">pages/new/ProgramIndex.jsx</span>
+        <ul>
+          <li>PageHeader</li>
+          <li>JourneyOfGrowth</li>
+          <li>FinalCta</li>
+        </ul>
+      </div>
+      <div class="page-card">
+        <p class="page-card__route">/program/:slug</p>
+        <span class="page-card__file">pages/ProgramPage.jsx</span>
+        <ul>
+          <li>PageHeader</li>
+          <li>PostCard</li>
+          <li>FinalCta</li>
+        </ul>
+      </div>
+      <div class="page-card">
+        <p class="page-card__route">/pengajar</p>
+        <span class="page-card__file">pages/new/Pengajar.jsx</span>
+        <ul>
+          <li>FinalCta</li>
+        </ul>
+        <p class="page-card__empty">Daftar romo &amp; pengajar dirender inline dari data/pengajar.js, tanpa komponen kartu khusus.</p>
+      </div>
+      <div class="page-card">
+        <p class="page-card__route">/kegiatan</p>
+        <span class="page-card__file">pages/new/KegiatanIndex.jsx</span>
+        <ul>
+          <li>PostCard</li>
+          <li>FinalCta</li>
+        </ul>
+      </div>
+      <div class="page-card">
+        <p class="page-card__route">/kegiatan/mendatang</p>
+        <span class="page-card__file">pages/new/KegiatanMendatang.jsx</span>
+        <ul>
+          <li>EventCountdown</li>
+          <li>UpcomingActivities</li>
+          <li>FinalCta</li>
+        </ul>
+      </div>
+      <div class="page-card">
+        <p class="page-card__route">/kegiatan/:slug</p>
+        <span class="page-card__file">pages/new/KegiatanPost.jsx</span>
+        <ul>
+          <li>PageHeader</li>
+          <li>PostCard</li>
+          <li>Prose</li>
+          <li>FinalCta</li>
+        </ul>
+      </div>
+      <div class="page-card">
+        <p class="page-card__route">/pengumuman</p>
+        <span class="page-card__file">pages/new/PengumumanIndex.jsx</span>
+        <p class="page-card__empty">Hanya Navbar + Footer + daftar dari data/pengumuman.js — tidak ada FinalCta.</p>
+      </div>
+      <div class="page-card">
+        <p class="page-card__route">/pengumuman/:slug</p>
+        <span class="page-card__file">pages/new/PengumumanPost.jsx</span>
+        <ul>
+          <li>Prose</li>
+        </ul>
+      </div>
+      <div class="page-card" style="border-style:dashed;">
+        <p class="page-card__route">/component-atlas</p>
+        <span class="page-card__file">pages/new/ComponentAtlas.jsx</span>
+        <ul>
+          <li>PageHeader</li>
+        </ul>
+        <p class="page-card__empty">
+          <span class="tag tag--internal" style="margin-top:.4rem;"><span class="tag__dot"></span>Internal</span>
+          — halaman ini sendiri, versi hidup di dalam app. Tidak ditautkan; dibuka lewat menu Shift+S.
+        </p>
+      </div>
+      <div class="page-card" style="border-style:dashed;">
+        <p class="page-card__route">/design-system</p>
+        <span class="page-card__file">pages/new/DesignSystem.jsx</span>
+        <ul>
+          <li>PageHeader</li>
+        </ul>
+        <p class="page-card__empty">
+          <span class="tag tag--internal" style="margin-top:.4rem;"><span class="tag__dot"></span>Internal</span>
+          — tab navbar-nya tersembunyi (Cmd+/); juga ada di menu Shift+S. Tanpa Footer/FinalCta.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="direktori">
+  <div class="shell">
+    <p class="section__eyebrow">06 — Inventaris</p>
+    <h2 class="section__title">Setiap komponen, per direktori</h2>
+    <p class="section__note">
+      Dicoret = didefinisikan tapi tidak diimpor di mana pun saat ini — kandidat konten
+      yang ditunda, bukan bug.
+    </p>
+
+    <div class="dir-grid">
+      <div class="dir-col" style="border-top:3px solid var(--track-new)">
+        <div class="dir-col__head"><span class="dir-col__title">components/new/</span></div>
+        <p class="dir-col__used">22 berkas — jalur aktif</p>
+        <ul class="dir-list">
+          <li><span class="fname">Navbar</span><span class="fused">chrome</span></li>
+          <li><span class="fname">Hero</span><span class="fused">/new</span></li>
+          <li><span class="fname">Footer</span><span class="fused">chrome</span></li>
+          <li><span class="fname">PageHeader</span><span class="fused">4 halaman</span></li>
+          <li><span class="fname">FinalCta</span><span class="fused">8 halaman</span></li>
+          <li><span class="fname">PostCard</span><span class="fused">3 halaman</span></li>
+          <li><span class="fname">Prose</span><span class="fused">2 halaman</span></li>
+          <li><span class="fname">SocialProof</span><span class="fused">/new</span></li>
+          <li><span class="fname">ProgramOverview</span><span class="fused">/new</span></li>
+          <li><span class="fname">Founders</span><span class="fused">/new</span></li>
+          <li><span class="fname">ActivityCards</span><span class="fused">/new</span></li>
+          <li><span class="fname">ProgramStats</span><span class="fused">/new</span></li>
+          <li><span class="fname">Faq</span><span class="fused">/new</span></li>
+          <li><span class="fname">UpcomingActivities</span><span class="fused">2 rute</span></li>
+          <li><span class="fname">EventCountdown</span><span class="fused">/kegiatan/mendatang</span></li>
+          <li><span class="fname">JourneyOfGrowth</span><span class="fused">/program</span></li>
+          <li><span class="fname">CatholicLegitimacy</span><span class="fused">/tentang-kami</span></li>
+          <li><span class="fname">HowShekinahHelps</span><span class="fused">/tentang-kami</span></li>
+          <li class="is-orphan"><span class="fname">AudienceSegments</span><span class="fused">tidak dipakai</span></li>
+          <li class="is-orphan"><span class="fname">BeliefShift</span><span class="fused">tidak dipakai</span></li>
+          <li class="is-orphan"><span class="fname">ClearingDoubts</span><span class="fused">tidak dipakai</span></li>
+          <li class="is-orphan"><span class="fname">ProblemAwareness</span><span class="fused">tidak dipakai</span></li>
+        </ul>
+      </div>
+
+      <div class="dir-col" style="border-top:3px solid var(--track-proto)">
+        <div class="dir-col__head"><span class="dir-col__title">components/proto/</span></div>
+        <p class="dir-col__used">4 berkas — hanya untuk /</p>
+        <ul class="dir-list">
+          <li><span class="fname">CredibilityBand</span><span class="fused">/</span></li>
+          <li><span class="fname">ProgramStrip</span><span class="fused">/</span></li>
+          <li><span class="fname">EventCountdown</span><span class="fused">/</span></li>
+          <li><span class="fname">ActivityCards</span><span class="fused">/</span></li>
+        </ul>
+        <p class="page-card__empty" style="margin-top:1rem;">
+          Nama sama dengan dua berkas di new/ (ActivityCards, EventCountdown) — implementasi berbeda, tidak boleh disatukan.
+        </p>
+      </div>
+
+      <div class="dir-col" style="border-top:3px solid var(--track-legacy)">
+        <div class="dir-col__head"><span class="dir-col__title">components/ (atas)</span></div>
+        <p class="dir-col__used">11 berkas — /legacy + chrome bersama</p>
+        <ul class="dir-list">
+          <li><span class="fname">Navbar</span><span class="fused">/ &amp; /legacy</span></li>
+          <li><span class="fname">Hero</span><span class="fused">/ &amp; /legacy</span></li>
+          <li><span class="fname">DesignSwitcher</span><span class="fused">global</span></li>
+          <li><span class="fname">ScrollToTopButton</span><span class="fused">global</span></li>
+          <li><span class="fname">DevMenu</span><span class="fused">global</span></li>
+          <li><span class="fname">ProblemSolution</span><span class="fused">/legacy</span></li>
+          <li><span class="fname">Stats</span><span class="fused">/legacy</span></li>
+          <li><span class="fname">Differentiators</span><span class="fused">/legacy</span></li>
+          <li><span class="fname">Programs</span><span class="fused">/legacy</span></li>
+          <li><span class="fname">Testimonials</span><span class="fused">/legacy</span></li>
+          <li><span class="fname">FinalCta</span><span class="fused">/legacy</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="infrastruktur">
+  <div class="shell">
+    <p class="section__eyebrow">07 — Fondasi</p>
+    <h2 class="section__title">Infrastruktur bersama</h2>
+    <p class="section__note">
+      Tidak terikat satu desain — dipakai lintas jalur, jadi mengubahnya berdampak ke lebih
+      dari satu halaman.
+    </p>
+
+    <h3 class="subhead">Hooks</h3>
+    <table class="infra-table">
+      <thead><tr><th>Berkas</th><th>Fungsi</th><th>Dipakai oleh</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="fname">useScrollPosition.js</td>
+          <td>Satu listener scroll ber-rAF untuk seluruh app — jangan tambah listener kedua</td>
+          <td>LandingOld.jsx, LandingNew.jsx</td>
+        </tr>
+        <tr>
+          <td class="fname">useDesignSystemTab.js</td>
+          <td>Toggle Cmd+/ untuk menampilkan tab navbar tersembunyi ke /design-system</td>
+          <td>components/new/Navbar.jsx</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="subhead">Sumber data (src/data/*.js)</h3>
+    <table class="infra-table">
+      <thead><tr><th>Berkas</th><th>Isi</th><th>Dibaca halaman</th></tr></thead>
+      <tbody>
+        <tr><td class="fname">programs.js</td><td>KEP, BLKEP, SEP, Pembinaan Intensif, dst.</td><td>ProgramOverview, ProgramIndex, ProgramPage, KegiatanPost</td></tr>
+        <tr><td class="fname">kegiatan.js</td><td>Arsip &amp; jadwal kegiatan mendatang</td><td>UpcomingActivities, KegiatanIndex/Mendatang/Post, ProgramPage</td></tr>
+        <tr><td class="fname">pengajar.js</td><td>Romo pembina &amp; tim pengajar</td><td>Founders, Pengajar.jsx, TentangKami.jsx</td></tr>
+        <tr><td class="fname">pengumuman.js</td><td>Pengumuman resmi</td><td>PengumumanIndex/Post</td></tr>
+        <tr><td class="fname">stats.js</td><td>Label statistik <strong>tetap</strong>: KEP, BLKEP, SEP, Seminar</td><td>komponen statistik di kedua landing</td></tr>
+        <tr><td class="fname">format.js</td><td>Pemformat tanggal bersama</td><td>Kegiatan* &amp; Pengumuman*</td></tr>
+        <tr><td class="fname">prototype.js</td><td>Data khusus halaman lama (credibilityLight/Amber)</td><td>LandingOld.jsx</td></tr>
+      </tbody>
+    </table>
+
+    <p class="section__note" style="margin-top:2rem; margin-bottom:0;">
+      Tekan <kbd>Shift</kbd> + <kbd>S</kbd> di situs berjalan untuk membuka menu internal —
+      tautan ke halaman ini (<code>/component-atlas</code>) dan <code>/design-system</code>.
+    </p>
+  </div>
+</section>
+
+<footer class="colophon">
+  <div class="shell">
+    Berkas statis — salinan lepas-berdiri, tidak perlu <code>npm run dev</code>, untuk
+    dibaca atau dibagikan di luar situs. Versi hidupnya ada di dalam app di
+    <code>/component-atlas</code>, dibuka lewat menu <kbd>Shift</kbd>+<kbd>S</kbd> atau
+    langsung lewat URL. Untuk token warna yang paling akurat, <code>/design-system</code>
+    tetap sumber kebenarannya karena ia membaca nilai langsung dari CSS saat runtime.
+  </div>
+</footer>
+
+</body>
+</html>

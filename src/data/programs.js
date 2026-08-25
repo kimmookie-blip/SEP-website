@@ -13,6 +13,10 @@
  * pernah di landing page.
  *
  * Menambah jalur baru: tambahkan satu objek di bawah, `slug` menentukan URL-nya.
+ *
+ * `outline` is either a flat array of strings, or — when the material has
+ * named sub-sections (see `blpi`) — an array of { group, items } objects.
+ * ProgramPage.jsx renders whichever shape is present.
  */
 export const programs = [
   {
@@ -33,11 +37,10 @@ export const programs = [
     audience: 'Umat umum, tanpa syarat pembinaan sebelumnya',
     format: 'Tatap muka di paroki penyelenggara',
     outline: [
-      'Pengenalan pribadi akan Kristus',
-      'Pemulihan gambar diri',
-      'Retret luka batin',
-      'Doa dan hidup rohani sehari-hari',
-      'Pengutusan sebagai murid',
+      'Amanat Perutusan Agung',
+      'Pembawa Kabar Baik',
+      'Kunjungan',
+      "What's Next",
     ],
   },
   {
@@ -78,11 +81,15 @@ export const programs = [
     duration: 'Rangkaian bertahap sepanjang tahun',
     audience: 'Alumni KEP atau SEP',
     format: 'Tatap muka, dibuka beberapa angkatan per tahun',
+    // grouped outline — ProgramPage.jsx renders each { group, items } as its
+    // own numbered list with a subheading, instead of one flat <ol>.
     outline: [
-      'Dasar pemuridan Kristiani',
-      'Karunia dan buah Roh Kudus',
-      'Hidup doa yang berkelanjutan',
-      'Kebiasaan iman dalam keseharian',
+      { group: 'Deeper A', items: ['Pertumbuhan', 'Dasar Kedewasaan Kristiani', 'Pemuridan'] },
+      { group: 'Deeper B', items: ['Gospel Sharing', 'Iman Katolik'] },
+      {
+        group: 'Deeper C',
+        items: ['Mendoakan Orang Sakit', 'Gambar Diri', 'Kursus Pelayanan Pribadi'],
+      },
     ],
   },
   {
@@ -90,24 +97,65 @@ export const programs = [
     order: 4,
     tab: 'Kelas Kitab Suci (BLKS)',
     title: 'Bina Lanjut Kitab Suci',
-    focus: 'Metode Joy of Discovery',
+    focus: 'Kelas Tatap Muka Bersama Pengajar',
     stageBefore: 'Pendalaman',
     stageEmphasis: 'Kitab Suci',
     name: 'BLKS',
     blurb: 'Pembelajaran Kitab Suci yang dibawakan oleh pengajar dari Shekinah.',
     intro:
-      'Membaca Kitab Suci dengan metode Joy of Discovery — menemukan sendiri makna teks melalui pertanyaan terarah, bukan sekadar mendengarkan ceramah.',
+      'Kelas tatap muka di pusat Shekinah, mengikuti rangkaian modul terstruktur bersama pengajar — mendalami Kitab Suci, dokumen Gereja, dan teologi dasar dari Perjanjian Lama hingga Kitab Wahyu.',
     duration: 'Modul A sampai F, masing-masing satu rangkaian kelas',
     audience: 'Terbuka bagi alumni pembinaan Shekinah',
-    format: 'Kelas kelompok kecil, tatap muka dan daring',
+    format: 'Kelas tatap muka di pusat Shekinah',
     outline: [
-      'Modul A — pengantar membaca Kitab Suci',
-      'Modul B — Perjanjian Lama',
-      'Modul C — Injil Sinoptik',
-      'Modul D — Injil Yohanes',
-      'Modul E — Surat-surat Paulus',
-      'Modul F — pendalaman tematik',
+      {
+        group: 'Modul A',
+        items: ['Pengantar Perjanjian Lama dan Baru', 'Dei Verbum', 'Teologi Dasar', 'Inspirasi Kanon'],
+      },
+      {
+        group: 'Modul B',
+        items: ['Pentateukh', 'Injil Sinoptik', 'Verbum Domini', 'Prinsip Menafsir KS', 'Merenungkan KS Pribadi'],
+      },
+      {
+        group: 'Modul C',
+        items: ['Kitab Sejarah', 'Injil Yohanes', 'Sejarah Gereja', 'Lumen Gentium'],
+      },
+      {
+        group: 'Modul D',
+        items: [
+          'Kitab Nabi',
+          'Surat Paulus',
+          'Sacrosanctum Concilium',
+          'Prinsip Menafsir KS',
+          'Merenungkan KS secara Pribadi/Kelompok',
+        ],
+      },
+      {
+        group: 'Modul E',
+        items: ['Kitab Kebijaksanaan', 'Kisah Para Rasul', 'Surat Katolik', 'Pneumatologi', 'Praktek Narasi'],
+      },
+      {
+        group: 'Modul F',
+        items: ['Kitab Deuterokanonika', 'Kitab Wahyu', 'Sejarah dan Hakekat PKK', 'Latihan Membawa Renungan'],
+      },
     ],
+  },
+  {
+    slug: 'blkep',
+    order: 6,
+    tab: 'Bina Lanjut Paroki (BLKEP)',
+    title: 'Bina Lanjut Kursus Evangelisasi Pribadi',
+    focus: 'Pendampingan Lanjutan Bersama Paroki',
+    stageBefore: 'Bina Lanjut',
+    stageEmphasis: 'Paroki',
+    name: 'BLKEP',
+    blurb: 'Program lanjutan bagi alumni KEP/SEP yang ingin terus dibina bersama paroki asal.',
+    intro:
+      'Kelanjutan pembinaan di tingkat paroki bagi alumni KEP atau SEP. Pendampingan tetap dekat dengan komunitas paroki, sambil terus bertumbuh dalam iman bersama umat setempat.',
+    duration: 'Rangkaian bertahap bersama paroki',
+    audience: 'Alumni KEP atau SEP di paroki penyelenggara',
+    format: 'Tatap muka di paroki penyelenggara',
+    outline: ['Pertumbuhan', 'Pemuridan', 'Gospel Sharing', 'Iman Katolik', 'Gambar Diri'],
   },
   {
     slug: 'retret',

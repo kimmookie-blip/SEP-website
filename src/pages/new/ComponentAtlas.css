@@ -1,0 +1,341 @@
+/* ============================================================
+   Halaman internal /component-atlas. Sama seperti DesignSystem.css:
+   lebih padat dan lebih kecil tipografinya daripada halaman publik
+   — ini alat kerja, bukan halaman pemasaran.
+   ============================================================ */
+
+.ca-section {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+.ca-section__title {
+  margin-bottom: 1rem;
+}
+
+.ca-subhead {
+  margin: 3rem 0 1.25rem;
+  font-family: var(--font-accent);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ca-note {
+  max-width: 68ch;
+  margin: 0 0 2rem;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.ca-note code {
+  background: rgba(15, 49, 78, 0.06);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  font-size: 0.85em;
+}
+
+.ca-note--last {
+  margin-top: 3rem;
+  margin-bottom: 0;
+}
+
+/* ---------- tag jalur ---------- */
+
+.ca-tag {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.ca-tag--new {
+  background: rgba(241, 165, 1, 0.16);
+  color: var(--gold-ink);
+}
+
+.ca-tag--proto {
+  background: rgba(0, 126, 202, 0.14);
+  color: #0a4d75;
+}
+
+.ca-tag--legacy {
+  background: var(--band-light);
+  color: var(--muted);
+}
+
+/* ---------- tiga jalur ---------- */
+
+.ca-track-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.ca-track {
+  display: grid;
+  grid-template-columns: 160px auto 1fr 1.4fr;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--rule);
+  border-left-width: 3px;
+  border-radius: 8px;
+}
+
+.ca-track--new { border-left-color: var(--amber); }
+.ca-track--proto { border-left-color: #007eca; }
+.ca-track--legacy { border-left-color: var(--placeholder-rule); }
+
+.ca-track__dir {
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--deep-blue);
+}
+
+.ca-track__role {
+  font-size: 0.86rem;
+  color: var(--deep-blue);
+}
+
+.ca-track__note {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+/* ---------- tabel ---------- */
+
+.ca-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  margin-bottom: 1rem;
+}
+
+.ca-table th {
+  padding: 0 0.75rem 0.75rem 0;
+  text-align: left;
+  font-family: var(--font-accent);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--rule);
+}
+
+.ca-table td {
+  padding: 0.8rem 1rem 0.8rem 0;
+  vertical-align: top;
+  border-bottom: 1px solid var(--rule);
+  color: var(--deep-blue);
+}
+
+.ca-table__route,
+.ca-table__num {
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.ca-table__role {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ---------- kartu halaman ---------- */
+
+.ca-page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.ca-page-card {
+  padding: 1.1rem 1.2rem 1.25rem;
+  background: var(--bg-white);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+}
+
+.ca-page-card--internal {
+  border-style: dashed;
+  background: var(--band-light);
+}
+
+.ca-page-card__route {
+  margin: 0 0 0.15rem;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--deep-blue);
+}
+
+.ca-page-card__file {
+  display: block;
+  margin-bottom: 0.85rem;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.ca-page-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ca-page-card li {
+  position: relative;
+  padding-left: 0.9rem;
+  font-size: 0.84rem;
+  color: var(--deep-blue);
+}
+
+.ca-page-card li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--amber);
+}
+
+.ca-page-card__empty {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* ---------- direktori ---------- */
+
+.ca-dir-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.ca-dir-col {
+  padding: 1.25rem 1.3rem 1.4rem;
+  background: var(--bg-white);
+  border: 1px solid var(--rule);
+  border-top-width: 3px;
+  border-radius: 10px;
+}
+
+.ca-dir-col--new { border-top-color: var(--amber); }
+.ca-dir-col--proto { border-top-color: #007eca; }
+.ca-dir-col--legacy { border-top-color: var(--placeholder-rule); }
+
+.ca-dir-col__title {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--deep-blue);
+}
+
+.ca-dir-col__used {
+  margin: 0.2rem 0 0.9rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.ca-dir-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ca-dir-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--rule);
+  font-size: 0.82rem;
+}
+
+.ca-dir-list li:first-child { border-top: none; }
+
+.ca-dir-list__name {
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  color: var(--deep-blue);
+}
+
+.ca-dir-list__used {
+  color: var(--muted);
+  font-size: 0.76rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.ca-dir-list li.is-orphan .ca-dir-list__name {
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--rule);
+}
+
+.ca-dir-list li.is-orphan .ca-dir-list__used {
+  font-style: italic;
+}
+
+kbd {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--rule);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: var(--bg-white);
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  font-size: 0.78rem;
+  color: var(--deep-blue);
+}
+
+/* ---------- responsif ---------- */
+
+@media (max-width: 1024px) {
+  .ca-dir-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ca-track {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .ca-section {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .ca-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .ca-table__role {
+    white-space: normal;
+    min-width: 20ch;
+  }
+}

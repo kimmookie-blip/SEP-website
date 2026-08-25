@@ -3,7 +3,7 @@ import romoSubroto from '../assets/romo-subroto.png'
 import romoKoelman from '../assets/romo-koelman.png'
 
 /**
- * Kepala sekolah, romo pembina, dan tim pengajar Shekinah.
+ * Kepala sekolah, romo pembina, dan susunan pengurus SEP.
  *
  * Dibaca oleh components/new/Founders.jsx (karosel di landing page, hanya
  * `romoPembina`) dan pages/new/Pengajar.jsx (seluruhnya).
@@ -15,6 +15,12 @@ import romoKoelman from '../assets/romo-koelman.png'
  *
  * `image: null` menampilkan kotak abu-abu, bukan gambar rusak — pakai itu
  * sampai fotonya tersedia di src/assets/.
+ *
+ * Nama `kepalaSekolah` dan seluruh `timPengajar` diambil dari tabel
+ * "Susunan Pengurus SEP" (per pesan pengguna), digabung sebagai
+ * "<Nama Baptis> <Nama Lahir>". `bio` masih kosong untuk semuanya — tabel
+ * sumber hanya berisi nama dan jabatan, belum ada keterangan tugas per
+ * orang. Isi begitu tersedia.
  */
 
 /**
@@ -22,17 +28,18 @@ import romoKoelman from '../assets/romo-koelman.png'
  * section paling atas /pengajar (halaman ini tidak lagi punya PageHeader
  * terpisah; section ini sendiri yang jadi pembuka halaman). Terpisah dari
  * `romoPembina` (yang sudah wafat; sekarang jadi bagian warisan/trust di
- * bagian bawah halaman yang sama) dan `timPengajar` (pengajar aktif
- * lainnya). `image: null` sampai fotonya tersedia di src/assets/.
+ * bagian bawah halaman yang sama) dan `timPengajar` (pengurus SEP lainnya).
+ * `image: null` sampai fotonya tersedia di src/assets/. `period: null`
+ * sampai masa bakti dikonfirmasi — Pengajar.jsx hanya menampilkan eyebrow
+ * "Kepala Sekolah · <period>" bila field ini diisi.
  */
 export const kepalaSekolah = {
   id: 'kepala-sekolah',
   role: 'Kepala Sekolah',
-  // tampil di eyebrow sebagai "Kepala Sekolah · <period>"
-  period: '2016 – Sekarang',
-  name: 'Stanley Ch. Budihardja',
+  period: null,
+  name: 'Cecilia Novalasa Bungakarna',
   image: null,
-  bio: 'Memimpin penyelenggaraan pembinaan Shekinah sejak 2016, menjaga agar setiap program tetap berjalan dengan arah yang jelas dan tetap berakar pada semangat pendampingan yang telah dibangun sejak 1990.',
+  bio: '',
 }
 
 /**
@@ -68,36 +75,121 @@ export const romoPembina = [
 ]
 
 /**
- * Pengajar awam. Isi contoh — ganti nama, peran, dan keterangannya dengan tim
- * yang sebenarnya, lalu tambahkan `image` bila fotonya sudah ada.
+ * Susunan Pengurus SEP, di luar Kepala Sekolah (lihat `kepalaSekolah` di
+ * atas). Urutan mengikuti tabel sumber. Tambahkan `image` bila fotonya
+ * sudah ada.
  */
 export const timPengajar = [
   {
-    id: 'koordinator-kep',
-    name: '[Nama pengajar]',
-    role: 'Koordinator KEP',
+    id: 'wakil-kepala-sekolah-1',
+    name: 'Yohanes Patrick Moniaga',
+    role: 'Wakil Kepala Sekolah 1',
     image: null,
-    bio: 'Mengoordinasikan penyelenggaraan KEP bersama paroki mitra.',
+    bio: '',
   },
   {
-    id: 'pengajar-kitab-suci',
-    name: '[Nama pengajar]',
-    role: 'Pengajar Kitab Suci',
+    id: 'wakil-kepala-sekolah-2',
+    name: 'Stanislaus Emmanuel Stanley Christianto Budihardja',
+    role: 'Wakil Kepala Sekolah 2',
     image: null,
-    bio: 'Membawakan kelas BLKS dengan metode Joy of Discovery.',
+    bio: '',
   },
   {
-    id: 'pendamping-retret',
-    name: '[Nama pengajar]',
-    role: 'Pendamping Retret',
+    id: 'sekretaris',
+    name: 'Birgitta Then Fariati',
+    role: 'Sekretaris',
     image: null,
-    bio: 'Mendampingi peserta pada retret keluarga dan retret penyembuhan batin.',
+    bio: '',
   },
   {
-    id: 'pembina-komunitas',
-    name: '[Nama pengajar]',
-    role: 'Pembina Komunitas',
+    id: 'bendahara-1',
+    name: 'Maria Monica Emmy Sriharjanti',
+    role: 'Bendahara 1',
     image: null,
-    bio: 'Menjaga pendampingan alumni setelah rangkaian pembinaan selesai.',
+    bio: '',
+  },
+  {
+    id: 'bendahara-2',
+    name: 'Martha Clara Luciana Widjaja',
+    role: 'Bendahara 2',
+    image: null,
+    bio: '',
+  },
+  {
+    id: 'ketua-bidang-akademik',
+    name: 'Margaretha Maria Alacogue Yuni Astuti',
+    role: 'Ketua Bidang Akademik',
+    image: null,
+    bio: '',
+  },
+  {
+    id: 'wakil-ketua-bidang-akademik',
+    name: 'Marcellus Cung Mu Liong',
+    role: 'Wakil Ketua Bidang Akademik',
+    image: null,
+    bio: '',
+  },
+  {
+    id: 'ketua-bidang-kep-blkep',
+    name: 'Yohanes Pinarwan Tenardi',
+    role: 'Ketua Bidang KEP/BLKEP',
+    image: null,
+    bio: '',
+  },
+  {
+    id: 'wakil-ketua-bidang-kep-blkep',
+    name: 'Fransiskus Xaferius Hiu Kurniawan',
+    role: 'Wakil Ketua Bidang KEP/BLKEP',
+    image: null,
+    bio: '',
+  },
+  {
+    id: 'ketua-bidang-fkpe',
+    name: 'Maria Margareth Irma Hoesan',
+    role: 'Ketua Bidang FKPE',
+    image: null,
+    bio: '',
+  },
+  {
+    id: 'wakil-ketua-bidang-fkpe',
+    name: 'Angelina Beatrix Lenny Setiawati',
+    role: 'Wakil Ketua Bidang FKPE',
+    image: null,
+    bio: '',
+  },
+  {
+    id: 'ketua-bidang-outreach',
+    name: 'Martha Maria Sri Wahyuni',
+    role: 'Ketua Bidang Outreach',
+    image: null,
+    bio: '',
+  },
+  {
+    id: 'wakil-ketua-bidang-outreach',
+    name: 'Gabriel Krisnanda Andhika Svara',
+    role: 'Wakil Ketua Bidang Outreach',
+    image: null,
+    bio: '',
+  },
+  {
+    id: 'ketua-bidang-litbang',
+    name: 'Luciana Winny Harianto',
+    role: 'Ketua Bidang Litbang',
+    image: null,
+    bio: '',
+  },
+  {
+    id: 'ketua-kelasi',
+    name: 'Petrus Hariyanto Soetarso',
+    role: 'Ketua Kelasi',
+    image: null,
+    bio: '',
+  },
+  {
+    id: 'wakil-ketua-kelasi',
+    name: 'Victor Victor Wei',
+    role: 'Wakil Ketua Kelasi',
+    image: null,
+    bio: '',
   },
 ]

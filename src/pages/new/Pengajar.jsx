@@ -35,7 +35,8 @@ export default function Pengajar() {
 
             <div className="new-teacher-lead__copy">
               <span className="new-teacher-lead__role">
-                {kepalaSekolah.role} · {kepalaSekolah.period}
+                {kepalaSekolah.role}
+                {kepalaSekolah.period && ` · ${kepalaSekolah.period}`}
               </span>
               {/* the page's only h1 — see the import comment above */}
               <h1 className="new-teacher-lead__name" id="kepala-sekolah">

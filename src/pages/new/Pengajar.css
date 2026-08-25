@@ -76,7 +76,11 @@
 }
 
 .new-teachers__grid--small {
-  grid-template-columns: repeat(4, 1fr);
+  /* 4 columns worked for the old short placeholder text, but real names
+     and role labels ("Wakil Ketua Bidang Akademik", "Stanislaus Emmanuel
+     Stanley Christianto Budihardja") need more room per card than that
+     leaves — 3 matches .new-teachers__grid's own column count. */
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
 
@@ -161,20 +165,94 @@
 
 /* ---------- responsive ---------- */
 
+/* Compact treatment starts at tablet, not just phone — a 250px portrait
+   next to a 2-column grid of 4:5 photos was just as oversized on an iPad
+   as on a phone, so both breakpoints below get the same small-photo
+   layout. Everything here is scoped to `.new-teacher-lead*` / `--small`,
+   both exclusive to this page, so the Romo Pembina grid on /tentang-kami
+   (which shares the plain .new-teacher classes) is unaffected. */
 @media (max-width: 1024px) {
   .new-teacher-lead {
     padding-top: 9.5rem;
   }
 
+  /* Small photo beside role/name instead of a big portrait stacked above
+     them — `copy` (role + name + bio) is unwrapped via `display: contents`
+     so its children can be placed independently: bio drops to its own
+     full-width row below the photo, which stays small throughout. */
   .new-teacher-lead__inner {
-    grid-template-columns: 250px 1fr;
-    gap: 2.5rem;
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    grid-template-areas:
+      'photo role'
+      'photo name'
+      'bio   bio';
+    column-gap: 1.1rem;
+    row-gap: 0.3rem;
+    align-items: start;
   }
 
-  .new-teachers__grid,
+  .new-teacher-lead__photo {
+    grid-area: photo;
+    max-width: none;
+    /* square reads as a small avatar; the 4:5 portrait crop only works at
+       the desktop card's larger size */
+    aspect-ratio: 1 / 1;
+  }
+
+  .new-teacher-lead__copy {
+    display: contents;
+    max-width: none;
+  }
+
+  .new-teacher-lead__role {
+    grid-area: role;
+    align-self: end;
+  }
+
+  .new-teacher-lead__name {
+    grid-area: name;
+    margin: 0.1rem 0 0;
+    font-size: 1.4rem;
+    line-height: 1.2;
+  }
+
+  .new-teacher-lead__bio {
+    grid-area: bio;
+    margin-top: 0.9rem;
+    font-size: 0.92rem;
+  }
+
+  /* Tim Pengajar: compact row instead of a stacked card — small square
+     avatar beside the caption, not a large photo above it. Declared after
+     the shared `.new-teachers__grid, .new-teachers__grid--small` rule
+     further up the file (still 2 columns for the plain grid /tentang-kami
+     also renders), so this later, `--small`-only rule is what wins here. */
   .new-teachers__grid--small {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+
+  .new-teacher--small {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
+
+  .new-teacher--small .new-teacher__photo {
+    flex: 0 0 68px;
+    width: 68px;
+    aspect-ratio: 1 / 1;
+  }
+
+  .new-teacher--small .new-teacher__caption {
+    padding-top: 0;
+    gap: 0.2rem;
+  }
+
+  .new-teacher--small .new-teacher__bio {
+    margin-top: 0.2rem;
+    font-size: 0.85rem;
   }
 }
 
@@ -183,22 +261,14 @@
     padding: 8rem 0 3.5rem;
   }
 
-  .new-teacher-lead__inner {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .new-teacher-lead__photo {
-    max-width: 260px;
-  }
-
-  .new-teachers__grid,
-  .new-teachers__grid--small {
+  .new-teachers__grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
 
-  /* a full-width 4:5 portrait eats the whole screen on a phone */
+  /* a full-width 4:5 portrait eats the whole screen on a phone. Only the
+     plain grid needs this — .new-teachers__grid--small's photos are
+     already small squares from the 1024px rule above. */
   .new-teacher__photo {
     aspect-ratio: 4 / 3;
   }

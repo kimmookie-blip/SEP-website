@@ -31,6 +31,7 @@ const HIDDEN_ON = [
   '/kegiatan',
   '/pengumuman',
   '/design-system',
+  '/component-atlas',
 ]
 
 export default function DesignSwitcher() {

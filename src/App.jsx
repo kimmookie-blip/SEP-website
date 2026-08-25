@@ -13,8 +13,10 @@ import KegiatanPost from './pages/new/KegiatanPost'
 import PengumumanIndex from './pages/new/PengumumanIndex'
 import PengumumanPost from './pages/new/PengumumanPost'
 import DesignSystem from './pages/new/DesignSystem'
+import ComponentAtlas from './pages/new/ComponentAtlas'
 import DesignSwitcher from './components/DesignSwitcher'
 import ScrollToTopButton from './components/ScrollToTopButton'
+import DevMenu from './components/DevMenu'
 
 /** Reset scroll on navigation, and honour an in-page target passed via state. */
 function ScrollToTop() {
@@ -50,6 +52,7 @@ export default function App() {
       */}
       <DesignSwitcher />
       <ScrollToTopButton />
+      <DevMenu />
       <Routes>
         <Route path="/" element={<LandingOld />} />
         <Route path="/new" element={<LandingNew />} />
@@ -79,12 +82,14 @@ export default function App() {
         <Route path="/pengumuman/:slug" element={<PengumumanPost />} />
 
         {/*
-          Internal styleguide. Nothing links here in the normal run of the
-          site — the navbar tab that reaches it is hidden behind Cmd+/ (see
-          hooks/useDesignSystemTab). The route itself stays open so the URL
-          can be shared directly.
+          Internal-only pages. Nothing links here in the normal run of the
+          site: /design-system's navbar tab is hidden behind Cmd+/ (see
+          hooks/useDesignSystemTab), and both routes are also reachable
+          through DevMenu's Shift+S popup, mounted below. The routes
+          themselves stay open so either URL can be shared directly.
         */}
         <Route path="/design-system" element={<DesignSystem />} />
+        <Route path="/component-atlas" element={<ComponentAtlas />} />
 
         {/* alias, so links shared while this lived at /prototype still work */}
         <Route path="/prototype" element={<LandingOld />} />

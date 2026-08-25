@@ -1,0 +1,84 @@
+/* Centred overlay, not a corner pill like DesignSwitcher/ScrollToTopButton —
+   this is opened deliberately via keyboard, not glanced at while scrolling,
+   so it can afford to take the middle of the screen. Sits above both of
+   those (z-index 200/150). */
+.dev-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(15, 49, 78, 0.45);
+}
+
+.dev-menu__panel {
+  width: 100%;
+  max-width: 360px;
+  padding: 1.5rem 1.5rem 1.25rem;
+  border-radius: 14px;
+  background: var(--deep-blue);
+  box-shadow: 0 24px 60px rgba(15, 49, 78, 0.4);
+}
+
+.dev-menu__eyebrow {
+  margin: 0 0 1rem;
+  font-family: var(--font-accent);
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.dev-menu__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.85rem 0.9rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.15s var(--ease);
+}
+
+.dev-menu__item + .dev-menu__item {
+  margin-top: 0.15rem;
+}
+
+.dev-menu__item:hover,
+.dev-menu__item:focus-visible {
+  background: rgba(245, 239, 225, 0.1);
+}
+
+.dev-menu__item-label {
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--cream);
+}
+
+.dev-menu__item-hint {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: rgba(245, 239, 225, 0.6);
+}
+
+.dev-menu__foot {
+  margin: 1rem 0 0;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--rule-light);
+  font-size: 0.76rem;
+  color: rgba(245, 239, 225, 0.55);
+  text-align: center;
+}
+
+.dev-menu__foot kbd {
+  display: inline-block;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid rgba(245, 239, 225, 0.35);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  font-size: 0.72rem;
+  color: var(--cream);
+}

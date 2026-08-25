@@ -13,31 +13,32 @@ const PROGRAMS = programs
 const HEADLINE = 'Temukan program sesuai tahap perjalanan imanmu.'
 const CTA_LABEL = 'Lihat Semua Program'
 
-// Two-step finder, mapped from the doc's "Kebutuhan → Program" table.
-// An option either resolves straight to a `result`, or narrows to `candidates`
-// and moves on to `next`. Everything runs in local state — no backend.
+// Two-step finder: Pembinaan Intensif branches by venue (Paroki vs Shekinah),
+// then by whether KEP/SEP is already done. An option either resolves straight
+// to a `result`, or moves on to `next`. Everything runs in local state — no backend.
 const QUIZ = {
   start: {
     step: 1,
-    question: 'Di mana posisimu saat ini?',
+    question: 'Pembinaan Intensif ingin diikuti di mana?',
     options: [
-      { id: 'baru', label: 'Baru ingin mulai', result: 'kep' },
-      {
-        id: 'pernah',
-        label: 'Sudah pernah ikut pembinaan',
-        next: 'dalami',
-        candidates: ['sep', 'blpi', 'blks', 'retret'],
-      },
+      { id: 'paroki', label: 'Di Paroki', next: 'sudahParoki' },
+      { id: 'shekinah', label: 'Di Shekinah', next: 'sudahShekinah' },
     ],
   },
-  dalami: {
+  sudahParoki: {
     step: 2,
-    question: 'Apa yang ingin kamu dalami?',
+    question: 'Sudah pernah ikut KEP / SEP?',
     options: [
-      { id: 'lengkap', label: 'Pembinaan yang lebih lengkap dan mendalam', result: 'sep' },
-      { id: 'pemuridan', label: 'Pemuridan dan karunia Roh Kudus', result: 'blpi' },
-      { id: 'kitab', label: 'Pendalaman Kitab Suci', result: 'blks' },
-      { id: 'retret', label: 'Pengalaman retret', result: 'retret' },
+      { id: 'ya', label: 'Sudah', result: 'blkep' },
+      { id: 'belum', label: 'Belum', result: 'kep' },
+    ],
+  },
+  sudahShekinah: {
+    step: 2,
+    question: 'Sudah pernah ikut SEP / KEP?',
+    options: [
+      { id: 'ya', label: 'Sudah', result: 'blpi' },
+      { id: 'belum', label: 'Belum', result: 'sep' },
     ],
   },
 }

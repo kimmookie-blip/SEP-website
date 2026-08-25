@@ -66,11 +66,26 @@ export default function ProgramPage() {
               <p className="prog__intro">{program.intro}</p>
 
               <h2 className="prog__heading">Yang Dipelajari</h2>
-              <ol className="prog__outline">
-                {program.outline.map((entry) => (
-                  <li key={entry}>{entry}</li>
-                ))}
-              </ol>
+              {typeof program.outline[0] === 'object' ? (
+                <div className="prog__outline-groups">
+                  {program.outline.map((group) => (
+                    <div className="prog__outline-group" key={group.group}>
+                      <h3 className="prog__outline-group-title">{group.group}</h3>
+                      <ol className="prog__outline">
+                        {group.items.map((entry) => (
+                          <li key={entry}>{entry}</li>
+                        ))}
+                      </ol>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <ol className="prog__outline">
+                  {program.outline.map((entry) => (
+                    <li key={entry}>{entry}</li>
+                  ))}
+                </ol>
+              )}
 
               {/* the parish list and the full session-by-session schedule still
                   need to be supplied — this page is where they go, not the
