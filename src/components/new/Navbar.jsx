@@ -26,8 +26,9 @@ const LINKS = [
       { label: 'Arsip Kegiatan', to: '/kegiatan', exact: true },
     ],
   },
-  { label: 'Team Shekinah', to: '/pengajar' },
+  { label: 'Pengurus Harian', to: '/pengajar' },
   { label: 'pengumuman', to: '/pengumuman' },
+  { label: 'kontak', to: '/kontak' },
 ]
 
 // Placeholder until a member area exists. Stays a plain <a> so it's obvious
@@ -62,7 +63,7 @@ export default function Navbar({ scrolled = false, solid = false }) {
   useEffect(() => {
     // Kept in exact sync with Navbar.css's own breakpoint below — must match
     // or the mobile menu can get stuck open/closed right at the boundary.
-    const mq = window.matchMedia('(min-width: 1101px)')
+    const mq = window.matchMedia('(min-width: 1151px)')
     const onChange = (e) => e.matches && setOpen(false)
     mq.addEventListener('change', onChange)
     return () => mq.removeEventListener('change', onChange)

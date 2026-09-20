@@ -12,10 +12,12 @@ import KegiatanMendatang from './pages/new/KegiatanMendatang'
 import KegiatanPost from './pages/new/KegiatanPost'
 import PengumumanIndex from './pages/new/PengumumanIndex'
 import PengumumanPost from './pages/new/PengumumanPost'
+import Kontak from './pages/new/Kontak'
 import DesignSystem from './pages/new/DesignSystem'
 import ComponentAtlas from './pages/new/ComponentAtlas'
 import DesignSwitcher from './components/DesignSwitcher'
 import ScrollToTopButton from './components/ScrollToTopButton'
+import FloatingMySS from './components/FloatingMySS'
 import DevMenu from './components/DevMenu'
 
 /** Reset scroll on navigation, and honour an in-page target passed via state. */
@@ -52,6 +54,7 @@ export default function App() {
       */}
       <DesignSwitcher />
       <ScrollToTopButton />
+      <FloatingMySS />
       <DevMenu />
       <Routes>
         <Route path="/" element={<LandingOld />} />
@@ -80,6 +83,13 @@ export default function App() {
         <Route path="/kegiatan/:slug" element={<KegiatanPost />} />
         <Route path="/pengumuman" element={<PengumumanIndex />} />
         <Route path="/pengumuman/:slug" element={<PengumumanPost />} />
+
+        {/*
+          Reached from the footer's "Hubungi Kami" link. Not in the navbar:
+          a sixth item overflows the desktop row well before its 1100px
+          breakpoint (see Navbar.css's note on that media query).
+        */}
+        <Route path="/kontak" element={<Kontak />} />
 
         {/*
           Internal-only pages. Nothing links here in the normal run of the

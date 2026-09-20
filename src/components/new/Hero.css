@@ -285,12 +285,12 @@
   gap: 0.15rem;
 }
 
-/* Balthazar — the display face reserved for figures and accents */
 .new-hero__stat-value {
-  font-family: var(--font-accent);
+  font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(2rem, 3.1vw, 2.9rem);
+  font-size: clamp(calc(2rem - 1px), 3.1vw, calc(2.9rem - 1px));
   line-height: 1.1;
+  letter-spacing: -0.02em;
   color: #fdfaf4;
 }
 

@@ -11,7 +11,7 @@ import './ProgramIndex.css'
 // Edit copy here; the programme entries themselves live in data/programs.js.
 const HEAD = {
   kicker: 'Program',
-  title: 'Lima jalur pembinaan, satu perjalanan.',
+  title: 'Ragam jalur pembinaan, satu perjalanan.',
   subhead:
     'Setiap orang memulai dari titik yang berbeda. Jalur di bawah disusun bertahap — pilih yang paling dekat dengan posisimu sekarang, bukan yang terdengar paling lengkap.',
 }

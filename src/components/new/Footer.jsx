@@ -3,9 +3,10 @@ import './Footer.css'
 
 // Edit copy here.
 
-// Every entry is a route now — the footer is rendered on the inner pages too,
-// so in-page anchors would have pointed at sections that aren't there.
-// #kontak is the exception and works everywhere: it's this footer's own id.
+// Every entry is a route — the footer is rendered on the inner pages too, so
+// in-page anchors would have pointed at sections that aren't there. "Hubungi
+// Kami" now goes to the /kontak page; the #kontak anchor below still resolves
+// to this footer's own contact block, which is what FinalCta targets.
 const MAIN_LINKS = [
   { label: 'Tentang Shekinah', to: '/tentang-kami' },
   { label: 'Program Pembinaan', to: '/program' },
@@ -13,10 +14,10 @@ const MAIN_LINKS = [
   // dropdown, but a footer list has room to name them outright
   { label: 'Kegiatan Mendatang', to: '/kegiatan/mendatang' },
   { label: 'Arsip Kegiatan', to: '/kegiatan' },
-  { label: 'Team Shekinah', to: '/pengajar' },
+  { label: 'Pengurus Harian', to: '/pengajar' },
   { label: 'Pengumuman', to: '/pengumuman' },
   { label: 'Beranda', to: '/new' },
-  { label: 'Hubungi Kami', href: '#kontak' },
+  { label: 'Hubungi Kami', to: '/kontak' },
 ]
 
 const INSTITUTIONAL = {

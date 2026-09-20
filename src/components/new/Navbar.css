@@ -618,15 +618,17 @@
   color: var(--cream);
 }
 
-/* 1100px, not the more typical 860 — the desktop row (logo + wordmark's two
-   lines, the longer of which is "Berakar, Bertumbuh, Berbuah" + five links +
+/* 1150px, not the more typical 860 — the desktop row (logo + wordmark's two
+   lines, the longer of which is "Berakar, Bertumbuh, Berbuah" + six links +
    the CTA pill) needs roughly 980–1000px before it stops fitting on one
    line, since neither the brand block nor the link row is allowed to shrink
-   below its own content width. Below ~1100px that row was cramming five
+   below its own content width. Below ~1150px that row was cramming six
    links and a CTA into space that had already run out, well above where
-   the mobile menu used to take over. Keep this in sync with Navbar.jsx's
-   matchMedia. */
-@media (max-width: 1100px) {
+   the mobile menu used to take over. (Raised from 1100px when "kontak" was
+   added as a sixth link — measured empirically: 1120px was already too
+   tight against the CTA pill, 1140px cleared it.) Keep this in sync with
+   Navbar.jsx's matchMedia. */
+@media (max-width: 1150px) {
   .new-nav__links {
     display: none;
   }
@@ -661,11 +663,29 @@
   }
 }
 
-/* Very narrow phones: drop the subtitle entirely — logo image + "SEP
-   Shekinah" only. At 430px the two-line wordmark next to the burger/CTA was
-   the tightest-fitting part of the bar. */
+/* Very narrow phones: the tagline used to be dropped entirely here since the
+   two-line wordmark next to the burger/CTA was the tightest-fitting part of
+   the bar — now kept, shrunk further instead. */
 @media (max-width: 430px) {
+  .new-nav__wordmark strong {
+    font-size: 1.05rem;
+  }
+
   .new-nav__wordmark small {
-    display: none;
+    font-size: 0.62rem;
+  }
+}
+
+/* Below ~360px even the shrunk wordmark plus toggle no longer both fit at
+   the bar's default gap/padding — tighten those instead of the text. */
+@media (max-width: 359px) {
+  .new-nav__bar {
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .new-nav__toggle {
+    gap: 0.4rem;
+    padding: 0 0.7rem 0 0.55rem;
   }
 }

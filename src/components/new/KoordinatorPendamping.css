@@ -1,0 +1,97 @@
+/* ============================================================
+   Koordinator Pendamping — the full parish/korpen directory from
+   data/korpen.js, every row visible at once.
+   ============================================================ */
+
+/* Newspaper columns rather than a grid: the eleven dekenat hold between
+   four and ten parishes each, and a grid would line their tops up and
+   leave a ragged gap under every short one. Columns let a short group be
+   followed immediately by the next, so 67 rows pack into roughly a third
+   of the height with no holes. */
+.new-korpen__columns {
+  margin-top: 3rem;
+  column-count: 3;
+  column-gap: 3rem;
+}
+
+/* A dekenat must never be split across a column break — its heading has to
+   stay with its parishes, or the list reads as belonging to the wrong one. */
+.new-korpen__group {
+  break-inside: avoid;
+  /* `break-inside` alone is ignored by WebKit in multi-column, so this
+     carries the same instruction in the property Safari does honour. */
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  margin: 0 0 2.5rem;
+}
+
+.new-korpen__area {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  color: var(--deep-blue);
+}
+
+.new-korpen__tally {
+  flex: none;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  /* tabular figures so the counts line up down the column */
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.new-korpen__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.new-korpen__row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin-bottom: 0.9rem;
+}
+
+.new-korpen__paroki {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--deep-blue);
+}
+
+.new-korpen__name {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1024px) {
+  .new-korpen__columns {
+    margin-top: 2.5rem;
+    column-count: 2;
+    column-gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .new-korpen__columns {
+    column-count: 1;
+  }
+
+  .new-korpen__group {
+    margin-bottom: 2rem;
+  }
+}

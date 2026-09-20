@@ -1,4 +1,5 @@
 import Navbar from '../../components/new/Navbar'
+import KoordinatorPendamping from '../../components/new/KoordinatorPendamping'
 import FinalCta from '../../components/new/FinalCta'
 import Footer from '../../components/new/Footer'
 import { kepalaSekolah, timPengajar } from '../../data/pengajar'
@@ -9,8 +10,24 @@ import './Pengajar.css'
 // PageHeader on this page — the Kepala Sekolah feature below is the opener,
 // so its own heading carries the page's H1 instead of a separate masthead.
 
-const TEAM_NOTE =
-  'Setiap kelompok kecil didampingi satu pengajar tetap sepanjang rangkaian pembinaan, supaya tidak ada peserta yang tertinggal di tengah jalan.'
+// Per-person crop overrides — `imagePosition` shifts which part of the
+// source photo shows through the object-fit: cover box, `imageScale` zooms
+// in around that same point (transform-origin follows imagePosition so the
+// zoom centers on the framing we picked, not the image's raw center).
+//
+// The position rides in a custom property rather than going straight onto
+// `object-position`, because these values are tuned for the tall desktop
+// card. The compact mobile card is a short, wide box where the same values
+// would crop through a face, so Pengajar.css resets the property at that
+// breakpoint — which an inline `object-position` would have outranked.
+function getImageStyle(person) {
+  if (!person.imagePosition && !person.imageScale) return undefined
+  const position = person.imagePosition || 'center top'
+  return {
+    '--crop': position,
+    ...(person.imageScale && { transform: `scale(${person.imageScale})`, transformOrigin: position }),
+  }
+}
 
 /** /pengajar — the full team behind the landing page's heritage section. */
 export default function Pengajar() {
@@ -27,7 +44,11 @@ export default function Pengajar() {
           <div className="shell new-teacher-lead__inner">
             <div className="new-teacher-lead__photo">
               {kepalaSekolah.image ? (
-                <img src={kepalaSekolah.image} alt={kepalaSekolah.name} />
+                <img
+                  src={kepalaSekolah.image}
+                  alt={kepalaSekolah.name}
+                  style={getImageStyle(kepalaSekolah)}
+                />
               ) : (
                 <span className="new-teacher__placeholder" aria-hidden="true" />
               )}
@@ -47,21 +68,19 @@ export default function Pengajar() {
           </div>
         </section>
 
-        <section className="new-teachers section section--cream" aria-labelledby="tim-pengajar">
+        <section className="new-teachers section section--cream" aria-label="Tim Pengajar">
           <div className="shell">
-            <div className="page-section-head">
-              <h2 className="page-section-head__title" id="tim-pengajar">
-                Tim Pengajar
-              </h2>
-              <p className="page-section-head__note">{TEAM_NOTE}</p>
-            </div>
-
             <div className="new-teachers__grid new-teachers__grid--small">
               {timPengajar.map((person) => (
                 <figure className="new-teacher new-teacher--small" key={person.id}>
                   <div className="new-teacher__photo">
                     {person.image ? (
-                      <img src={person.image} alt={person.name} loading="lazy" />
+                      <img
+                        src={person.image}
+                        alt={person.name}
+                        loading="lazy"
+                        style={getImageStyle(person)}
+                      />
                     ) : (
                       <span className="new-teacher__placeholder" aria-hidden="true" />
                     )}
@@ -77,6 +96,8 @@ export default function Pengajar() {
             </div>
           </div>
         </section>
+
+        <KoordinatorPendamping id="korpen" />
 
         <FinalCta id="mulai" />
       </main>

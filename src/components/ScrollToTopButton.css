@@ -1,9 +1,9 @@
-/* Fixed above DesignSwitcher's bottom-right pill (24px + its own height),
-   not beside it — the switcher already claimed that corner, and stacking
-   here means neither element has to know about the other's width. */
+/* Fixed above the floating MySS badge (24px + its own 76px height + a 16px
+   gap), not beside it — MySS already claimed that corner, and stacking here
+   means neither element has to know about the other's width. */
 .scroll-top {
   position: fixed;
-  bottom: 88px;
+  bottom: 116px;
   right: 24px;
   z-index: 150;
   display: flex;
@@ -60,7 +60,7 @@
 
 @media (max-width: 768px) {
   .scroll-top {
-    bottom: 68px;
+    bottom: 86px;
     right: 12px;
     width: 42px;
     height: 42px;

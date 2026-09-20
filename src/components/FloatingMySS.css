@@ -1,0 +1,45 @@
+/* Floating "MySS" (My SEP Shekinah) badge — bottom-right corner, the spot
+   DesignSwitcher used to occupy before it moved to bottom-centre (see
+   DesignSwitcher.css). ScrollToTopButton stacks above this corner with
+   clearance sized to match this element's height — keep the two in sync. */
+.floating-myss {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--bg-warm);
+  box-shadow: 0 6px 24px rgba(15, 49, 78, 0.28);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.floating-myss:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(15, 49, 78, 0.34);
+}
+
+.floating-myss__img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .floating-myss {
+    bottom: 12px;
+    right: 12px;
+    width: 62px;
+    height: 62px;
+  }
+
+  .floating-myss__img {
+    width: 46px;
+    height: 46px;
+  }
+}

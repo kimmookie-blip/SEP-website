@@ -14,7 +14,10 @@ const SUPPORTING_STATEMENT = (
 const TRUST_INDICATORS = [
   { value: 'Sejak 1990', label: 'Mendampingi perjalanan iman umat Katolik.' },
   { value: '59 Paroki', label: 'Telah bekerja sama dalam penyelenggaraan pembinaan.' },
-  { value: '4 Jalur Program Utama', label: 'Disusun sesuai tahap perjalanan iman peserta.' },
+  {
+    value: 'Tersedia Pembinaan Dasar dan Pembinaan Lanjutan',
+    label: 'Didampingi Romo dan Pengajar Terdidik.',
+  },
   {
     value: 'Didampingi Romo dan Pengajar Terpilih',
     label: 'Materi dan pengajar dikoordinasikan oleh Shekinah.',
