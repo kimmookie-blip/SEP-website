@@ -8,7 +8,7 @@ const EYEBROW = 'Warisan yang menjadi fondasi'
 // One italic word, echoing the hero's emphasis device.
 const HEADLINE = (
   <>
-    Berakar dari pendampingan <em>rohani</em> sejak 1990.
+    Berakar dari pendampingan <em>rohani</em> sejak 1988.
   </>
 )
 const BODY =

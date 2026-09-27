@@ -1,14 +1,13 @@
 /* ============================================================
-   /pengajar — kepala sekolah leads (current, black feature band),
-   then Tim Pengajar (current period, plain grid). Romo Pembina
-   used to close this page but now lives on /tentang-kami instead
-   — see TentangKami.css for its (duplicated) card-grid styles.
+   /pengajar — Romo Moderator lead (black band, four across), then
+   Pengurus Harian (one grid, every card the same size, Kepala Sekolah first).
+   Romo Pembina used to close this page but now lives on /tentang-kami
+   instead — see TentangKami.css for its (duplicated) card-grid styles.
    ============================================================ */
 
-/* ---------- kepala sekolah (lead feature) ----------
-   Photo left, copy right — mirrored from the landing page's Founders card
-   (copy left, photo right), and black rather than deep-blue: a deliberate
-   one-off opener for this page, distinct from the palette's usual dark band. */
+/* ---------- romo moderator (lead band) ----------
+   Black rather than deep-blue: a deliberate one-off opener for this page,
+   distinct from the palette's usual dark band. */
 
 /* Top padding clears the fixed navbar — PageHeader used to do that job on
    this page; now this section is the first thing on it, so it inherits
@@ -18,31 +17,12 @@
   background: #000;
 }
 
-.new-teacher-lead__inner {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 3.5rem;
+.new-teacher-lead__head {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-}
-
-.new-teacher-lead__photo {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 4 / 5;
-  background: var(--placeholder);
-}
-
-/* `--crop` is the per-person framing set in Pengajar.jsx; unset, it falls
-   back to the top of the photo, which is where a head sits. */
-.new-teacher-lead__photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: var(--crop, top center);
-}
-
-.new-teacher-lead__copy {
-  max-width: 34rem;
+  text-align: center;
+  margin-bottom: 3.5rem;
 }
 
 .new-teacher-lead__role {
@@ -55,7 +35,7 @@
 }
 
 .new-teacher-lead__name {
-  margin: 0.75rem 0 1.25rem;
+  margin: 0.75rem 0 0;
   font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(2rem, 3.6vw, 3rem);
@@ -63,12 +43,29 @@
   color: #fdfaf4;
 }
 
-.new-teacher-lead__bio {
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  line-height: 1.7;
+.new-teacher-lead__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+/* card captions re-inked for the black band */
+.new-teacher--dark .new-teacher__role {
+  color: var(--amber);
+}
+
+.new-teacher--dark .new-teacher__name {
+  color: #fdfaf4;
+}
+
+.new-teacher--dark .new-teacher__bio {
   color: rgba(245, 239, 225, 0.78);
+}
+
+/* grey placeholder box would glare on black — dim it until photos arrive */
+.new-teacher--dark .new-teacher__photo,
+.new-teacher--dark .new-teacher__placeholder {
+  background: rgba(245, 239, 225, 0.12);
 }
 
 .new-teachers__grid {
@@ -78,12 +75,12 @@
 }
 
 .new-teachers__grid--small {
-  /* 4 columns worked for the old short placeholder text, but real names
-     and role labels ("Wakil Ketua Bidang Akademik", "Stanislaus Emmanuel
-     Stanley Christianto Budihardja") need more room per card than that
-     leaves — 3 matches .new-teachers__grid's own column count. */
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  /* 4 columns across the full Pengurus Harian roster. Long names
+     ("Stanislaus Emmanuel Stanley Christianto Budihardja") wrap to two
+     lines at this width — the smaller --small name size below keeps that
+     tidy. */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem 1.75rem;
 }
 
 .new-teacher {
@@ -158,7 +155,7 @@
 }
 
 .new-teacher--small .new-teacher__name {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 
 .new-teacher--small .new-teacher__bio {
@@ -178,51 +175,31 @@
     padding-top: 9.5rem;
   }
 
-  /* Small photo beside role/name instead of a big portrait stacked above
-     them — `copy` (role + name + bio) is unwrapped via `display: contents`
-     so its children can be placed independently: bio drops to its own
-     full-width row below the photo, which stays small throughout. */
-  .new-teacher-lead__inner {
-    display: grid;
-    grid-template-columns: 84px 1fr;
-    grid-template-areas:
-      'photo role'
-      'photo name'
-      'bio   bio';
-    column-gap: 1.1rem;
-    row-gap: 0.3rem;
-    align-items: start;
-  }
-
-  .new-teacher-lead__photo {
-    grid-area: photo;
-    max-width: none;
-    /* 3:4 reads as a small portrait avatar; the 4:5 crop only works at
-       the desktop card's larger size */
-    aspect-ratio: 3 / 4;
-  }
-
-  .new-teacher-lead__copy {
-    display: contents;
-    max-width: none;
-  }
-
-  .new-teacher-lead__role {
-    grid-area: role;
-    align-self: end;
+  .new-teacher-lead__head {
+    margin-bottom: 2.25rem;
   }
 
   .new-teacher-lead__name {
-    grid-area: name;
-    margin: 0.1rem 0 0;
-    font-size: 1.4rem;
-    line-height: 1.2;
+    font-size: 1.6rem;
   }
 
-  .new-teacher-lead__bio {
-    grid-area: bio;
-    margin-top: 0.9rem;
-    font-size: 0.92rem;
+  /* Four moderators → 2×2, same 3:4 portrait as the pengurus cards below */
+  .new-teacher-lead__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem 1rem;
+  }
+
+  .new-teacher--dark .new-teacher__photo {
+    aspect-ratio: 3 / 4;
+  }
+
+  .new-teacher--dark .new-teacher__name {
+    font-size: 0.95rem;
+  }
+
+  .new-teacher--dark .new-teacher__role {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
   }
 
   /* Tim Pengajar: two stacked cards per row. Declared after the shared
@@ -234,7 +211,7 @@
     gap: 1.75rem 1rem;
   }
 
-  /* Same 3:4 portrait as the kepala sekolah avatar above, full width of its
+  /* Same 3:4 portrait as the moderator cards above, full width of its
      grid column — the desktop card's proportions, just narrower. */
   .new-teacher--small .new-teacher__photo {
     width: 100%;
@@ -263,6 +240,7 @@
     margin-top: 0.2rem;
     font-size: 0.85rem;
   }
+
 }
 
 @media (max-width: 768px) {

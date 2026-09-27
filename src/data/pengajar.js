@@ -2,6 +2,11 @@ import romoSugiri from '../assets/romo-sugiri.png'
 import romoSubroto from '../assets/romo-subroto.png'
 import romoKoelman from '../assets/romo-koelman.png'
 
+import romoModeratorKoelman from '../assets/pengurus/romo-moderator-koelman.jpg'
+import romoModeratorSubroto from '../assets/pengurus/romo-moderator-subroto.jpg'
+import romoModeratorChristPurba from '../assets/pengurus/romo-moderator-christ-purba.jpg'
+import romoModeratorHarrySulistyo from '../assets/pengurus/romo-moderator-harry-sulistyo.jpg'
+
 import kepalaSekolahPhoto from '../assets/pengurus/kepala-sekolah.jpg'
 import wakilKepalaSekolah1 from '../assets/pengurus/wakil-kepala-sekolah-1.jpg'
 import wakilKepalaSekolah2 from '../assets/pengurus/wakil-kepala-sekolah-2.jpg'
@@ -42,9 +47,9 @@ import ketuaKelasi from '../assets/pengurus/ketua-kelasi.jpg'
  */
 
 /**
- * Pemimpin pembinaan untuk periode berjalan — ditampilkan sendirian di
- * section paling atas /pengajar (halaman ini tidak lagi punya PageHeader
- * terpisah; section ini sendiri yang jadi pembuka halaman). Terpisah dari
+ * Pemimpin pembinaan untuk periode berjalan — kartu pertama (diperbesar)
+ * di grid Pengurus Harian /pengajar, satu kelompok dengan `timPengajar`.
+ * Terpisah dari
  * `romoPembina` (yang sudah wafat; sekarang jadi bagian warisan/trust di
  * bagian bawah halaman yang sama) dan `timPengajar` (pengurus SEP lainnya).
  * `image: null` sampai fotonya tersedia di src/assets/. `period: null`
@@ -58,11 +63,65 @@ export const kepalaSekolah = {
   name: 'Cecilia Novalasa Bungakarna',
   image: kepalaSekolahPhoto,
   // source photo is a wide landscape crop — nudge the visible crop left so
-  // she isn't pushed off-centre
+  // she isn't pushed off-centre, and fill the card the same as everyone
+  // else's (cover, not contain — a contain crop left her floating in
+  // grey bars either side, out of step with the rest of the grid)
   imagePosition: '30% top',
   imageScale: 1.1,
   bio: '',
 }
+
+/**
+ * Romo Moderator — pembuka /pengajar (section hitam paling atas). Semua yang
+ * pernah menjabat kecuali Romo L. Sugiri (1988–1995): ia pendiri, bukan
+ * moderator, dan tetap di `romoPembina` di bawah sebagai bagian warisan.
+ * Yang menjabat sekarang ditampilkan paling atas/pertama (per pesan
+ * pengguna), sisanya mundur secara kronologis. Foto dan tanggal berasal
+ * dari arsip di folder `Asset/` (nama file berisi tahun jabatan).
+ */
+export const romoModerator = [
+  {
+    id: 'romo-moderator-harry-sulistyo',
+    role: 'Romo Moderator',
+    period: '2025 – Sekarang',
+    name: 'RD. Matius Harry Sulistyo',
+    image: romoModeratorHarrySulistyo,
+    imageScale: 1.05,
+    bio: '',
+  },
+  {
+    id: 'romo-moderator-christ-purba',
+    role: 'Romo Moderator',
+    period: '2011 – 2025',
+    // "Chris", bukan "Christ" — dikoreksi oleh pengguna; masih menjabat
+    name: 'Romo Chris Purba, SJ',
+    image: romoModeratorChristPurba,
+    // No imageScale — this photo is already a tight headshot; any zoom
+    // pushes the chin out of the box. object-fit:cover keeps the full
+    // height on screen either way, so only the horizontal position needs
+    // nudging to center the face.
+    imagePosition: '85% center',
+    bio: '',
+  },
+  {
+    id: 'romo-moderator-subroto',
+    role: 'Romo Moderator',
+    period: '2003 – 2011',
+    name: 'Romo Subroto Widjojo, SJ',
+    image: romoModeratorSubroto,
+    bio: '',
+  },
+  {
+    id: 'romo-moderator-koelman',
+    role: 'Romo Moderator',
+    period: '1995 – 2003',
+    name: 'Romo Koelman, SJ',
+    image: romoModeratorKoelman,
+    imagePosition: '45% 15%',
+    imageScale: 1.75,
+    bio: '',
+  },
+]
 
 /**
  * Para Romo pendiri — sudah wafat, jadi bagiannya di halaman ini sekarang

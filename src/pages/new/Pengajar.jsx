@@ -2,13 +2,20 @@ import Navbar from '../../components/new/Navbar'
 import KoordinatorPendamping from '../../components/new/KoordinatorPendamping'
 import FinalCta from '../../components/new/FinalCta'
 import Footer from '../../components/new/Footer'
-import { kepalaSekolah, timPengajar } from '../../data/pengajar'
+import { kepalaSekolah, romoModerator, timPengajar } from '../../data/pengajar'
 import './Page.css'
 import './Pengajar.css'
 
 // Edit copy here; the people themselves live in data/pengajar.js. No
-// PageHeader on this page — the Kepala Sekolah feature below is the opener,
+// PageHeader on this page — the Romo Moderator band below is the opener,
 // so its own heading carries the page's H1 instead of a separate masthead.
+const MODERATOR_KICKER = 'Romo Moderator'
+const MODERATOR_TITLE = 'Pendamping Rohani SEP Shekinah'
+const PENGURUS_TITLE = 'Pengurus Harian'
+
+// Kepala Sekolah leads the same grid as everyone else — first, same card
+// size and crop treatment as the rest of the Pengurus Harian.
+const pengurus = [kepalaSekolah, ...timPengajar]
 
 // Per-person crop overrides — `imagePosition` shifts which part of the
 // source photo shows through the object-fit: cover box, `imageScale` zooms
@@ -29,69 +36,80 @@ function getImageStyle(person) {
   }
 }
 
-/** /pengajar — the full team behind the landing page's heritage section. */
+/** One portrait card — shared by the moderator band and the pengurus grid. */
+function PersonCard({ person, className = '', lazy = true }) {
+  return (
+    <figure className={`new-teacher ${className}`}>
+      <div className="new-teacher__photo">
+        {person.image ? (
+          <img
+            src={person.image}
+            alt={person.name}
+            loading={lazy ? 'lazy' : undefined}
+            style={getImageStyle(person)}
+          />
+        ) : (
+          <span className="new-teacher__placeholder" aria-hidden="true" />
+        )}
+      </div>
+
+      <figcaption className="new-teacher__caption">
+        <span className="new-teacher__role">
+          {person.role}
+          {person.period && ` · ${person.period}`}
+        </span>
+        <span className="new-teacher__name">{person.name}</span>
+        {person.bio && <span className="new-teacher__bio">{person.bio}</span>}
+      </figcaption>
+    </figure>
+  )
+}
+
+/** /pengajar — Romo Moderator, then the full Pengurus Harian. */
 export default function Pengajar() {
   return (
     <>
       <Navbar solid />
 
       <main className="page">
-        {/* Current leadership, featured alone — the page's true opener, with
-            no PageHeader above it (see the import comment). Black rather
-            than the palette's usual deep-blue: a deliberate one-off for
-            this single feature, not a new shared token. */}
-        <section className="new-teacher-lead" aria-labelledby="kepala-sekolah">
-          <div className="shell new-teacher-lead__inner">
-            <div className="new-teacher-lead__photo">
-              {kepalaSekolah.image ? (
-                <img
-                  src={kepalaSekolah.image}
-                  alt={kepalaSekolah.name}
-                  style={getImageStyle(kepalaSekolah)}
-                />
-              ) : (
-                <span className="new-teacher__placeholder" aria-hidden="true" />
-              )}
-            </div>
-
-            <div className="new-teacher-lead__copy">
-              <span className="new-teacher-lead__role">
-                {kepalaSekolah.role}
-                {kepalaSekolah.period && ` · ${kepalaSekolah.period}`}
-              </span>
-              {/* the page's only h1 — see the import comment above */}
-              <h1 className="new-teacher-lead__name" id="kepala-sekolah">
-                {kepalaSekolah.name}
+        {/* Romo Moderator, four across — the page's true opener, with no
+            PageHeader above it (see the copy comment). Black rather than
+            the palette's usual deep-blue: a deliberate one-off for this
+            single band, not a new shared token. */}
+        <section className="new-teacher-lead" aria-labelledby="romo-moderator">
+          <div className="shell">
+            <header className="new-teacher-lead__head">
+              <span className="new-teacher-lead__role">{MODERATOR_KICKER}</span>
+              {/* the page's only h1 */}
+              <h1 className="new-teacher-lead__name" id="romo-moderator">
+                {MODERATOR_TITLE}
               </h1>
-              <p className="new-teacher-lead__bio">{kepalaSekolah.bio}</p>
+            </header>
+
+            <div className="new-teacher-lead__grid">
+              {romoModerator.map((person) => (
+                <PersonCard person={person} className="new-teacher--dark" lazy={false} key={person.id} />
+              ))}
             </div>
           </div>
         </section>
 
-        <section className="new-teachers section section--cream" aria-label="Tim Pengajar">
+        <section className="new-teachers section section--cream" aria-labelledby="pengurus-harian">
           <div className="shell">
-            <div className="new-teachers__grid new-teachers__grid--small">
-              {timPengajar.map((person) => (
-                <figure className="new-teacher new-teacher--small" key={person.id}>
-                  <div className="new-teacher__photo">
-                    {person.image ? (
-                      <img
-                        src={person.image}
-                        alt={person.name}
-                        loading="lazy"
-                        style={getImageStyle(person)}
-                      />
-                    ) : (
-                      <span className="new-teacher__placeholder" aria-hidden="true" />
-                    )}
-                  </div>
+            <div className="page-section-head">
+              <h2 className="page-section-head__title" id="pengurus-harian">
+                {PENGURUS_TITLE}
+              </h2>
+            </div>
 
-                  <figcaption className="new-teacher__caption">
-                    <span className="new-teacher__role">{person.role}</span>
-                    <span className="new-teacher__name">{person.name}</span>
-                    <span className="new-teacher__bio">{person.bio}</span>
-                  </figcaption>
-                </figure>
+            <div className="new-teachers__grid new-teachers__grid--small">
+              {pengurus.map((person) => (
+                <PersonCard
+                  person={person}
+                  className="new-teacher--small"
+                  lazy={person !== kepalaSekolah}
+                  key={person.id}
+                />
               ))}
             </div>
           </div>

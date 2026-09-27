@@ -62,6 +62,38 @@ export default function ProgramPage() {
 
         <section className="prog section">
           <div className="shell prog__inner">
+            <dl className="prog__facts">
+              <div className="prog__fact">
+                <dt>Durasi</dt>
+                <dd>{program.duration}</dd>
+              </div>
+              <div className="prog__fact">
+                <dt>Untuk Siapa</dt>
+                <dd>{program.audience}</dd>
+              </div>
+              <div className="prog__fact">
+                <dt>Format</dt>
+                <dd>{program.format}</dd>
+              </div>
+
+              {/* same programme, run for a specific audience — kept as a
+                  sub-section here rather than a page of its own */}
+              {program.variants && (
+                <div className="prog__fact">
+                  <dt>Varian Peserta</dt>
+                  <dd>
+                    <ul className="prog__variants">
+                      {program.variants.map((variant) => (
+                        <li key={variant.name}>
+                          <strong>{variant.name}</strong> — {variant.audience}
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+              )}
+            </dl>
+
             <div className="prog__copy">
               <p className="prog__intro">{program.intro}</p>
 
@@ -95,21 +127,6 @@ export default function ProgramPage() {
                 <code>src/data/programs.js</code> ]
               </p>
             </div>
-
-            <dl className="prog__facts">
-              <div className="prog__fact">
-                <dt>Durasi</dt>
-                <dd>{program.duration}</dd>
-              </div>
-              <div className="prog__fact">
-                <dt>Untuk Siapa</dt>
-                <dd>{program.audience}</dd>
-              </div>
-              <div className="prog__fact">
-                <dt>Format</dt>
-                <dd>{program.format}</dd>
-              </div>
-            </dl>
           </div>
         </section>
 

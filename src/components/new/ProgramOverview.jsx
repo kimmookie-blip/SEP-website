@@ -85,6 +85,13 @@ export default function ProgramOverview({ id }) {
     : []
   const others = result ? PROGRAMS.filter((p) => !result.includes(p.slug)) : []
 
+  // KEP OMK isn't a quiz branch (the quiz only asks venue + prior KEP/SEP),
+  // and it isn't a page of its own either — it's a variant listed on /program/kep.
+  // Still worth calling out here so it's visible the moment a result appears,
+  // rather than buried behind "Lihat program lain".
+  const kep = PROGRAMS.find((p) => p.slug === 'kep')
+  const kepOmkVariant = kep?.variants?.find((v) => v.name === 'KEP OMK')
+
   return (
     <section className="new-programs section section--blue" id={id}>
       <div className="shell">
@@ -163,6 +170,13 @@ export default function ProgramOverview({ id }) {
                     </button>
                   </div>
                 </>
+              )}
+
+              {kepOmkVariant && (
+                <p className="new-programs__omk-note">
+                  Khusus Orang Muda Katolik, tersedia varian{' '}
+                  <Link to={`/program/${kep.slug}`}>{kepOmkVariant.name}</Link>.
+                </p>
               )}
 
               <div className="new-programs__others">

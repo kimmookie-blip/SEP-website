@@ -10,7 +10,7 @@
 
 export const credibilityLight = {
   stats: [
-    { value: '1990', label: 'Tahun Berdiri' },
+    { value: '1988', label: 'Tahun Berdiri' },
     { value: '59', label: 'Paroki Bekerjasama' },
     { value: '4', label: 'Jalur Program Utama' },
   ],
@@ -18,7 +18,7 @@ export const credibilityLight = {
 
 export const credibilityAmber = {
   stats: [
-    { value: '1990', label: 'Tahun Berdiri' },
+    { value: '1988', label: 'Tahun Berdiri' },
     { value: '59', label: 'Paroki Bekerjasama' },
     { value: '3', label: 'Jalur Program Utama' },
   ],

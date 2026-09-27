@@ -22,7 +22,7 @@ export const programs = [
   {
     slug: 'kep',
     order: 1,
-    tab: 'Pembinaan Dasar (KEP)',
+    tab: 'Pembinaan Dasar di Paroki (KEP)',
     title: 'Kursus Evangelisasi Pribadi',
     focus: 'Pemulihan Gambar Diri & Retret Luka Batin',
     // dipakai ProgramOverview — dua kata yang dipisah agar kata kedua bisa dimiringkan
@@ -42,15 +42,25 @@ export const programs = [
       'Kunjungan',
       "What's Next",
     ],
+    // Same programme, run for a specific audience — shown as a sub-section
+    // on this same /program/kep page, not a page of its own.
+    variants: [
+      {
+        name: 'KEP OMK',
+        audience: 'Pemuda-pemudi Katolik berusia 17–35 tahun',
+        blurb:
+          'Program pelatihan intensif bagi Orang Muda Katolik untuk memperdalam iman dan belajar mewartakan Injil secara efektif dalam kehidupan sehari-hari.',
+      },
+    ],
   },
   {
     slug: 'sep',
     order: 2,
-    tab: 'Pembinaan Intensif (SEP)',
+    tab: 'Pembinaan Dasar di Shekinah (SEP)',
     title: 'Sekolah Evangelisasi Pribadi',
     focus: 'Pembinaan Lengkap di Pusat Shekinah',
     stageBefore: 'Pembinaan',
-    stageEmphasis: 'Intensif',
+    stageEmphasis: 'Dasar',
     name: 'SEP',
     blurb: 'Program pembinaan yang lebih lengkap dan mendalam di pusat Shekinah.',
     intro:
@@ -65,11 +75,23 @@ export const programs = [
       'Pelayanan dan kepemimpinan rohani',
       'Praktik pendampingan',
     ],
+    // Same curriculum, run for a specific audience — sub-sections on this
+    // same /program/sep page, not pages of their own.
+    variants: [
+      {
+        name: 'SEP Eksekutif',
+        audience: 'Profesional dan eksekutif, alumni KEP atau pembinaan setara',
+      },
+      {
+        name: 'SEP OMK',
+        audience: 'Orang Muda Katolik, alumni KEP OMK atau pembinaan setara',
+      },
+    ],
   },
   {
     slug: 'blpi',
-    order: 3,
-    tab: 'Pendalaman Iman (BLPI)',
+    order: 4,
+    tab: 'Pembinaan Lanjutan di Shekinah (BLPI)',
     title: 'Bina Lanjut Pendalaman Iman',
     focus: 'Pemuridan & Karunia Roh Kudus',
     stageBefore: 'Pendalaman',
@@ -94,7 +116,7 @@ export const programs = [
   },
   {
     slug: 'blks',
-    order: 4,
+    order: 5,
     tab: 'Kelas Kitab Suci (BLKS)',
     title: 'Bina Lanjut Kitab Suci',
     focus: 'Kelas Tatap Muka Bersama Pengajar',
@@ -142,8 +164,8 @@ export const programs = [
   },
   {
     slug: 'blkep',
-    order: 6,
-    tab: 'Bina Lanjut Paroki (BLKEP)',
+    order: 3,
+    tab: 'Pembinaan Lanjutan di Paroki (BLKEP)',
     title: 'Bina Lanjut Kursus Evangelisasi Pribadi',
     focus: 'Pendampingan Lanjutan Bersama Paroki',
     stageBefore: 'Bina Lanjut',
@@ -159,7 +181,7 @@ export const programs = [
   },
   {
     slug: 'retret',
-    order: 5,
+    order: 6,
     tab: 'Retret dan Seminar',
     title: 'Retret dan Kegiatan Terbuka',
     focus: 'Retret Keluarga, Penyembuhan, dan Seminar',

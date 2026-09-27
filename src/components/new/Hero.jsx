@@ -63,7 +63,7 @@ const SCROLL_TARGET_ID = 'pengumuman'
 // Trust bar — the newer spec folds the old standalone "Catholic Legitimacy"
 // section up into the Hero, so these are the page's primary trust signals.
 const TRUST_BAR = [
-  { value: '1990', label: 'Tahun Berdiri' },
+  { value: '1988', label: 'Tahun Berdiri' },
   { value: '59', label: 'Paroki Bekerjasama' },
   { value: '100%', label: 'Berakar pada Gereja Katolik' },
 ]

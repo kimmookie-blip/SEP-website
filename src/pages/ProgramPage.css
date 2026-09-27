@@ -14,6 +14,16 @@
   gap: 4rem;
 }
 
+/* prog__facts comes first in markup so it stacks above the outline on
+   mobile (see the 768px query) — pin both back to their desktop columns
+   AND row explicitly. Without an explicit grid-row, sparse auto-placement
+   pushes prog__copy (column 1) onto row 2 because prog__facts (column 2)
+   was placed first and the algorithm won't backfill column 1 of row 1. */
+.prog__copy {
+  grid-column: 1;
+  grid-row: 1;
+}
+
 .prog__intro {
   margin: 0 0 3rem;
   font-family: var(--font-body);
@@ -96,6 +106,8 @@
 /* sticky so the duration and audience stay visible while a long outline
    scrolls past — the two questions a reader keeps coming back to */
 .prog__facts {
+  grid-column: 2;
+  grid-row: 1;
   position: sticky;
   top: calc(var(--nav-h) + 2.5rem);
   margin: 0;
@@ -126,6 +138,20 @@
   color: var(--deep-blue);
 }
 
+.prog__variants {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.prog__variants li + li {
+  margin-top: 0.6rem;
+}
+
+.prog__variants strong {
+  font-weight: 600;
+}
+
 /* ---------- kegiatan terkait ---------- */
 
 .prog-related__grid {
@@ -151,7 +177,17 @@
     grid-template-columns: 1fr;
   }
 
-  /* sticky is pointless once the facts sit below the outline */
+  /* single column now — let markup order (facts, then copy) control the
+     stack instead of the desktop column/row assignment. Both must reset
+     to auto, not just column — otherwise the pinned grid-row: 1 from the
+     desktop rule stacks them on top of each other in the single column. */
+  .prog__copy,
+  .prog__facts {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  /* sticky is pointless once the facts sit above the outline */
   .prog__facts {
     position: static;
     padding: 1.75rem 1.5rem;

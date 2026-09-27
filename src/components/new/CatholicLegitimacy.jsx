@@ -12,7 +12,7 @@ const SUPPORTING_STATEMENT = (
 )
 
 const TRUST_INDICATORS = [
-  { value: 'Sejak 1990', label: 'Mendampingi perjalanan iman umat Katolik.' },
+  { value: 'Sejak 1988', label: 'Mendampingi perjalanan iman umat Katolik.' },
   { value: '59 Paroki', label: 'Telah bekerja sama dalam penyelenggaraan pembinaan.' },
   {
     value: 'Tersedia Pembinaan Dasar dan Pembinaan Lanjutan',

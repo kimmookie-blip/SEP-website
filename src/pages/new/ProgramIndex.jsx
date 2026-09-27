@@ -41,7 +41,6 @@ export default function ProgramIndex() {
 
                     <span className="new-program-card__tab">{program.tab}</span>
                     <h2 className="new-program-card__title">{program.title}</h2>
-                    <span className="new-program-card__focus">{program.focus}</span>
                     <span className="new-program-card__blurb">{program.blurb}</span>
 
                     <span className="new-program-card__more">
