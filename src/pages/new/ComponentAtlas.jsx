@@ -14,45 +14,39 @@ import './ComponentAtlas.css'
 const TRACKS = [
   {
     dir: 'components/new/',
-    status: 'Aktif',
+    status: 'Aktif — beranda',
     tone: 'new',
     role: '14 komponen redesain, plus Navbar & Hero sendiri',
-    note: 'Dipakai /new dan sembilan halaman di belakang menu nav',
+    note: 'Dipakai / dan sembilan halaman di belakang menu nav',
   },
   {
     dir: 'components/proto/',
-    status: 'Lama, tayang',
+    status: 'Retired, arsip',
     tone: 'proto',
     role: '4 komponen tambahan untuk halaman lama',
-    note: 'Dipakai / bersama Navbar & Hero dari direktori atas',
+    note: 'Dipakai /prototype bersama Navbar & Hero dari direktori atas',
   },
   {
     dir: 'components/ (atas)',
     status: 'Legacy',
     tone: 'legacy',
     role: '7 komponen desain lama, plus Navbar/Hero bersama',
-    note: 'Navbar/Hero dipakai / & /legacy; sisanya hanya /legacy',
+    note: 'Navbar/Hero dipakai /prototype & /legacy; sisanya hanya /legacy',
   },
 ]
 
 const LANDING_ROUTES = [
   {
     route: '/',
-    file: 'LandingOld.jsx',
-    source: 'components/ + proto/',
-    detail: 'Navbar, Hero, CredibilityBand, ProgramStrip, EventCountdown, ActivityCards',
-  },
-  {
-    route: '/new',
     file: 'LandingNew.jsx',
     source: 'components/new/',
     detail: '11 section — lihat kolom components/new/ di bawah',
   },
   {
     route: '/prototype',
-    file: '→ LandingOld.jsx',
-    source: 'alias',
-    detail: 'Dipertahankan untuk tautan lama yang sudah dibagikan',
+    file: 'LandingOld.jsx',
+    source: 'components/ + proto/',
+    detail: 'Retired; dipertahankan untuk tautan lama yang sudah dibagikan',
   },
   {
     route: '/legacy',
@@ -63,7 +57,7 @@ const LANDING_ROUTES = [
   },
   {
     route: '*',
-    file: '→ LandingOld.jsx',
+    file: '→ LandingNew.jsx',
     source: 'fallback',
     detail: 'Tidak ada halaman 404 khusus',
   },
@@ -140,18 +134,18 @@ const DIRECTORIES = [
     used: '22 berkas — jalur aktif',
     files: [
       { name: 'Navbar', used: 'chrome' },
-      { name: 'Hero', used: '/new' },
+      { name: 'Hero', used: '/' },
       { name: 'Footer', used: 'chrome' },
       { name: 'PageHeader', used: '4 halaman' },
       { name: 'FinalCta', used: '8 halaman' },
       { name: 'PostCard', used: '3 halaman' },
       { name: 'Prose', used: '2 halaman' },
-      { name: 'SocialProof', used: '/new' },
-      { name: 'ProgramOverview', used: '/new' },
-      { name: 'Founders', used: '/new' },
-      { name: 'ActivityCards', used: '/new' },
-      { name: 'ProgramStats', used: '/new' },
-      { name: 'Faq', used: '/new' },
+      { name: 'SocialProof', used: '/' },
+      { name: 'ProgramOverview', used: '/' },
+      { name: 'Founders', used: '/' },
+      { name: 'ActivityCards', used: '/' },
+      { name: 'ProgramStats', used: '/' },
+      { name: 'Faq', used: '/' },
       { name: 'UpcomingActivities', used: '2 rute' },
       { name: 'EventCountdown', used: '/kegiatan/mendatang' },
       { name: 'JourneyOfGrowth', used: '/program' },
@@ -167,12 +161,12 @@ const DIRECTORIES = [
   {
     dir: 'components/proto/',
     tone: 'proto',
-    used: '4 berkas — hanya untuk /',
+    used: '4 berkas — hanya untuk /prototype',
     files: [
-      { name: 'CredibilityBand', used: '/' },
-      { name: 'ProgramStrip', used: '/' },
-      { name: 'EventCountdown', used: '/' },
-      { name: 'ActivityCards', used: '/' },
+      { name: 'CredibilityBand', used: '/prototype' },
+      { name: 'ProgramStrip', used: '/prototype' },
+      { name: 'EventCountdown', used: '/prototype' },
+      { name: 'ActivityCards', used: '/prototype' },
     ],
     footnote:
       'Nama sama dengan dua berkas di new/ (ActivityCards, EventCountdown) — implementasi berbeda, tidak boleh disatukan.',
@@ -180,11 +174,10 @@ const DIRECTORIES = [
   {
     dir: 'components/ (atas)',
     tone: 'legacy',
-    used: '10 berkas — /legacy + chrome bersama',
+    used: '9 berkas — /legacy + chrome bersama',
     files: [
-      { name: 'Navbar', used: '/ & /legacy' },
-      { name: 'Hero', used: '/ & /legacy' },
-      { name: 'DesignSwitcher', used: 'global' },
+      { name: 'Navbar', used: '/prototype & /legacy' },
+      { name: 'Hero', used: '/prototype & /legacy' },
       { name: 'ScrollToTopButton', used: 'global' },
       { name: 'DevMenu', used: 'global' },
       { name: 'ProblemSolution', used: '/legacy' },
@@ -246,10 +239,10 @@ export default function ComponentAtlas() {
               Tiga jalur berdampingan
             </p>
             <p className="ca-note">
-              Redesain berjalan sambil situs lama tetap tayang, jadi ada tiga pohon
-              komponen yang sengaja terpisah — <code>components/new/</code> tidak
-              mengimpor apa pun dari dua lainnya, bahkan Navbar dan Hero digandakan,
-              bukan dibagi.
+              Redesain sudah tayang di <code>/</code>, tapi dua pohon komponen lama
+              tetap ada untuk /prototype dan /legacy — <code>components/new/</code>{' '}
+              tidak mengimpor apa pun dari dua lainnya, bahkan Navbar dan Hero
+              digandakan, bukan dibagi.
             </p>
 
             <div className="ca-track-list">
@@ -272,10 +265,9 @@ export default function ComponentAtlas() {
               Tiga desain landing
             </p>
             <p className="ca-note">
-              <code>DesignSwitcher</code>, <code>ScrollToTopButton</code>, dan{' '}
-              <code>DevMenu</code> (menu ini sendiri) dipasang di luar{' '}
-              <code>&lt;Routes&gt;</code> di <code>App.jsx</code>, jadi ketiganya
-              tersedia di semua rute.
+              <code>ScrollToTopButton</code> dan <code>DevMenu</code> (menu ini
+              sendiri) dipasang di luar <code>&lt;Routes&gt;</code> di{' '}
+              <code>App.jsx</code>, jadi keduanya tersedia di semua rute.
             </p>
 
             <table className="ca-table">

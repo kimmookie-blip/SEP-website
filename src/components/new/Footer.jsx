@@ -16,7 +16,7 @@ const MAIN_LINKS = [
   { label: 'Arsip Kegiatan', to: '/kegiatan' },
   { label: 'Pengurus Harian', to: '/pengajar' },
   { label: 'Pengumuman', to: '/pengumuman' },
-  { label: 'Beranda', to: '/new' },
+  { label: 'Beranda', to: '/' },
   { label: 'Hubungi Kami', to: '/kontak' },
 ]
 

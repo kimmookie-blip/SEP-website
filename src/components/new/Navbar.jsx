@@ -40,7 +40,7 @@ const CTA = { label: 'masuk anggota', href: '#masuk' }
 const DESIGN_SYSTEM = { label: 'design system', to: '/design-system', secret: true }
 
 /**
- * Shared by /new and every inner page. Unlike the top-level Navbar, links here
+ * Shared by / and every inner page. Unlike the top-level Navbar, links here
  * never redirect to `/` — they're router links, so they work identically from
  * the landing page and from a detail page.
  *
@@ -106,7 +106,7 @@ export default function Navbar({ scrolled = false, solid = false }) {
   // route, so App's ScrollToTop never fires — scroll back up here instead.
   const onBrandClick = () => {
     close()
-    if (pathname === '/new') window.scrollTo({ top: 0, behavior: 'smooth' })
+    if (pathname === '/') window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   // The secret tab is appended, never inserted, so revealing it can't reshuffle
@@ -185,7 +185,7 @@ export default function Navbar({ scrolled = false, solid = false }) {
       }`}
     >
       <div className="new-nav__bar">
-        <Link to="/new" className="new-nav__brand" onClick={onBrandClick}>
+        <Link to="/" className="new-nav__brand" onClick={onBrandClick}>
           {logoOk && (
             <span className="new-nav__logo">
               <img

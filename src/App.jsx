@@ -15,7 +15,6 @@ import PengumumanPost from './pages/new/PengumumanPost'
 import Kontak from './pages/new/Kontak'
 import DesignSystem from './pages/new/DesignSystem'
 import ComponentAtlas from './pages/new/ComponentAtlas'
-import DesignSwitcher from './components/DesignSwitcher'
 import ScrollToTopButton from './components/ScrollToTopButton'
 import FloatingMySS from './components/FloatingMySS'
 import DevMenu from './components/DevMenu'
@@ -44,21 +43,16 @@ export default function App() {
     <>
       <ScrollToTop />
       {/*
-        Two landing pages run side by side while the redesign is drafted:
-        `LandingOld` is what's live today, `LandingNew` is the empty page it
-        will grow into. DesignSwitcher flips between them and sits outside
-        <Routes> so it survives the switch — without it /new is a dead end.
-
+        The redesign has shipped: `LandingNew` is now the live homepage.
+        `LandingOld` stays reachable at /prototype for shared links, and
         `Home` is an older superseded design, kept at /legacy for reference
-        only; it's deliberately not part of the switch.
+        only.
       */}
-      <DesignSwitcher />
       <ScrollToTopButton />
       <FloatingMySS />
       <DevMenu />
       <Routes>
-        <Route path="/" element={<LandingOld />} />
-        <Route path="/new" element={<LandingNew />} />
+        <Route path="/" element={<LandingNew />} />
 
         {/*
           The five pages behind the nav menu, at clean top-level URLs. They
@@ -104,7 +98,7 @@ export default function App() {
         {/* alias, so links shared while this lived at /prototype still work */}
         <Route path="/prototype" element={<LandingOld />} />
         <Route path="/legacy" element={<Home />} />
-        <Route path="*" element={<LandingOld />} />
+        <Route path="*" element={<LandingNew />} />
       </Routes>
     </>
   )

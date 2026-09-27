@@ -4,12 +4,12 @@ import './DevMenu.css'
 
 /**
  * Hidden internal-pages menu. Shift+S toggles it, from anywhere in the app —
- * mounted outside <Routes> in App.jsx, like DesignSwitcher and
- * ScrollToTopButton.
+ * mounted outside <Routes> in App.jsx, like ScrollToTopButton.
  *
  * Unlike /design-system's Cmd+/ tab (which only reveals a link inside
  * components/new/Navbar), this is a second, unified entry point that works
- * even on /, /legacy, and every page that doesn't render that navbar at all.
+ * even on /prototype, /legacy, and every page that doesn't render that
+ * navbar at all.
  */
 
 const ITEMS = [
