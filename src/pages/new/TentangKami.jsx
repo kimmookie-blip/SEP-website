@@ -6,6 +6,7 @@ import HowShekinahHelps from '../../components/new/HowShekinahHelps'
 import FinalCta from '../../components/new/FinalCta'
 import Footer from '../../components/new/Footer'
 import { romoPembina } from '../../data/pengajar'
+import missionPhoto from '../../assets/yang-kami-kerjakan.png'
 import './Page.css'
 import './TentangKami.css'
 
@@ -126,8 +127,9 @@ export default function TentangKami() {
               ))}
             </div>
 
-            {/* grey box until documentation photography is chosen */}
-            <div className="new-about-mission__figure" aria-hidden="true" />
+            <div className="new-about-mission__figure">
+              <img src={missionPhoto} alt="Pembinaan dalam kelompok kecil, mendalami Sabda Tuhan bersama" loading="lazy" />
+            </div>
           </div>
         </section>
 

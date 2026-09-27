@@ -163,7 +163,14 @@
   position: sticky;
   top: calc(var(--nav-h) + 3rem);
   aspect-ratio: 4 / 5;
+  overflow: hidden;
   background: var(--placeholder);
+}
+
+.new-about-mission__figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ---------- perjalanan ---------- */
